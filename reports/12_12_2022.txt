@@ -1,0 +1,8 @@
+yesterday:
+- creating react project and learn documentation of project and learn figma
+today: 
+- i will create sctructure of project
+- add eslint linters for clean code 
+- connect to git repo
+problems:
+- нет
