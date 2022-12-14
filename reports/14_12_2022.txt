@@ -1,0 +1,9 @@
+yesterday:
+- configurate sctructure of project
+- added eslint linters for clean code 
+- connected to git repo
+today: 
+- prepare UI components
+- create login and register layout
+problems:
+- нет
