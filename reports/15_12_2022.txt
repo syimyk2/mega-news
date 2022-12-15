@@ -1,0 +1,8 @@
+yesterday:
+- prepared UI components
+- resolved issues with eslint
+today: 
+- create login and register layout
+- create Ui checkbox, Ui heart-like
+problems:
+- нет
