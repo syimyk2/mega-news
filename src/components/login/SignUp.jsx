@@ -73,6 +73,7 @@ const WrapperInputs = styled.div`
       font-weight: 600;
       font-size: 14px;
       line-height: 18px;
+      color: #010101;
    }
 `
 const StyledLogo = styled.img`
