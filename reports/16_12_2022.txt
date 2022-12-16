@@ -1,0 +1,9 @@
+yesterday:
+- created register layout not completly
+- created Ui checkbox, Ui heart-like
+today: 
+- finish login layout 
+- create reuseble card for login containers
+- add font family
+problems:
+- inthernet connection
