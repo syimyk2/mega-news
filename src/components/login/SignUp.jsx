@@ -46,7 +46,7 @@ export const SignUp = () => {
    )
 }
 
-const StyledForm = styled.form`
+export const StyledForm = styled.form`
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -54,12 +54,12 @@ const StyledForm = styled.form`
    width: 412px;
    margin: 31px 45px 15px 25px;
 `
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
    display: flex;
    flex-direction: column;
    align-items: center;
 `
-const WrapperInputs = styled.div`
+export const WrapperInputs = styled.div`
    width: 100%;
    display: flex;
    flex-direction: column;
@@ -76,7 +76,7 @@ const WrapperInputs = styled.div`
       color: #010101;
    }
 `
-const StyledLogo = styled.img`
+export const StyledLogo = styled.img`
    width: 129px;
    height: 29px;
 `
