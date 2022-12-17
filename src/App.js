@@ -1,5 +1,6 @@
 import React from 'react'
-import { SignUp } from './components/login/SignUp'
+import { SignIn } from './components/login/SignIn'
+// import { SignUp } from './components/login/SignUp'
 // import { Button } from './components/UI/Button'
 // import { Checkbox } from './components/UI/Checkbox'
 import { Centered } from './styles/styles-for-positions/style'
@@ -10,7 +11,8 @@ function App() {
          <Centered>
             {/* <Button> Вход </Button>
             <Checkbox /> */}
-            <SignUp />
+            {/* <SignUp /> */}
+            <SignIn />
          </Centered>
       </div>
    )

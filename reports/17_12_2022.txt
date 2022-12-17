@@ -1,0 +1,9 @@
+yesterday:
+- finished login(signUp )layout 
+- created reuseble card for login containers
+- added font family
+today: 
+- add signIn layout
+- start layout header and footer
+problems:
+- 
