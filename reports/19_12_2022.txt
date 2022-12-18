@@ -1,0 +1,9 @@
+yesterday:
+- added footer layout
+- made header icons reuseble
+today: 
+- add header actions
+- learn api documentation
+- put header banner
+problems:
+- styled components pakages
