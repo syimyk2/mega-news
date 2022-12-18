@@ -1,0 +1,12 @@
+yesterday:
+- finished signIn layout
+- finished layout header
+- added adaptive
+-  added Title UI and router temprorary
+today: 
+- add footer layout
+- create popapp for header
+- make header icons reuseble
+- fix header problems
+problems:
+- 
