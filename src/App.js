@@ -10,13 +10,14 @@ import { Centered } from './styles/styles-for-positions/style'
 function App() {
    return (
       <div className="App">
-         <Layout />
-         <Centered>
-            {/* <Button> Вход </Button>
+         <Layout>
+            <Centered>
+               {/* <Button> Вход </Button>
             <Checkbox /> */}
-            {/* <SignUp /> */}
-            <SignIn />
-         </Centered>
+               {/* <SignUp /> */}
+               <SignIn />
+            </Centered>
+         </Layout>
       </div>
    )
 }
