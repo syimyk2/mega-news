@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import styled, { createGlobalStyle } from 'styled-components'
 import { ReactComponent as NavBurger } from '../../assets/icons/burger-menu.svg'
 import { ReactComponent as NavProfil } from '../../assets/icons/profil.svg'
@@ -9,12 +7,7 @@ import { LogoMega } from '../../components/UI/logo/LogoMega'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
 
-export const Nav = () => {
-   const location = useLocation()
-   const [isSwitched, setSwitched] = useState()
-   if (location.pathname === '') {
-      setSwitched(true)
-   }
+export const Nav = ({ isSwitched }) => {
    //    const [showMenu, setShowMenu] = useState(false)
 
    //    const showMenuHamdler = () => setShowMenu(true)
@@ -28,7 +21,7 @@ export const Nav = () => {
       <>
          <GlobalStyle />
          <NavStyled>
-            <LogoMega />
+            <LogoMega color={isSwitched && 'init'} />
             <HeaderActions isSwitched={isSwitched}>
                <NavSearch fontSize={29} />
                <NavProfil fontSize={28} />
@@ -46,6 +39,7 @@ const NavStyled = styled.nav`
 `
 const HeaderActions = styled(Flex)`
    gap: 24px;
+   cursor: pointer;
    svg {
       path {
          stroke: ${({ isSwitched }) => isSwitched && '#7E5BC2'};
