@@ -1,31 +1,46 @@
+import { useState } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import { ReactComponent as NavBurger } from '../../assets/icons/burger-menu.svg'
 import { ReactComponent as NavProfil } from '../../assets/icons/profil.svg'
 import { ReactComponent as NavSearch } from '../../assets/icons/search.svg'
 import { LogoMega } from '../../components/UI/logo/LogoMega'
-// import { Title } from '../../components/UI/typography/Title'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
+import { HeadPopUp } from './HeadPopUp'
+
+const initialActions = {
+   search: false,
+   profil: false,
+   menu: false,
+}
 
 export const Nav = ({ isSwitched }) => {
-   //    const [showMenu, setShowMenu] = useState(false)
+   const [actions, setActions] = useState(initialActions)
+   const showSearchBarHandler = () => {
+      setActions({ ...initialActions, search: !actions.search })
+   }
 
-   //    const showMenuHamdler = () => setShowMenu(true)
+   const showProfilHandler = () => {
+      setActions({ ...initialActions, profil: !actions.profil })
+      console.log('profil')
+   }
 
-   //    const logOutHandler = () => {
-   //       // logout dispatch
-   //       console.log(showMenu)
-   //    }
-
+   const showMenuHandler = () => {
+      setActions({ ...initialActions, menu: !actions.menu })
+   }
+   const closePopUpHandler = () => {
+      setActions(initialActions)
+   }
    return (
       <>
+         <HeadPopUp actions={actions} onClose={closePopUpHandler} />
          <GlobalStyle />
          <NavStyled>
             <LogoMega color={isSwitched && 'init'} />
             <HeaderActions isSwitched={isSwitched}>
-               <NavSearch fontSize={29} />
-               <NavProfil fontSize={28} />
-               <NavBurger fontSize={29} />
+               <NavSearch onClick={showSearchBarHandler} fontSize={29} />
+               <NavProfil onClick={showProfilHandler} fontSize={28} />
+               <NavBurger onClick={showMenuHandler} fontSize={29} />
             </HeaderActions>
          </NavStyled>
       </>
@@ -38,8 +53,11 @@ const NavStyled = styled.nav`
    align-items: center;
 `
 const HeaderActions = styled(Flex)`
+   display: flex;
+   position: relative;
    gap: 24px;
    cursor: pointer;
+   z-index: 15;
    svg {
       path {
          stroke: ${({ isSwitched }) => isSwitched && '#7E5BC2'};

@@ -42,7 +42,7 @@ const HeaderStyled = styled.header`
    background-size: cover;
    background-repeat: no-repeat;
    position: fixed;
-   z-index: 3;
+   z-index: 12;
    ${media.tablet`
    padding: 30px 150px;
    `}
