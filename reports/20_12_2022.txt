@@ -1,0 +1,9 @@
+yesterday:
+- added header actions (menu and profile)
+- learned api documentation
+- put header banner
+today: 
+- add search input to header
+- configurate routes
+problems:
+- 
