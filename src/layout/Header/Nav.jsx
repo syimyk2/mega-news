@@ -7,6 +7,7 @@ import { LogoMega } from '../../components/UI/logo/LogoMega'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
 import { HeadPopUp } from './HeadPopUp'
+import { SearchBar } from './SearchBar'
 
 const initialActions = {
    search: false,
@@ -38,6 +39,7 @@ export const Nav = ({ isSwitched }) => {
          <NavStyled>
             <LogoMega color={isSwitched && 'init'} />
             <HeaderActions isSwitched={isSwitched}>
+               <SearchBar actions={actions} />
                <NavSearch onClick={showSearchBarHandler} fontSize={29} />
                <NavProfil onClick={showProfilHandler} fontSize={28} />
                <NavBurger onClick={showMenuHandler} fontSize={29} />
