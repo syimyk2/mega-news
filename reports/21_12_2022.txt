@@ -1,0 +1,9 @@
+yesterday:
+- added search input to header
+- started configurating routes
+- created ProtectedRoute component
+today: 
+- configurate routes
+- signUp app functionality 
+problems:
+- 
