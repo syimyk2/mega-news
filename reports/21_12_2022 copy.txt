@@ -1,0 +1,11 @@
+yesterday:
+- configurated routes
+- added login Pages and files for routes data
+-  started adding signUp functionality 
+today: 
+- configurate routes
+- signUp functionality validations and connect with server
+- create store 
+- add axios api
+problems:
+- 
