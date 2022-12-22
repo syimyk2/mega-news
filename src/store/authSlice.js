@@ -1,8 +1,9 @@
+/* eslint-disable consistent-return */
 /* eslint-disable import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchApi } from '../api/fetchApi'
+import { fetchApi } from '../api/index'
 import { getDataFromLocalStorage } from '../utils/helpers/general'
-import { KEY_AUTH, ROLES } from '../utils/constants/general'
+import { KEY_AUTH } from '../utils/constants/general'
 
 const localData = getDataFromLocalStorage(KEY_AUTH) || {}
 
@@ -21,7 +22,7 @@ export const signUp = createAsyncThunk(
       try {
          return fetchApi({
             method: 'POST',
-            path: '/registration',
+            path: 'registration/',
             body: dataSignUp,
          })
       } catch (error) {
@@ -35,7 +36,7 @@ export const signIn = createAsyncThunk(
       try {
          return fetchApi({
             method: 'POST',
-            path: '/login',
+            path: 'login/',
             body: dataSignUp,
          })
       } catch (error) {
@@ -66,19 +67,19 @@ const authSlice = createSlice({
       },
    },
    extraReducers: {
-      //   [signUp.pending]: setPending,
-      //   [signUp.fulfilled]: (state, { payload }) => {
-      //      state.status = 'succes'
-      //      state.role = ROLES.signup
-      //      state.isAuthorized = true
-      //      state.token = payload.data.token
-      //      state.user = payload.data.user
-      //      state.error = null
-      //      state.isLoading = false
-      //   },
-      //   [signUp.rejected]: setRejected,
+      [signUp.pending]: setPending,
+      [signUp.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         // state.role = ROLES.signup
+         state.isAuthorized = true
+         state.token = payload.data.token
+         state.user = payload.data.user
+         state.error = null
+         state.isLoading = false
+      },
+      [signUp.rejected]: setRejected,
    },
 })
 
-export default authSlice
 export const authAction = authSlice.actions
+export default authSlice
