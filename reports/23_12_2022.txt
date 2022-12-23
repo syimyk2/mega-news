@@ -1,0 +1,10 @@
+yesterday:
+- added signUp functionality and add some validations and connect with server
+- create store and auth Slice an ProfileSlice
+- add fetch api
+today: 
+- resolve redux toolkit problems 
+- signUp connect with server
+- sign in add functionality
+problems:
+- redux toolkit store
