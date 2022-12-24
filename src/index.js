@@ -1,25 +1,20 @@
-import ReactDOM from 'react-dom'
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/order */
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom/client'
 import './index.css'
-import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { Suspense } from 'react'
-import App from './App'
+import { BrowserRouter } from 'react-router-dom'
 import store from './store'
-import { Centered } from './styles/styles-for-positions/style'
+import App from './App'
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
    <Provider store={store}>
-      <Suspense
-         fallback={
-            <Centered>
-               <div>Loading...</div>
-            </Centered>
-         }
-      >
+      <Suspense fallback={null}>
          <BrowserRouter>
             <App />
          </BrowserRouter>
       </Suspense>
-   </Provider>,
-   document.getElementById('root')
+   </Provider>
 )
