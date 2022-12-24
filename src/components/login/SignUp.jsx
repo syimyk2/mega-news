@@ -23,7 +23,7 @@ export const SignUp = () => {
       // formState: { errors, isValid, isSubmitted, messages},
       reset,
    } = useForm({
-      mode: 'onChange',
+      mode: 'onsubmit',
    })
    const submitUserHandler = (userData) => {
       console.log(userData)
@@ -75,10 +75,10 @@ export const SignUp = () => {
                         width="231px"
                         {...register('password', {
                            required: true,
-                           pattern: {
-                              value: REGEXP_PASSWORD,
-                              message: 'Некорректный пароль!',
-                           },
+                           // pattern: {
+                           //    value: REGEXP_PASSWORD,
+                           //    message: 'Некорректный пароль!',
+                           // },
                         })}
                      />
                   </InputWrapper>

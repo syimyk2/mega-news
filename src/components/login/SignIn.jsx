@@ -1,27 +1,52 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
+import { useForm } from 'react-hook-form'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/mega-logo.svg'
-import { Flex } from '../../styles/styles-for-positions/style'
 import { Button } from '../UI/Button'
 import { Card } from '../UI/Card'
 import { Input } from '../UI/Input'
-import { StyledForm, StyledLogo, Wrapper, WrapperInputs } from './SignUp'
+import {
+   InputWrapper,
+   StyledForm,
+   StyledLogo,
+   Wrapper,
+   WrapperInputs,
+} from './SignUp'
 
 export const SignIn = () => {
-   const signInHandler = () => {}
+   // const { error, isAuthorized, isLoading } = useSelector((state) => state.auth)
+   // const navigate = useNavigate()
+   // const dispatch = useDispatch()
+
+   const {
+      register,
+      handleSubmit,
+      // formState: { errors, isValid, isSubmitted, messages},
+      reset,
+   } = useForm({
+      mode: 'onsubmit',
+   })
+
+   const signInHandler = (e) => {
+      e.prevantDefault()
+   }
+
    return (
       <Card>
          <Wrapper>
             <StyledLogo src={logo} alt="logo" />
             <StyledForm onSubmit={signInHandler}>
                <WrapperInputs>
-                  <Flex justify="space-between" align="center">
+                  <InputWrapper>
                      <label htmlFor="nickName">Никнейм</label>
                      <Input name="nickName" width="231px" />
-                  </Flex>
-                  <Flex justify="space-between" align="center">
+                  </InputWrapper>
+                  <InputWrapper>
                      <label htmlFor="password">Пароль</label>
                      <Input name="password" type="password" width="231px" />
-                  </Flex>
+                  </InputWrapper>
                </WrapperInputs>
                <Button type="submit">Войти</Button>
             </StyledForm>
