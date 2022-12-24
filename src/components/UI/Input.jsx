@@ -32,18 +32,19 @@ const TextArea = styled.textarea`
    border: 1px solid #e4dfdc;
    border-radius: 10px;
    letter-spacing: 0.6px;
+   font-family: 'Ubuntu';
    font-weight: bold;
    font-size: 16px;
    font-weight: 400;
    outline: none;
    transition: 0.2s;
-   background-color: #21262c;
+   background-color: #c8ced5;
    resize: none;
    /* ::placeholder {
       color: #d0d2d3;
    } */
    :active {
-      border: 1px solid #b6b4b3;
+      border: 1px solid #7e5bc2;
    }
    :focus {
    }
@@ -57,7 +58,8 @@ const TextArea = styled.textarea`
 const InputStyled = styled.input`
    width: ${({ width }) => width || '100%'};
    padding: 7px 12px;
-   border: 1px solid #e4dfdc;
+   border: ${({ isValid }) =>
+      isValid ? '1px solid red' : '1px solid #e4dfdc'};
    border-radius: 10px;
    letter-spacing: 0.6px;
    font-weight: bold;
@@ -68,10 +70,13 @@ const InputStyled = styled.input`
    ::placeholder {
       color: #000000;
    }
-   :active {
+   /* :active {
       border: 1px solid #b6b4b3;
-   }
+   } */
    :focus {
+      border-color: transparent;
+      box-shadow: ${({ isValid }) =>
+         isValid ? '0 0 0 1px rgba(255, 8, 0, 0.5)' : '0 0 0 1px  #7e5bc2;'};
    }
    :disabled,
    :disabled:hover {

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import Layout from '../layout'
 import { SignInPage } from '../pages/login/SignInPage'
@@ -8,13 +9,9 @@ import { ROUTES } from '../utils/constants/routes-data'
 import { ProtectedRoute } from './ProtectedRoute'
 
 export const AppRoutes = () => {
-   const [isAuthorized, setState] = useState(true)
-
-   useEffect(() => {
-      setState(true)
-   }, [])
-
+   const { isAuthorized } = useSelector((state) => state.auth)
    const { signUp, signIn, main } = ROUTES
+
    return (
       <Routes>
          <Route path={signUp.path} element={<SignUpPage />} />
