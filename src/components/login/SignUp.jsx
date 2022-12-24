@@ -20,35 +20,38 @@ export const SignUp = () => {
    const {
       register,
       handleSubmit,
-      // formState: { errors, isValid, isSubmitted, messages},
+      formState: { errors, isValid, isSubmitted },
       reset,
+      watch,
    } = useForm({
-      mode: 'onsubmit',
+      mode: 'onChange',
    })
+
+   const password = watch('password')
    const submitUserHandler = (userData) => {
-      console.log(userData)
-      // dispatch(signUp({ userData, reset }))
+      dispatch(signUp({ userData }))
+      reset()
    }
 
    useEffect(() => {
       if (isAuthorized) navigate('/sign-in')
    }, [isAuthorized, navigate])
 
-   // const errorPasswordMessage =
-   //    (errors?.password && errors.password.message) || ''
-
    return (
       <Card>
          <Wrapper>
             <StyledLogo src={logo} alt="logo" />
             <StyledForm onSubmit={handleSubmit(submitUserHandler)}>
-               <WrapperInputs>
+               <InputsContainer>
                   <InputWrapper>
-                     <label htmlFor="lastName">Фамилия</label>
+                     <label htmlFor="last_name">Фамилия</label>
                      <Input
-                        name="lastName"
+                        name="last_name"
                         width="231px"
-                        {...register('lastName', { required: true })}
+                        isValid={errors?.last_name?.message}
+                        {...register('last_name', {
+                           required: 'Напишите фамилию',
+                        })}
                      />
                   </InputWrapper>
                   <InputWrapper>
@@ -56,44 +59,69 @@ export const SignUp = () => {
                      <Input
                         name="name"
                         width="231px"
-                        {...register('firstName', { required: true })}
+                        isValid={errors?.name?.message}
+                        {...register('name', { required: 'Напишите имя' })}
                      />
                   </InputWrapper>
                   <InputWrapper>
-                     <label htmlFor="nickName">Никнейм</label>
+                     <label htmlFor="nickname">Никнейм</label>
                      <Input
-                        name="nickName"
+                        name="nickname"
                         width="231px"
-                        {...register('nickName', { required: true })}
-                     />
-                  </InputWrapper>
-                  <InputWrapper>
-                     <label htmlFor="password">Пароль</label>
-                     <Input
-                        name="password"
-                        type="password"
-                        width="231px"
-                        {...register('password', {
-                           required: true,
-                           // pattern: {
-                           //    value: REGEXP_PASSWORD,
-                           //    message: 'Некорректный пароль!',
-                           // },
+                        isValid={errors?.nickname?.message}
+                        {...register('nickname', {
+                           required: 'Напишите никнейм',
                         })}
                      />
                   </InputWrapper>
+                  <Flex direction="column" justify="center">
+                     <InputWrapper>
+                        <label
+                           style={{ marginBottom: '20px' }}
+                           htmlFor="password"
+                        >
+                           Пароль
+                        </label>
+                        <Flex direction="column" justify="center">
+                           <Input
+                              name="password"
+                              type="password"
+                              width="231px"
+                              isValid={errors?.password?.message}
+                              {...register('password', {
+                                 required: 'Некорректный пароль!',
+                                 pattern: {
+                                    value: REGEXP_PASSWORD,
+                                    message: 'Некорректный пароль!',
+                                 },
+                              })}
+                           />
+                           <HelperText>Лимит на символы</HelperText>
+                        </Flex>
+                     </InputWrapper>
+                  </Flex>
                   <InputWrapper>
                      <label htmlFor="pass2">Подтверждение пароля</label>
-                     <Input
-                        name="pass2"
-                        type="password"
-                        width="231px"
-                        {...register('confirmPassword', {
-                           required: true,
-                        })}
-                     />
+                     <Flex direction="column" justify="center">
+                        <Input
+                           name="pass2"
+                           type="password"
+                           width="231px"
+                           isValid={errors?.password2?.message}
+                           {...register('password2', {
+                              required: 'Пароль не совпадает',
+                              validate: (value) =>
+                                 value === password || 'Пароль не совпадает',
+                           })}
+                        />
+                        {errors?.password2?.message && (
+                           <HelperText color="red">
+                              {errors.password2.message}
+                           </HelperText>
+                        )}
+                     </Flex>
                   </InputWrapper>
-               </WrapperInputs>
+               </InputsContainer>
                <Button type="submit" disabled={isLoading}>
                   Регистрация
                </Button>
@@ -111,6 +139,14 @@ export const InputWrapper = styled(Flex)`
    justify-content: space-between;
    align-items: center;
 `
+export const HelperText = styled.p`
+   font-family: 'Ubuntu';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 12px;
+   line-height: 20px;
+   color: ${({ color }) => color || '#5a5a5a'};
+`
 
 export const StyledForm = styled.form`
    display: flex;
@@ -125,14 +161,12 @@ export const Wrapper = styled.div`
    flex-direction: column;
    align-items: center;
 `
-export const WrapperInputs = styled.div`
+export const InputsContainer = styled.div`
    width: 100%;
    display: flex;
    flex-direction: column;
+   gap: 20px;
    margin-bottom: 43px;
-   div {
-      margin-top: 20px;
-   }
    label {
       font-family: 'Ubuntu';
       font-style: normal;

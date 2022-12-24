@@ -12,7 +12,7 @@ import {
    StyledForm,
    StyledLogo,
    Wrapper,
-   WrapperInputs,
+   InputsContainer,
 } from './SignUp'
 
 export const SignIn = () => {
@@ -38,7 +38,7 @@ export const SignIn = () => {
          <Wrapper>
             <StyledLogo src={logo} alt="logo" />
             <StyledForm onSubmit={signInHandler}>
-               <WrapperInputs>
+               <InputsContainer>
                   <InputWrapper>
                      <label htmlFor="nickName">Никнейм</label>
                      <Input name="nickName" width="231px" />
@@ -47,7 +47,7 @@ export const SignIn = () => {
                      <label htmlFor="password">Пароль</label>
                      <Input name="password" type="password" width="231px" />
                   </InputWrapper>
-               </WrapperInputs>
+               </InputsContainer>
                <Button type="submit">Войти</Button>
             </StyledForm>
          </Wrapper>

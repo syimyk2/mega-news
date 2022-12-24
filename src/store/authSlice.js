@@ -23,7 +23,7 @@ export const signUp = createAsyncThunk(
          return fetchApi({
             method: 'POST',
             path: 'registration/',
-            body: dataSignUp,
+            body: dataSignUp.userData,
          })
       } catch (error) {
          rejectWithValue(error)

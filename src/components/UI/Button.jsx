@@ -26,4 +26,22 @@ const StyledButton = styled.button`
    :active {
       background: #8f74c3;
    }
+   :disabled {
+      cursor: not-allowed;
+      background: #c0abeacf;
+      box-shadow: none;
+      border-color: #c4c4c4;
+      color: #ffffff;
+      border: 2px solid #c4c4c4;
+      outline: none;
+      :before {
+         content: '';
+         position: absolute;
+         z-index: -1;
+         background: none;
+         height: 200px;
+         width: 220px;
+         border-radius: 50%;
+      }
+   }
 `
