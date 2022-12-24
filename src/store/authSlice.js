@@ -70,14 +70,21 @@ const authSlice = createSlice({
       [signUp.pending]: setPending,
       [signUp.fulfilled]: (state, { payload }) => {
          state.status = 'succes'
-         // state.role = ROLES.signup
          state.isAuthorized = true
-         state.token = payload.data.token
-         state.user = payload.data.user
+         state.user = payload.user
+         state.error = null
+         state.isLoading = false
+      },
+      [signIn.pending]: setPending,
+      [signIn.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.token = payload.token
+         state.isAuthorized = !!payload.token
          state.error = null
          state.isLoading = false
       },
       [signUp.rejected]: setRejected,
+      [signIn.rejected]: setRejected,
    },
 })
 
