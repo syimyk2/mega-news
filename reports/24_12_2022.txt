@@ -1,0 +1,9 @@
+yesterday:
+- resolved redux toolkit problems with store and with packages issues
+- sign in started add functionality 
+today: 
+- signUp connect with server
+- sign in add functionality
+- set up routes  with  auth
+problems:
+- 
