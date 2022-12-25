@@ -8,7 +8,7 @@ import { KEY_AUTH } from '../utils/constants/general'
 const localData = getDataFromLocalStorage(KEY_AUTH) || {}
 
 const initialState = {
-   isAuthorized: localData.isAuthorized || false,
+   isAuthorized: localData || false,
    token: localData.token || null,
    user: localData.user || null,
    status: '',

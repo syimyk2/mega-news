@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
+import { NewsCard } from '../../components/UI/news-card'
 import media from '../../utils/helpers/media'
 
 export const MainPage = () => {
    return (
       <Container>
-         <MainPages>main</MainPages>
+         <MainPages>
+            <NewsCard>news</NewsCard>
+         </MainPages>
       </Container>
    )
 }
