@@ -1,11 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Filter } from '../../components/UI/filteration'
+import { NewsCard } from '../../components/UI/news-card'
 import media from '../../utils/helpers/media'
 
 export const MainPage = () => {
    return (
       <Container>
-         <MainPages>main</MainPages>
+         <MainPages>
+            <Filter />
+            <NewsCard>news</NewsCard>
+         </MainPages>
       </Container>
    )
 }
@@ -16,11 +21,11 @@ const Container = styled.div`
 `
 const MainPages = styled.div`
    width: 100%;
-   display: grid;
+   display: flex;
+   gap: 100px;
    align-items: center;
-   background-size: cover;
-   background-position: center;
-   background-attachment: fixed;
+   padding: 34px 150px;
+   background: #009b2135;
    min-height: ${`${window.innerHeight}px`};
    text-align: center;
    ${media.tablet`

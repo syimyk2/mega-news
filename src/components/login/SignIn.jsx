@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/mega-logo.svg'
 import { signIn } from '../../store/authSlice'
+import { KEY_AUTH } from '../../utils/constants/general'
+import { saveToLocalStorage } from '../../utils/helpers/general'
 import { Button } from '../UI/Button'
 import { Card } from '../UI/Card'
 import { Input } from '../UI/Input'
@@ -33,10 +35,16 @@ export const SignIn = () => {
 
    const signInHandler = (submittedData) => {
       dispatch(signIn(submittedData))
+         .unwrap()
+         .then((data) => {
+            saveToLocalStorage(KEY_AUTH, data.token)
+         })
    }
+
    useEffect(() => {
       if (isAuthorized) navigate('/')
    }, [isAuthorized, navigate])
+
    return (
       <Card>
          <Wrapper>

@@ -3,3 +3,11 @@ export const ROLES = {
    USER: 'USER',
 }
 export const REGEXP_PASSWORD = /(?=.*[0-9])(?=.*[A-Z])[0-9a-zA-Z]{6,32}/g
+
+export const FILTERING_DATA = [
+   'Спорт',
+   'Политика',
+   'Звезды',
+   'Искусство',
+   'Мода',
+]
