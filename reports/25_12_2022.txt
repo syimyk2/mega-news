@@ -1,0 +1,10 @@
+yesterday:
+- signUp connected with server
+- sign in added functionality
+- set up routes  with  auth
+today: 
+- add layout of main page and pull from server
+- add cards for news
+- add layout filration
+problems:
+- 
