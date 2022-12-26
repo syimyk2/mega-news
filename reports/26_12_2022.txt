@@ -1,0 +1,10 @@
+yesterday:
+- added layout of main page 
+- added cards for news
+- added layout filtration
+today: 
+- create newsSlice and asynthank for get post for news 
+- pull newsList
+- start news detail layout
+problems:
+- 
