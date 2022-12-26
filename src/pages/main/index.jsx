@@ -1,15 +1,24 @@
-import React from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { NewsList } from '../../components/news-list'
 import { Filter } from '../../components/UI/filteration'
-import { NewsCard } from '../../components/UI/news-card'
+import { getNewsList } from '../../store/newsSlice'
 import media from '../../utils/helpers/media'
 
 export const MainPage = () => {
+   const dispatch = useDispatch()
+
+   useEffect(() => {
+      dispatch(getNewsList())
+   }, [])
+
    return (
       <Container>
          <MainPages>
             <Filter />
-            <NewsCard>news</NewsCard>
+            <NewsList />
          </MainPages>
       </Container>
    )
@@ -23,9 +32,8 @@ const MainPages = styled.div`
    width: 100%;
    display: flex;
    gap: 100px;
-   align-items: center;
-   padding: 34px 150px;
-   background: #009b2135;
+   align-items: flex-start;
+   padding: 220px 150px;
    min-height: ${`${window.innerHeight}px`};
    text-align: center;
    ${media.tablet`

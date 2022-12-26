@@ -7,21 +7,29 @@ import { Paragraph } from '../typography/Paragraph'
 import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
 
-export const NewsCard = ({ img, isLiked, newsId, title, paragraph }) => {
+export const NewsCard = ({ content }) => {
+   const {
+      img,
+      is_liked: isLiked,
+      id,
+      title,
+      short_desc: shortDescription,
+   } = content
+
    return (
       <CardWrapper>
          <ImgContainer>
-            <img src={img} alt="img" />
+            <img src={img} alt={img} />
          </ImgContainer>
          <SubDescriptionContainer>
             <Flex justify="space-between" align="center">
                <StyledNewsData>29.11.2022</StyledNewsData>
-               <CheckboxHeart checked={isLiked} id={newsId} />
+               <CheckboxHeart checked={isLiked} id={toString(id)} />
             </Flex>
             <Title align="start" size="24px" weight="500px">
                {title}
             </Title>
-            <Paragraph>{paragraph}</Paragraph>
+            <Paragraph>{shortDescription}</Paragraph>
             <StyledLink href="/news-detail">Читать дальше&gt;&gt;</StyledLink>
             <ShareLink />
          </SubDescriptionContainer>

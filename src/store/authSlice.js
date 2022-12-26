@@ -9,7 +9,7 @@ const localData = getDataFromLocalStorage(KEY_AUTH) || {}
 
 const initialState = {
    isAuthorized: localData || false,
-   token: localData.token || null,
+   token: localData || null,
    user: localData.user || null,
    status: '',
    isLoading: false,
@@ -63,7 +63,6 @@ const authSlice = createSlice({
          state.isAuthorized = false
          state.token = null
          state.user = null
-         state.role = null
       },
    },
    extraReducers: {
@@ -79,7 +78,7 @@ const authSlice = createSlice({
       [signIn.fulfilled]: (state, { payload }) => {
          state.status = 'succes'
          state.token = payload.token
-         state.isAuthorized = !!payload.token
+         state.isAuthorized = true
          state.error = null
          state.isLoading = false
       },

@@ -17,7 +17,7 @@ export const Filter = () => {
          <Title width="700">Фильтрация</Title>
          <Options>
             {FILTERING_DATA.map((filterOption) => (
-               <Flex gap="10px" align="center">
+               <Flex gap="10px" align="center" key={Math.random().toString()}>
                   <Checkbox />
                   <label htmlFor="#">{filterOption}</label>
                </Flex>

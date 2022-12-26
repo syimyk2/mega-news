@@ -4,7 +4,8 @@ import store from '../store'
 export const BASE_URL = 'https://megalab.pythonanywhere.com'
 
 export const fetchApi = async (options) => {
-   const { role, token } = store.getState().auth
+   const { token } = store.getState().auth
+   console.log(token)
    try {
       let { path } = options
 
@@ -14,7 +15,6 @@ export const fetchApi = async (options) => {
             ? {
                  'Content-Type': 'application/json',
                  Authorization: `Token ${token}`,
-                 Role: role,
               }
             : { 'Content-Type': 'application/json' },
       }
