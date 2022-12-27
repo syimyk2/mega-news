@@ -8,6 +8,7 @@ import { getNewsList } from '../../store/newsSlice'
 import media from '../../utils/helpers/media'
 import { ReactComponent as FilterIcon } from '../../assets/icons/filter.svg'
 import { Flex } from '../../styles/styles-for-positions/style'
+import { NewsDetail } from '../news-detail'
 
 export const MainPage = () => {
    const dispatch = useDispatch()
@@ -21,14 +22,15 @@ export const MainPage = () => {
    return (
       <Container>
          <MainPages>
-            <Flex justify="end" width="100%" className="filter_box">
+            <NewsDetail />
+            {/* <Flex justify="end" width="100%" className="filter_box">
                <FilterIconStyled
                   className="filter_icon"
                   onClick={showFilteringHandler}
                />
             </Flex>
             <Filter />
-            <NewsList />
+            <NewsList /> */}
          </MainPages>
       </Container>
    )
@@ -69,6 +71,7 @@ const MainPages = styled.div`
    text-align:center;
    flex-direction: column;
    gap: 0;
+   padding: 210px 0 0;
    .filter{
          display: none
       }
@@ -83,6 +86,7 @@ const MainPages = styled.div`
    ${media.mobile`
    gap: 0;
    flex-direction: column;
+   padding: 210px 0 0;
       .filter{
          display: none
       }
