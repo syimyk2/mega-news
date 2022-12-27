@@ -6,6 +6,7 @@ import { CheckboxHeart } from '../CheckboxHeart'
 import { Paragraph } from '../typography/Paragraph'
 import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
+import initphoto from '../../../assets/images/photo.png'
 
 export const NewsCard = ({ content }) => {
    const {
@@ -19,7 +20,7 @@ export const NewsCard = ({ content }) => {
    return (
       <CardWrapper>
          <ImgContainer>
-            <img src={img} alt={img} />
+            <img src={img || initphoto} alt={img} />
          </ImgContainer>
          <SubDescriptionContainer>
             <Flex justify="space-between" align="center">

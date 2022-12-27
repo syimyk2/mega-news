@@ -1,9 +1,14 @@
 /* eslint-disable consistent-return */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi } from '../api'
+import { NEWS_DATA_KEY } from '../utils/constants/general'
+import {
+   getDataFromLocalStorage,
+   saveToLocalStorage,
+} from '../utils/helpers/general'
 
 const initialState = {
-   newslist: [],
+   newslist: getDataFromLocalStorage(NEWS_DATA_KEY) || [],
    status: '',
    isLoading: false,
    error: null,
@@ -12,15 +17,20 @@ const initialState = {
 export const getNewsList = createAsyncThunk(
    'news/getNewsList',
    async (_, { rejectWithValue }) => {
-      console.log('working')
-      try {
-         const result = await fetchApi({
-            method: 'GET',
-            path: 'post/',
-         })
-         return result
-      } catch (error) {
-         rejectWithValue(error)
+      const newsData = getDataFromLocalStorage(NEWS_DATA_KEY)
+      if (!newsData) {
+         try {
+            const result = await fetchApi({
+               method: 'GET',
+               path: 'post/',
+            })
+            saveToLocalStorage(NEWS_DATA_KEY, result)
+            return result
+         } catch (error) {
+            rejectWithValue(error)
+         }
+      } else {
+         return newsData
       }
    }
 )

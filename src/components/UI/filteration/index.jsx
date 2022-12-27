@@ -13,7 +13,7 @@ export const Filter = () => {
    }
 
    return (
-      <FilterWrapper>
+      <FilterWrapper className="filter">
          <Title width="700">Фильтрация</Title>
          <Options>
             {FILTERING_DATA.map((filterOption) => (

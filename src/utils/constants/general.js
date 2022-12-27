@@ -11,3 +11,5 @@ export const FILTERING_DATA = [
    'Искусство',
    'Мода',
 ]
+
+export const NEWS_DATA_KEY = '_NEWS_DATA'
