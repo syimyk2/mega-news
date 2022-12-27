@@ -9,6 +9,7 @@ import {
 
 const initialState = {
    newslist: getDataFromLocalStorage(NEWS_DATA_KEY) || [],
+   newsDetail: getDataFromLocalStorage('_NEWS_DETAIL_KEY') || {},
    status: '',
    isLoading: false,
    error: null,
@@ -16,15 +17,36 @@ const initialState = {
 
 export const getNewsList = createAsyncThunk(
    'news/getNewsList',
-   async (_, { rejectWithValue }) => {
+   async (newsId, { rejectWithValue }) => {
       const newsData = getDataFromLocalStorage(NEWS_DATA_KEY)
+      if (!newsData) {
+         try {
+            const result = await fetchApi({
+               method: 'GET',
+               path: `${newsId}/`,
+            })
+            saveToLocalStorage(NEWS_DATA_KEY, result)
+            return result
+         } catch (error) {
+            rejectWithValue(error)
+         }
+      } else {
+         return newsData
+      }
+   }
+)
+
+export const getNewsDetail = createAsyncThunk(
+   'news/getNewsDetail',
+   async (_, { rejectWithValue }) => {
+      const newsData = getDataFromLocalStorage('_NEWS_DETAIL_KEY')
       if (!newsData) {
          try {
             const result = await fetchApi({
                method: 'GET',
                path: 'post/',
             })
-            saveToLocalStorage(NEWS_DATA_KEY, result)
+            saveToLocalStorage('_NEWS_DETAIL_KEY', result)
             return result
          } catch (error) {
             rejectWithValue(error)
@@ -60,6 +82,16 @@ const newsSlice = createSlice({
          console.log(payload)
       },
       [getNewsList.rejected]: setRejected,
+
+      [getNewsDetail.pending]: setPending,
+      [getNewsDetail.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.error = null
+         state.isLoading = false
+         state.newsDetail = payload
+         console.log('detail', payload)
+      },
+      [getNewsDetail.rejected]: setRejected,
    },
 })
 
