@@ -1,0 +1,9 @@
+yesterday:
+- created newsSlice and asynthank for get post for news 
+- pulled newsList from back
+- started news detail layout
+today: 
+- finish news detail layout and connect with server
+- add comment layout
+problems:
+- 
