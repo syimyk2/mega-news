@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
 import { CheckboxHeart } from '../../components/UI/CheckboxHeart'
@@ -10,46 +11,66 @@ import { Title } from '../../components/UI/typography/Title'
 import { ShareLink } from '../../components/UI/news-card/ShareLink'
 import initphoto from '../../assets/images/photo.png'
 import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left.svg'
+import { getNewsDetail } from '../../store/newsSlice'
+import Loader from '../../components/UI/loader'
 
 const obj = {
    id: 168,
    tag: 'art',
    title: 'shrek',
    text: 'short_descshort_descshort_descshort_desc short_descshort_desc  vshort_descshort_descshort_descshort_descshort_desc',
-   image: '/media/post_image/download_Vbz9r8E.jpeg',
+   img: '/media/post_image/download_Vbz9r8E.jpeg',
    is_liked: true,
    short_desc:
       'short_descshort_descshort_descshort_descshort_descshort_descshort_descshort_desc',
 }
 
-export const NewsDetail = ({ content }) => {
+export const NewsDetail = () => {
    const navigate = useNavigate()
-   const {
-      image,
-      is_liked: isLiked,
-      id,
-      title,
-      short_desc: shortDescription,
-   } = obj
+   const dispatch = useDispatch()
+   const { newsDetail, isLoading } = useSelector((state) => state.news)
 
-   return (
+   const { newsId } = useParams()
+
+   // const {
+   //    image,
+   //    is_liked: isLiked,
+   //    id,
+   //    title,
+   //    short_desc: shortDescription,
+   // } = content
+
+   useEffect(() => {
+      dispatch(getNewsDetail(newsId))
+   }, [])
+   console.log(isLoading, '/', newsDetail)
+
+   return isLoading ? (
+      <Loader />
+   ) : (
       <NewsDetailContainer>
          <CardWrapper>
             <ArrowIconStyled onClick={() => navigate('/')} />
             <SubDescriptionContainer>
                <Flex justify="space-between" align="center">
                   <StyledNewsData>29.11.2022</StyledNewsData>
-                  <CheckboxHeart checked={isLiked} id={toString(id)} />
+                  <CheckboxHeart
+                     checked={newsDetail?.is_liked}
+                     id={toString(newsDetail?.id)}
+                  />
                </Flex>
                <Flex direction="column" gap="24px">
                   <Title align="start" size="24px" weight="500px">
-                     {title}
+                     {newsDetail?.title}
                   </Title>
-                  <Paragraph>{shortDescription}</Paragraph>
+                  <Paragraph>{newsDetail?.short_desc}</Paragraph>
                   <ImgContainer>
-                     <img src={initphoto} alt={image} />
+                     <img
+                        src={newsDetail?.image || initphoto}
+                        alt="news_photo"
+                     />
                   </ImgContainer>
-                  <Paragraph>{shortDescription}</Paragraph>
+                  <Paragraph>{newsDetail?.text}</Paragraph>
                   <StyledLink href="/news-detail">
                      Читать дальше&gt;&gt;
                   </StyledLink>

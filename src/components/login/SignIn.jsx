@@ -37,6 +37,7 @@ export const SignIn = () => {
       dispatch(signIn(submittedData))
          .unwrap()
          .then((data) => {
+            reset()
             saveToLocalStorage(KEY_AUTH, data.token)
          })
    }

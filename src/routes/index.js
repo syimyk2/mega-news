@@ -5,13 +5,12 @@ import Layout from '../layout'
 import { SignInPage } from '../pages/login/SignInPage'
 import { SignUpPage } from '../pages/login/SignUpPage'
 import { MainPage } from '../pages/main'
-import { NewsDetail } from '../pages/news-detail'
 import { ROUTES } from '../utils/constants/routes-data'
 import { ProtectedRoute } from './ProtectedRoute'
 
 export const AppRoutes = () => {
    const { isAuthorized } = useSelector((state) => state.auth)
-   const { signUp, newsDetail, signIn, main } = ROUTES
+   const { signUp, signIn, main } = ROUTES
 
    return (
       <Routes>
@@ -20,7 +19,6 @@ export const AppRoutes = () => {
          <Route element={<ProtectedRoute isAllowed={isAuthorized} />}>
             <Route element={<Layout />}>
                <Route path={main.path} element={<MainPage />} />
-               <Route path={newsDetail.path} element={<NewsDetail />} />
             </Route>
          </Route>
       </Routes>

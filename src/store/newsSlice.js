@@ -17,13 +17,13 @@ const initialState = {
 
 export const getNewsList = createAsyncThunk(
    'news/getNewsList',
-   async (newsId, { rejectWithValue }) => {
+   async (_, { rejectWithValue }) => {
       const newsData = getDataFromLocalStorage(NEWS_DATA_KEY)
       if (!newsData) {
          try {
             const result = await fetchApi({
                method: 'GET',
-               path: `${newsId}/`,
+               path: `post/`,
             })
             saveToLocalStorage(NEWS_DATA_KEY, result)
             return result
@@ -38,13 +38,13 @@ export const getNewsList = createAsyncThunk(
 
 export const getNewsDetail = createAsyncThunk(
    'news/getNewsDetail',
-   async (_, { rejectWithValue }) => {
+   async (newsId, { rejectWithValue }) => {
       const newsData = getDataFromLocalStorage('_NEWS_DETAIL_KEY')
       if (!newsData) {
          try {
             const result = await fetchApi({
                method: 'GET',
-               path: 'post/',
+               path: `post/${newsId}/`,
             })
             saveToLocalStorage('_NEWS_DETAIL_KEY', result)
             return result

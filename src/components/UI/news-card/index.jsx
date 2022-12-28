@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { Flex } from '../../../styles/styles-for-positions/style'
 import media from '../../../utils/helpers/media'
 import { CheckboxHeart } from '../CheckboxHeart'
@@ -7,6 +8,7 @@ import { Paragraph } from '../typography/Paragraph'
 import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
 import initphoto from '../../../assets/images/photo.png'
+// import { ROUTES } from '../../../utils/constants/routes-data'
 
 export const NewsCard = ({ content }) => {
    const {
@@ -31,7 +33,9 @@ export const NewsCard = ({ content }) => {
                {title}
             </Title>
             <Paragraph>{shortDescription}</Paragraph>
-            <StyledLink href="/news-detail">Читать дальше&gt;&gt;</StyledLink>
+            <StyledLink to={`news-detail/${id}`}>
+               Читать дальше&gt;&gt;
+            </StyledLink>
             <ShareLink />
          </SubDescriptionContainer>
       </CardWrapper>
@@ -74,7 +78,7 @@ const StyledNewsData = styled.span`
    font-size: 16px;
    color: #858080;
 `
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
    font-family: 'Ubuntu';
    font-style: normal;
    font-weight: 500;
