@@ -8,7 +8,6 @@ import { getNewsList } from '../../store/newsSlice'
 import media from '../../utils/helpers/media'
 import { ReactComponent as FilterIcon } from '../../assets/icons/filter.svg'
 import { Flex } from '../../styles/styles-for-positions/style'
-import { NewsDetail } from '../news-detail'
 
 export const MainPage = () => {
    const dispatch = useDispatch()
@@ -22,15 +21,14 @@ export const MainPage = () => {
    return (
       <Container>
          <MainPages>
-            <NewsDetail />
-            {/* <Flex justify="end" width="100%" className="filter_box">
+            <Flex justify="end" width="100%" className="filter_box">
                <FilterIconStyled
                   className="filter_icon"
                   onClick={showFilteringHandler}
                />
             </Flex>
             <Filter />
-            <NewsList /> */}
+            <NewsList />
          </MainPages>
       </Container>
    )

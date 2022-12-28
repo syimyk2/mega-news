@@ -11,4 +11,8 @@ export const ROUTES = {
       path: '/',
       label: 'Home',
    },
+   newsDetail: {
+      path: '/news-detail/:newsId',
+      label: 'News Detail',
+   },
 }
