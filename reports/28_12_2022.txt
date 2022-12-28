@@ -1,0 +1,9 @@
+yesterday:
+- almost finished news detail layout and connect with server
+- added get method for news detail
+- added comment component and folder
+today: 
+- finish news detail layout and connect with server
+- add comment layout
+problems:
+- 
