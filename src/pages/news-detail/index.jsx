@@ -13,6 +13,7 @@ import initphoto from '../../assets/images/photo.png'
 import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left.svg'
 import { getNewsDetail } from '../../store/newsSlice'
 import Loader from '../../components/UI/loader'
+import { Comments } from '../../components/comments'
 
 const obj = {
    id: 168,
@@ -23,6 +24,7 @@ const obj = {
    is_liked: true,
    short_desc:
       'short_descshort_descshort_descshort_descshort_descshort_descshort_descshort_desc',
+   comment: [],
 }
 
 export const NewsDetail = () => {
@@ -37,6 +39,7 @@ export const NewsDetail = () => {
    //    is_liked: isLiked,
    //    id,
    //    title,
+   //     comment,
    //    short_desc: shortDescription,
    // } = content
 
@@ -77,6 +80,7 @@ export const NewsDetail = () => {
                   <ShareLink />
                </Flex>
             </SubDescriptionContainer>
+            <Comments content={newsDetail?.comment} />
          </CardWrapper>
       </NewsDetailContainer>
    )

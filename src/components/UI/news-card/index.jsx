@@ -33,7 +33,7 @@ export const NewsCard = ({ content }) => {
                {title}
             </Title>
             <Paragraph>{shortDescription}</Paragraph>
-            <StyledLink to={`news-detail/${id}`}>
+            <StyledLink to={`/news-detail/${id}`}>
                Читать дальше&gt;&gt;
             </StyledLink>
             <ShareLink />
