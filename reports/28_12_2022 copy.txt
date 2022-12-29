@@ -1,0 +1,7 @@
+yesterday:
+- finished news detail layout and connected with server
+today: 
+- add comment layout
+- start favorite news page layout
+problems:
+- problems with get request 
