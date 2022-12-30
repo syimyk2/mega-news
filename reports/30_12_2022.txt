@@ -1,0 +1,9 @@
+yesterday:
+- added comment layout
+-fixed problems with get request news detail
+
+today: 
+- start favorite news page layout
+- add adaptive 
+problems:
+-
