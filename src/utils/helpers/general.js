@@ -1,19 +1,26 @@
+import { KEY_AUTH } from '../constants/general'
+
 /* eslint-disable no-alert */
-export const saveToLocalStorage = (key, data) => {
+// session storage helpers
+export const saveToSessionStorage = (key, data) => {
    try {
-      localStorage.setItem(key, JSON.stringify(data))
+      sessionStorage.setItem(key, JSON.stringify(data))
    } catch (error) {
       window.alert(error.message)
    }
 }
-// eslint-disable-next-line consistent-return
-export const getDataFromLocalStorage = (key) => {
+export const getDataFromSessionStorage = (key) => {
    try {
-      return JSON.parse(localStorage.getItem(key))
+      return JSON.parse(sessionStorage.getItem(key))
    } catch (error) {
-      window.alert(error.message)
+      return window.alert(error.message)
    }
 }
-export const removeWithKeyFromLocalStorage = (key) => {
-   localStorage.removeItem(key)
+export const removeWithKeyFromSessionStorage = (key) => {
+   sessionStorage.removeItem(key)
+}
+
+export const logOut = () => {
+   removeWithKeyFromSessionStorage(KEY_AUTH)
+   window.location.reload()
 }

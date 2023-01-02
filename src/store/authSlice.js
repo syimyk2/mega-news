@@ -2,19 +2,15 @@
 /* eslint-disable import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi } from '../api/index'
-import { getDataFromLocalStorage } from '../utils/helpers/general'
+import { getDataFromSessionStorage, logOut } from '../utils/helpers/general'
 import { KEY_AUTH } from '../utils/constants/general'
 
-const localData = getDataFromLocalStorage(KEY_AUTH) || {}
-
 const initialState = {
-   isAuthorized: localData || false,
-   token: localData || null,
-   user: localData.user || null,
+   isAuthorized: getDataFromSessionStorage(KEY_AUTH) || null,
+   token: getDataFromSessionStorage(KEY_AUTH) || null,
    status: '',
    isLoading: false,
    error: null,
-   role: localData.role || null,
 }
 export const signUp = createAsyncThunk(
    'auth/signup',
@@ -63,14 +59,14 @@ const authSlice = createSlice({
          state.isAuthorized = false
          state.token = null
          state.user = null
+         logOut()
       },
    },
    extraReducers: {
       [signUp.pending]: setPending,
-      [signUp.fulfilled]: (state, { payload }) => {
+      [signUp.fulfilled]: (state) => {
          state.status = 'succes'
          state.isAuthorized = true
-         state.user = payload.user
          state.error = null
          state.isLoading = false
       },
@@ -78,7 +74,7 @@ const authSlice = createSlice({
       [signIn.fulfilled]: (state, { payload }) => {
          state.status = 'succes'
          state.token = payload.token
-         state.isAuthorized = true
+         state.isAuthorized = !!payload.token
          state.error = null
          state.isLoading = false
       },

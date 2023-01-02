@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/mega-logo.svg'
 import { signIn } from '../../store/authSlice'
 import { KEY_AUTH } from '../../utils/constants/general'
-import { saveToLocalStorage } from '../../utils/helpers/general'
+import { saveToSessionStorage } from '../../utils/helpers/general'
 import { Button } from '../UI/Button'
 import { Card } from '../UI/Card'
 import { Input } from '../UI/Input'
@@ -38,7 +38,7 @@ export const SignIn = () => {
          .unwrap()
          .then((data) => {
             reset()
-            saveToLocalStorage(KEY_AUTH, data.token)
+            saveToSessionStorage(KEY_AUTH, data.token)
          })
    }
 

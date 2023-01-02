@@ -3,14 +3,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi } from '../api'
 import { NEWS_DATA_KEY } from '../utils/constants/general'
 import {
-   getDataFromLocalStorage,
-   saveToLocalStorage,
+   getDataFromSessionStorage,
+   saveToSessionStorage,
 } from '../utils/helpers/general'
 
 const initialState = {
-   newslist: getDataFromLocalStorage(NEWS_DATA_KEY) || [],
-   newsDetail: getDataFromLocalStorage('_NEWS_DETAIL_KEY') || {},
-   favoriteNews: getDataFromLocalStorage('_FAVORITE_NEWS_KEY') || [],
+   newslist: getDataFromSessionStorage(NEWS_DATA_KEY) || [],
+   newsDetail: getDataFromSessionStorage('_NEWS_DETAIL_KEY') || {},
+   favoriteNews: getDataFromSessionStorage('_FAVORITE_NEWS_KEY') || [],
    status: '',
    isLoading: false,
    error: null,
@@ -19,14 +19,14 @@ const initialState = {
 export const getNewsList = createAsyncThunk(
    'news/getNewsList',
    async (_, { rejectWithValue }) => {
-      const newsData = getDataFromLocalStorage(NEWS_DATA_KEY)
+      const newsData = getDataFromSessionStorage(NEWS_DATA_KEY)
       if (!newsData) {
          try {
             const result = await fetchApi({
                method: 'GET',
                path: `post/`,
             })
-            saveToLocalStorage(NEWS_DATA_KEY, result)
+            saveToSessionStorage(NEWS_DATA_KEY, result)
             return result
          } catch (error) {
             rejectWithValue(error)
@@ -40,14 +40,14 @@ export const getNewsList = createAsyncThunk(
 export const getNewsDetail = createAsyncThunk(
    'news/getNewsDetail',
    async (newsId, { rejectWithValue }) => {
-      const newsData = getDataFromLocalStorage('_NEWS_DETAIL_KEY')
+      const newsData = getDataFromSessionStorage('_NEWS_DETAIL_KEY')
       if (!newsData) {
          try {
             const result = await fetchApi({
                method: 'GET',
                path: `post/${newsId}/`,
             })
-            saveToLocalStorage('_NEWS_DETAIL_KEY', result)
+            saveToSessionStorage('_NEWS_DETAIL_KEY', result)
             return result
          } catch (error) {
             rejectWithValue(error)
@@ -62,14 +62,14 @@ export const getNewsDetail = createAsyncThunk(
 export const getFavoriteNews = createAsyncThunk(
    'news/getFavoriteNews',
    async (_, { rejectWithValue }) => {
-      const newsData = getDataFromLocalStorage('_FAVORITE_NEWS_KEY')
+      const newsData = getDataFromSessionStorage('_FAVORITE_NEWS_KEY')
       if (!newsData) {
          try {
             const result = await fetchApi({
                method: 'GET',
                path: `like/`,
             })
-            saveToLocalStorage('_FAVORITE_NEWS_KEY', result)
+            saveToSessionStorage('_FAVORITE_NEWS_KEY', result)
             return result
          } catch (error) {
             rejectWithValue(error)
@@ -83,7 +83,7 @@ export const getFavoriteNews = createAsyncThunk(
 export const setLikeNews = createAsyncThunk(
    'news/setLikeNews',
    async (postId, { rejectWithValue }) => {
-      // const newsData = getDataFromLocalStorage('_FAVORITE_NEWS_KEY')
+      // const newsData = getDataFromSessionStorage('_FAVORITE_NEWS_KEY')
       // if (!newsData) {
       try {
          const result = await fetchApi({
@@ -91,7 +91,7 @@ export const setLikeNews = createAsyncThunk(
             path: `like/`,
             body: postId,
          })
-         // saveToLocalStorage('_FAVORITE_NEWS_KEY', result)
+         // saveToSessionStorage('_FAVORITE_NEWS_KEY', result)
          return result
       } catch (error) {
          rejectWithValue(error)
