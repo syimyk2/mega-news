@@ -1,0 +1,12 @@
+yesterday:
+- connected favorite news with server and fixed layout bugs in header
+- fixed comment layout and changed news slice
+- fixed auth bugs
+- changed local storage to session storage
+
+today: 
+- add comment with server and add child comment
+- add adaptive in comments
+- CREATE MY PROFILE LAYOUT
+problems:
+-
