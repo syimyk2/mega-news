@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useLocation } from 'react-router-dom'
 import { Nav } from './Nav'
@@ -7,14 +7,12 @@ import { Title } from '../../components/UI/typography/Title'
 import banner from '../../assets/images/banner.jpg'
 import bannerMobile from '../../assets/images/banner-mobile.jpg'
 import media from '../../utils/helpers/media'
+import { ROUTES } from '../../utils/constants/routes-data'
 
 export const Header = () => {
    const location = useLocation()
-   const [isSwitched, setSwitched] = useState()
 
-   if (location.pathname === '') {
-      setSwitched(true)
-   }
+   const isSwitched = location.pathname === ROUTES.favoriteNews.path
 
    return (
       <HeaderStyled

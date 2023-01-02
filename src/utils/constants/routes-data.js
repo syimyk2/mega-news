@@ -15,4 +15,8 @@ export const ROUTES = {
       path: '/news-detail/:newsId',
       label: 'News Detail',
    },
+   favoriteNews: {
+      path: '/favorite-posts',
+      label: 'Favorite News',
+   },
 }

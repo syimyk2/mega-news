@@ -2,24 +2,22 @@
 /* eslint-disable no-unused-vars */
 import { Divider } from '@mui/material'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Flex } from '../../styles/styles-for-positions/style'
 import { NewsCard } from '../UI/news-card'
 
-export const NewsList = () => {
-   const { newslist, isLoading, error } = useSelector((state) => state.news)
+export const NewsList = ({ newsList, isLoading, error }) => {
    return (
       <NewsListContainer>
          {!isLoading ? (
-            newslist?.map((news) => (
-               <>
-                  <NewsCard key={news.id} id={news} content={news} />
+            newsList?.map((news) => (
+               <div key={news.id}>
+                  <NewsCard id={news} content={news} />
                   <Divider />
-               </>
+               </div>
             ))
          ) : (
-            <h1>loading</h1>
+            <h1>loading...</h1>
          )}
       </NewsListContainer>
    )

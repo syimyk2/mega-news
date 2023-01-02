@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import Layout from '../layout'
+import { FavoriteNews } from '../pages/favorite-news'
 import { SignInPage } from '../pages/login/SignInPage'
 import { SignUpPage } from '../pages/login/SignUpPage'
 import { MainPage } from '../pages/main'
@@ -11,7 +12,7 @@ import { ProtectedRoute } from './ProtectedRoute'
 
 export const AppRoutes = () => {
    const { isAuthorized } = useSelector((state) => state.auth)
-   const { signUp, signIn, main, newsDetail } = ROUTES
+   const { signUp, signIn, main, newsDetail, favoriteNews } = ROUTES
 
    return (
       <Routes>
@@ -21,6 +22,7 @@ export const AppRoutes = () => {
             <Route element={<Layout />}>
                <Route path={main.path} element={<MainPage />} />
                <Route path={newsDetail.path} element={<NewsDetail />} />
+               <Route path={favoriteNews.path} element={<FavoriteNews />} />
             </Route>
          </Route>
       </Routes>

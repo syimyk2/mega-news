@@ -10,6 +10,7 @@ import {
 const initialState = {
    newslist: getDataFromLocalStorage(NEWS_DATA_KEY) || [],
    newsDetail: getDataFromLocalStorage('_NEWS_DETAIL_KEY') || {},
+   favoriteNews: getDataFromLocalStorage('_FAVORITE_NEWS_KEY') || [],
    status: '',
    isLoading: false,
    error: null,
@@ -57,6 +58,50 @@ export const getNewsDetail = createAsyncThunk(
    }
 )
 
+// like requests
+export const getFavoriteNews = createAsyncThunk(
+   'news/getFavoriteNews',
+   async (_, { rejectWithValue }) => {
+      const newsData = getDataFromLocalStorage('_FAVORITE_NEWS_KEY')
+      if (!newsData) {
+         try {
+            const result = await fetchApi({
+               method: 'GET',
+               path: `like/`,
+            })
+            saveToLocalStorage('_FAVORITE_NEWS_KEY', result)
+            return result
+         } catch (error) {
+            rejectWithValue(error)
+         }
+      } else {
+         return newsData
+      }
+   }
+)
+
+export const setLikeNews = createAsyncThunk(
+   'news/setLikeNews',
+   async (postId, { rejectWithValue }) => {
+      // const newsData = getDataFromLocalStorage('_FAVORITE_NEWS_KEY')
+      // if (!newsData) {
+      try {
+         const result = await fetchApi({
+            method: 'POST',
+            path: `like/`,
+            body: postId,
+         })
+         // saveToLocalStorage('_FAVORITE_NEWS_KEY', result)
+         return result
+      } catch (error) {
+         rejectWithValue(error)
+      }
+      // } else {
+      //    return newsData
+      // }
+   }
+)
+
 const setPending = (state) => {
    state.status = 'loading'
    state.isLoading = true
@@ -92,6 +137,16 @@ const newsSlice = createSlice({
          console.log('detail', payload)
       },
       [getNewsDetail.rejected]: setRejected,
+
+      [getFavoriteNews.pending]: setPending,
+      [getFavoriteNews.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.error = null
+         state.isLoading = false
+         state.favoriteNews = payload
+         console.log('favNews', payload)
+      },
+      [getFavoriteNews.rejected]: setRejected,
    },
 })
 

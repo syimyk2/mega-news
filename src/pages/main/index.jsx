@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { NewsList } from '../../components/news-list'
 import { Filter } from '../../components/UI/filteration'
@@ -11,6 +11,7 @@ import { Flex } from '../../styles/styles-for-positions/style'
 
 export const MainPage = () => {
    const dispatch = useDispatch()
+   const { newslist, isLoading, error } = useSelector((state) => state.news)
 
    const showFilteringHandler = () => {}
 
@@ -28,7 +29,7 @@ export const MainPage = () => {
                />
             </Flex>
             <Filter />
-            <NewsList />
+            <NewsList newsList={newslist} isLoading={isLoading} error={error} />
          </MainPages>
       </Container>
    )

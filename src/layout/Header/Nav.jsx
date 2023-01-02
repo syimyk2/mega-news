@@ -37,7 +37,7 @@ export const Nav = ({ isSwitched }) => {
          <HeadPopUp actions={actions} onClose={closePopUpHandler} />
          <GlobalStyle />
          <NavStyled>
-            <LogoMega color={isSwitched && 'init'} />
+            <LogoMega color={isSwitched ? 'init' : 'light'} />
             <HeaderActions isSwitched={isSwitched}>
                <SearchBar actions={actions} />
                <NavSearch onClick={showSearchBarHandler} fontSize={29} />
