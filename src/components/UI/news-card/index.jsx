@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { Flex } from '../../../styles/styles-for-positions/style'
 import media from '../../../utils/helpers/media'
 import { CheckboxHeart } from '../CheckboxHeart'
@@ -8,7 +9,7 @@ import { Paragraph } from '../typography/Paragraph'
 import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
 import initphoto from '../../../assets/images/photo.png'
-// import { ROUTES } from '../../../utils/constants/routes-data'
+import { setLikeNews } from '../../../store/newsSlice'
 
 export const NewsCard = ({ content }) => {
    const {
@@ -18,7 +19,11 @@ export const NewsCard = ({ content }) => {
       title,
       short_desc: shortDescription,
    } = content
-
+   const dispatch = useDispatch()
+   const setLikeHandler = (postId) => {
+      alert('liked')
+      dispatch(setLikeNews({ post: postId }))
+   }
    return (
       <CardWrapper>
          <ImgContainer>
@@ -27,7 +32,10 @@ export const NewsCard = ({ content }) => {
          <SubDescriptionContainer>
             <Flex justify="space-between" align="center">
                <StyledNewsData>29.11.2022</StyledNewsData>
-               <CheckboxHeart checked={isLiked} id={toString(id)} />
+               <CheckboxHeart
+                  onChange={() => !isLiked && setLikeHandler(id)}
+                  checked={isLiked}
+               />
             </Flex>
             <Title align="start" size="24px" weight="500px">
                {title}
