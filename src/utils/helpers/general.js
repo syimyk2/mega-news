@@ -1,4 +1,6 @@
+import { BASE_URL } from '../../api'
 import { KEY_AUTH } from '../constants/general'
+import initphoto from '../../assets/images/photo.png'
 
 /* eslint-disable no-alert */
 // session storage helpers
@@ -23,4 +25,8 @@ export const removeWithKeyFromSessionStorage = (key) => {
 export const logOut = () => {
    removeWithKeyFromSessionStorage(KEY_AUTH)
    window.location.reload()
+}
+
+export const getImageUrl = (imgPath) => {
+   return imgPath ? `${BASE_URL}${imgPath}` : initphoto
 }

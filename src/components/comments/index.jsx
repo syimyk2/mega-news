@@ -8,7 +8,7 @@ import { Input } from '../UI/Input'
 import { Title } from '../UI/typography/Title'
 import { Comment } from './Comment'
 
-export const Comments = ({ content }) => {
+export const Comments = ({ comments }) => {
    const commentRef = useRef()
    const dispatch = useDispatch()
    const answerToCommentHandler = () => {
@@ -17,7 +17,7 @@ export const Comments = ({ content }) => {
    return (
       <CommentsContainer>
          <Title size="24px">Комментарии</Title>
-         {[...content].map((comment) => (
+         {comments?.map((comment) => (
             <Comment comment={comment} key={comment.id} />
          ))}
          <CommentForm onSubmit={answerToCommentHandler}>

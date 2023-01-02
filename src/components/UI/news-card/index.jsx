@@ -8,12 +8,12 @@ import { CheckboxHeart } from '../CheckboxHeart'
 import { Paragraph } from '../typography/Paragraph'
 import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
-import initphoto from '../../../assets/images/photo.png'
 import { setLikeNews } from '../../../store/newsSlice'
+import { getImageUrl } from '../../../utils/helpers/general'
 
 export const NewsCard = ({ content }) => {
    const {
-      img,
+      image,
       is_liked: isLiked,
       id,
       title,
@@ -24,10 +24,11 @@ export const NewsCard = ({ content }) => {
       alert('liked')
       dispatch(setLikeNews({ post: postId }))
    }
+
    return (
       <CardWrapper>
          <ImgContainer>
-            <img src={img || initphoto} alt={img} />
+            <img src={getImageUrl(image)} alt="news_photo" />
          </ImgContainer>
          <SubDescriptionContainer>
             <Flex justify="space-between" align="center">
@@ -80,13 +81,13 @@ const SubDescriptionContainer = styled(Flex)`
      gap: 8px;
   `}
 `
-const StyledNewsData = styled.span`
+export const StyledNewsData = styled.span`
    font-family: 'Ubuntu';
    font-weight: 400;
    font-size: 16px;
    color: #858080;
 `
-const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)`
    font-family: 'Ubuntu';
    font-style: normal;
    font-weight: 500;

@@ -9,23 +9,14 @@ import { CheckboxHeart } from '../../components/UI/CheckboxHeart'
 import { Paragraph } from '../../components/UI/typography/Paragraph'
 import { Title } from '../../components/UI/typography/Title'
 import { ShareLink } from '../../components/UI/news-card/ShareLink'
-import initphoto from '../../assets/images/photo.png'
 import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left.svg'
 import { getNewsDetail } from '../../store/newsSlice'
 import Loader from '../../components/UI/loader'
 import { Comments } from '../../components/comments'
-
-const obj = {
-   id: 168,
-   tag: 'art',
-   title: 'shrek',
-   text: 'short_descshort_descshort_descshort_desc short_descshort_desc  vshort_descshort_descshort_descshort_descshort_desc',
-   img: '/media/post_image/download_Vbz9r8E.jpeg',
-   is_liked: true,
-   short_desc:
-      'short_descshort_descshort_descshort_descshort_descshort_descshort_descshort_desc',
-   comment: [],
-}
+import {
+   getImageUrl,
+   removeWithKeyFromSessionStorage,
+} from '../../utils/helpers/general'
 
 export const NewsDetail = () => {
    const navigate = useNavigate()
@@ -34,19 +25,11 @@ export const NewsDetail = () => {
 
    const { newsId } = useParams()
 
-   // const {
-   //    image,
-   //    is_liked: isLiked,
-   //    id,
-   //    title,
-   //     comment,
-   //    short_desc: shortDescription,
-   // } = content
-
    useEffect(() => {
+      removeWithKeyFromSessionStorage('_NEWS_DETAIL_KEY')
       dispatch(getNewsDetail(newsId))
-   }, [])
-   console.log(isLoading, '/', newsDetail)
+   }, [newsId, useParams])
+   console.log(isLoading, newsDetail)
 
    return isLoading ? (
       <Loader />
@@ -69,18 +52,15 @@ export const NewsDetail = () => {
                   <Paragraph>{newsDetail?.short_desc}</Paragraph>
                   <ImgContainer>
                      <img
-                        src={newsDetail?.image || initphoto}
-                        alt="news_photo"
+                        src={getImageUrl(newsDetail?.image)}
+                        alt="news_detail_photo"
                      />
                   </ImgContainer>
                   <Paragraph>{newsDetail?.text}</Paragraph>
-                  <StyledLink href="/news-detail">
-                     Читать дальше&gt;&gt;
-                  </StyledLink>
                   <ShareLink />
                </Flex>
             </SubDescriptionContainer>
-            <Comments content={newsDetail?.comment} />
+            <Comments comments={newsDetail?.comment} />
          </CardWrapper>
       </NewsDetailContainer>
    )

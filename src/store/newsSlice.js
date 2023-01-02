@@ -7,15 +7,6 @@ import {
    saveToSessionStorage,
 } from '../utils/helpers/general'
 
-const initialState = {
-   newslist: getDataFromSessionStorage(NEWS_DATA_KEY) || [],
-   newsDetail: getDataFromSessionStorage('_NEWS_DETAIL_KEY') || {},
-   favoriteNews: getDataFromSessionStorage('_FAVORITE_NEWS_KEY') || [],
-   status: '',
-   isLoading: false,
-   error: null,
-}
-
 export const getNewsList = createAsyncThunk(
    'news/getNewsList',
    async (_, { rejectWithValue }) => {
@@ -113,6 +104,15 @@ const setRejected = (state, { error }) => {
    state.isLoading = false
 }
 
+const initialState = {
+   newslist: getDataFromSessionStorage(NEWS_DATA_KEY) || [],
+   newsDetail: getDataFromSessionStorage('_NEWS_DETAIL_KEY') || {},
+   favoriteNews: getDataFromSessionStorage('_FAVORITE_NEWS_KEY') || [],
+   status: '',
+   isLoading: false,
+   error: null,
+}
+
 const newsSlice = createSlice({
    name: 'news',
    initialState,
@@ -124,7 +124,7 @@ const newsSlice = createSlice({
          state.error = null
          state.isLoading = false
          state.newslist = payload
-         console.log(payload)
+         console.log('newslist', payload)
       },
       [getNewsList.rejected]: setRejected,
 

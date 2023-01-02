@@ -1,29 +1,39 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Flex } from '../../styles/styles-for-positions/style'
+import { StyledLink, StyledNewsData } from '../UI/news-card'
 import { Paragraph } from '../UI/typography/Paragraph'
 import { Title } from '../UI/typography/Title'
+import { CommentForm } from './CommentForm'
 
 export const Comment = ({ comment }) => {
-   //    const {} = comment
+   const [commentField, setCommentField] = useState(true)
+   const { text, user, id, child } = comment
+   console.log(comment)
+
+   const showAnswerToComment = () => {}
+
+   const commentHandler = (comments) => {
+      console.log(comments)
+   }
    return (
       <CommentContainer>
-         <Title>Oleg Petrov</Title>
-         <Paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            vulputate libero et velit interdum, ac aliquet odio mattis. Class
-            aptent taciti sociosqu ad litora torquent per conubia nostra, per
-            inceptos himenaeos.
-         </Paragraph>
-         <Flex>
-            <span>30.11.22</span>
-            <span>Ответить</span>
+         <Title>{`${user.name} ${user.last_name}`}</Title>
+         <Paragraph>{text}</Paragraph>
+         <Flex gap="30px">
+            <StyledNewsData>30.11.22</StyledNewsData>
+            <StyledLink onClick={() => showAnswerToComment()}>
+               Ответить
+            </StyledLink>
          </Flex>
+         <CommentForm onSubmitComment={commentHandler} />
       </CommentContainer>
    )
 }
 
 const CommentContainer = styled(Flex)`
-   align-items: center;
+   /* align-items: center; */
+   flex-direction: column;
+   gap: 15px;
 `
