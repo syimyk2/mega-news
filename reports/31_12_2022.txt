@@ -1,0 +1,9 @@
+yesterday:
+- started favorite news page layout
+
+today: 
+- connect favorite news 
+- add adaptive 
+
+problems:
+-
