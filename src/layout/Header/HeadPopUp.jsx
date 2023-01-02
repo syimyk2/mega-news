@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { PopUp } from '../../components/UI/popup/PopUp'
 import { Title } from '../../components/UI/typography/Title'
 import { Flex } from '../../styles/styles-for-positions/style'
+import { logOut } from '../../utils/helpers/general'
 
 export const HeadPopUp = ({ actions, onClose }) => {
    const navigate = useNavigate()
@@ -17,8 +18,7 @@ export const HeadPopUp = ({ actions, onClose }) => {
       navigate('/my-profile')
    }
    const logOutHandler = () => {
-      // here must be logout logic or some dispatch
-      alert('here must be logout logic or some dispatch')
+      logOut()
    }
    return (
       <>
