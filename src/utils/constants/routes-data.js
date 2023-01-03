@@ -19,4 +19,8 @@ export const ROUTES = {
       path: '/favorite-posts',
       label: 'Favorite News',
    },
+   profile: {
+      path: '/my-profile',
+      label: 'My Profil',
+   },
 }

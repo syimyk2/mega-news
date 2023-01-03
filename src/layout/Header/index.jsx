@@ -12,7 +12,9 @@ import { ROUTES } from '../../utils/constants/routes-data'
 export const Header = () => {
    const location = useLocation()
 
-   const isSwitched = location.pathname === ROUTES.favoriteNews.path
+   const isSwitched =
+      location.pathname === ROUTES.favoriteNews.path ||
+      location.pathname === ROUTES.profile.path
 
    return (
       <HeaderStyled
