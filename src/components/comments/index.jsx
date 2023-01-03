@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { addCommentRequest } from '../../store/newsSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
+import media from '../../utils/helpers/media'
 import { Title } from '../UI/typography/Title'
 import { Comment } from './Comment'
 import { CommentForm } from './CommentForm'
@@ -34,4 +35,21 @@ const CommentsContainer = styled(Flex)`
    flex-direction: column;
    width: 90%;
    gap: 40px;
+
+   ${media.mobile`
+      padding: 20px 5px 5px ;
+      gap: 20px;
+      width: 100%;
+      h4 {
+         text-align: start;
+      }
+  `}
+   ${media.tablet`
+      padding: 20px 5px 10px ;
+      gap: 20px;
+      width: 100%;
+      h4 {
+         text-align: start;
+      }
+  `}
 `

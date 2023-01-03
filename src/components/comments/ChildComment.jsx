@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Flex } from '../../styles/styles-for-positions/style'
+import media from '../../utils/helpers/media'
 import { StyledNewsData } from '../UI/news-card'
 import { Paragraph } from '../UI/typography/Paragraph'
 import { Title } from '../UI/typography/Title'
@@ -23,4 +24,7 @@ const CommentContainer = styled(Flex)`
    flex-direction: column;
    gap: 15px;
    margin-left: 50px;
+   ${media.mobile`
+    margin-left: 20px
+   `}
 `

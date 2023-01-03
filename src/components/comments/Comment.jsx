@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { useMediaQuery } from 'react-responsive'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
@@ -13,6 +14,7 @@ import { CommentForm } from './CommentForm'
 export const Comment = ({ comment, postId }) => {
    const dispatch = useDispatch()
    const [childCommentField, setCommentField] = useState(false)
+   const isMobile = useMediaQuery({ query: `(max-width: 435px)` })
    const { text, user, id, child } = comment
 
    const replayToCommentHandler = (commentData) => {
@@ -30,15 +32,17 @@ export const Comment = ({ comment, postId }) => {
             </StyledLink>
          </Flex>
          {child?.map((child) => (
-            <ChildComment child={child} />
+            <ChildComment child={child} key={child.id} />
          ))}
-         {childCommentField ? (
-            <CommentForm
-               onSubmitComment={replayToCommentHandler}
-               commentId={id}
-               postId={postId}
-            />
-         ) : null}
+         <Flex marginLeft={isMobile ? '20px' : '50px'}>
+            {childCommentField ? (
+               <CommentForm
+                  onSubmitComment={replayToCommentHandler}
+                  commentId={id}
+                  postId={postId}
+               />
+            ) : null}
+         </Flex>
       </CommentContainer>
    )
 }

@@ -9,6 +9,7 @@ export const Flex = styled.div`
    flex-wrap: ${(props) => props.wrap || 'nowrap'};
    gap: ${(props) => props.gap || '0px'};
    margin: ${({ margin }) => margin || '0'};
+   margin-left: ${({ marginLeft }) => marginLeft || '0'};
    height: ${({ height }) => height || ''};
    max-width: ${({ maxWidth }) => maxWidth || ''};
 `

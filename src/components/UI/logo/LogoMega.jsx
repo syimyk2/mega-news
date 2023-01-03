@@ -24,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
     .logo{
         cursor: pointer;
         width: ${({ size }) => size || '129px'};
+        min-width: 120px;
         height: 29px;
         ${media.tablet`
         width:98px;

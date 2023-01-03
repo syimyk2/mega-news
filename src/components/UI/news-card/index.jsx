@@ -66,6 +66,10 @@ const ImgContainer = styled.div`
    img {
       width: 255px;
       height: 211px;
+      aspect-ratio: 2/1;
+      object-fit: cover;
+      object-position: top center;
+
       ${media.mobile`
       width: 317px;
       height: 262px;

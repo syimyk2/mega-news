@@ -69,6 +69,7 @@ const ArrowIconStyled = styled(ArrowLeftIcon)`
    cursor: pointer;
    width: 41px;
    height: 30px;
+
    :hover {
       path {
          stroke: #7e5bc2;
@@ -95,15 +96,14 @@ const NewsDetailContainer = styled.div`
    padding: 210px 0px 30px;
    `}
    p,
-   h1,
-   h4 {
+   h1 {
       word-break: break-all;
    }
 `
 
 const CardWrapper = styled(Flex)`
    gap: 24px;
-   padding: 16px 0 16px;
+   padding: 16px 5px 16px;
    flex-direction: column;
    align-items: flex-start;
    margin: 0 auto;
@@ -116,23 +116,32 @@ const CardWrapper = styled(Flex)`
   `}
 `
 const ImgContainer = styled.div`
-   display: flex;
-   align-items: center;
+   /* display: flex;
+   align-items: center; */
    img {
       width: 845px;
       height: 555px;
+      max-inline-size: 100%;
+      block-size: auto;
+      aspect-ratio: 2/1;
+      object-fit: cover;
+      object-position: top center;
+   }
 
-      ${media.mobile`
-      height: 262px;
-      width: 317px;
+   ${media.mobile`
+      img {
+         height: 262px;
+         width: 317px;
+      }
        `}
 
-      ${media.tablet`
-      width: 645px;
-      height: 355px;
-      margin: 0 auto;
+   ${media.tablet`
+      img {
+          width: 645px;
+         height: 355px;
+      }
+     
      `}
-   }
 `
 const SubDescriptionContainer = styled(Flex)`
    flex-direction: column;
