@@ -29,7 +29,6 @@ export const NewsDetail = () => {
       removeWithKeyFromSessionStorage('_NEWS_DETAIL_KEY')
       dispatch(getNewsDetail(newsId))
    }, [newsId, useParams])
-   console.log(isLoading, newsDetail)
 
    return isLoading ? (
       <Loader />
@@ -60,7 +59,7 @@ export const NewsDetail = () => {
                   <ShareLink />
                </Flex>
             </SubDescriptionContainer>
-            <Comments comments={newsDetail?.comment} />
+            <Comments comments={newsDetail?.comment} postId={newsDetail?.id} />
          </CardWrapper>
       </NewsDetailContainer>
    )

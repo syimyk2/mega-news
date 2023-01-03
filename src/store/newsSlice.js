@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi } from '../api'
@@ -74,22 +75,35 @@ export const getFavoriteNews = createAsyncThunk(
 export const setLikeNews = createAsyncThunk(
    'news/setLikeNews',
    async (postId, { rejectWithValue }) => {
-      // const newsData = getDataFromSessionStorage('_FAVORITE_NEWS_KEY')
-      // if (!newsData) {
       try {
          const result = await fetchApi({
             method: 'POST',
             path: `like/`,
             body: postId,
          })
-         // saveToSessionStorage('_FAVORITE_NEWS_KEY', result)
+
          return result
       } catch (error) {
          rejectWithValue(error)
       }
-      // } else {
-      //    return newsData
-      // }
+   }
+)
+
+// comment requests
+export const addCommentRequest = createAsyncThunk(
+   'news/addCommentRequest',
+   async (commentData, { rejectWithValue, dispatch }) => {
+      try {
+         const result = await fetchApi({
+            method: 'POST',
+            path: `comment/`,
+            body: commentData,
+         })
+         dispatch(getNewsDetail(commentData.postId))
+         return result
+      } catch (error) {
+         rejectWithValue(error)
+      }
    }
 )
 

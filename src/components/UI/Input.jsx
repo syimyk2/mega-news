@@ -42,10 +42,10 @@ const TextArea = styled.textarea`
    resize: none;
    /* ::placeholder {
       color: #d0d2d3;
-   } */
+   }
    :active {
       border: 1px solid #7e5bc2;
-   }
+   } */
    :focus {
    }
    :disabled,
@@ -68,11 +68,11 @@ const InputStyled = styled.input`
    outline: none;
    transition: 0.2s;
    ::placeholder {
-      color: #000000;
+      color: #858080;
    }
-   /* :active {
-      border: 1px solid #b6b4b3;
-   } */
+   :active {
+      border: 1px solid #7e5bc2;
+   }
    :focus {
       border-color: transparent;
       box-shadow: ${({ isValid }) =>
