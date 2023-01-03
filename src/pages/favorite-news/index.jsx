@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { NewsList } from '../../components/news-list'
 import { Title } from '../../components/UI/typography/Title'
+import { getFavoriteNews } from '../../store/newsSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
 
@@ -12,13 +13,17 @@ export const FavoriteNews = () => {
    const { favoriteNews, isLoading, error } = useSelector((state) => state.news)
 
    useEffect(() => {
-      // dispatch(getFavoriteNews())
+      dispatch(getFavoriteNews())
    }, [])
 
    return (
       <FavoriteNewsContainer>
          <Title size="48px">Избранные новости</Title>
-         <NewsList newsList={(favoriteNews, isLoading, error)} />
+         <NewsList
+            newsList={favoriteNews}
+            isLoading={isLoading}
+            error={error}
+         />
       </FavoriteNewsContainer>
    )
 }

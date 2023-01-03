@@ -12,10 +12,12 @@ export const HeadPopUp = ({ actions, onClose }) => {
 
    const goToFavoritePosts = () => {
       navigate('/favorite-posts')
+      onClose()
    }
 
    const goToProfileHandler = () => {
       navigate('/my-profile')
+      onClose()
    }
    const logOutHandler = () => {
       logOut()
