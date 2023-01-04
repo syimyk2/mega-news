@@ -1,0 +1,11 @@
+yesterday:
+- added myPublics component 
+- added creating myPublics component
+- added adaptive in profile layout
+- added modal to ui
+today: 
+- work with profileInfo component 
+- add functonality to profilInfo
+- connect with server
+problems:
+-
