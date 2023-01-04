@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { MyPosts } from '../../components/profil/MyPosts'
 import { ProfileInfo } from '../../components/profil/ProfileInfo'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
@@ -8,6 +9,7 @@ export const Profile = () => {
    return (
       <ProfilContainer>
          <ProfileInfo />
+         <MyPosts />
       </ProfilContainer>
    )
 }

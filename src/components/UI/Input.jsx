@@ -28,7 +28,7 @@ export const Input = forwardRef((props, ref) => {
 
 const TextArea = styled.textarea`
    width: ${({ width }) => width || '100%'};
-   padding: 7px 12px;
+   padding: 30px 12px;
    border: 1px solid #e4dfdc;
    border-radius: 10px;
    letter-spacing: 0.6px;
@@ -38,7 +38,7 @@ const TextArea = styled.textarea`
    font-weight: 400;
    outline: none;
    transition: 0.2s;
-   background-color: #c8ced5;
+   /* background-color: #c8ced5; */
    resize: none;
    /* ::placeholder {
       color: #d0d2d3;

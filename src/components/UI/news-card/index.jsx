@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -10,8 +11,9 @@ import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
 import { setLikeNews } from '../../../store/newsSlice'
 import { getImageUrl } from '../../../utils/helpers/general'
+import { ReactComponent as Trash } from '../../../assets/icons/trash-2.svg'
 
-export const NewsCard = ({ content }) => {
+export const NewsCard = ({ content, isMyPublics }) => {
    const {
       image,
       is_liked: isLiked,
@@ -19,10 +21,15 @@ export const NewsCard = ({ content }) => {
       title,
       short_desc: shortDescription,
    } = content
+
    const dispatch = useDispatch()
+
    const setLikeHandler = (postId) => {
-      alert('liked')
       dispatch(setLikeNews({ post: postId }))
+   }
+
+   const removePublicHandler = (publicId) => {
+      // console.log(publicId)
    }
 
    return (
@@ -33,10 +40,14 @@ export const NewsCard = ({ content }) => {
          <SubDescriptionContainer>
             <Flex justify="space-between" align="center">
                <StyledNewsData>29.11.2022</StyledNewsData>
-               <CheckboxHeart
-                  onChange={() => !isLiked && setLikeHandler(id)}
-                  checked={isLiked}
-               />
+               {isMyPublics ? (
+                  <StyledTrash onClick={removePublicHandler(id)} />
+               ) : (
+                  <CheckboxHeart
+                     onChange={() => !isLiked && setLikeHandler(id)}
+                     checked={isLiked}
+                  />
+               )}
             </Flex>
             <Title align="start" size="24px" weight="500px">
                {title}
@@ -50,6 +61,12 @@ export const NewsCard = ({ content }) => {
       </CardWrapper>
    )
 }
+
+const StyledTrash = styled(Trash)`
+   cursor: pointer;
+   width: 25px;
+   height: 25px;
+`
 const CardWrapper = styled(Flex)`
    gap: 40px;
    padding: 16px 0 16px;
