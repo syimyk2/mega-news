@@ -1,0 +1,11 @@
+yesterday:
+- added comment with server and added child comment
+- added adaptive in comments
+- CREATEed MY PROFILE/ PROFILE info
+- fixed bugs 
+today: 
+- finish profile layout 
+- add adaptive in profile layout
+- connect with server
+problems:
+-
