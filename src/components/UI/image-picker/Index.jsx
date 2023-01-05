@@ -1,18 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
-import { BsPlusCircleFill } from 'react-icons/bs'
 import { Flex } from '../../../styles/styles-for-positions/style'
+import { ReactComponent as EmptyAvatar } from '../../../assets/images/empty-avatar-img.svg'
+import { ReactComponent as DownloadIcon } from '../../../assets/icons/download.svg'
+import { ReactComponent as DeleteIcon } from '../../../assets/icons/trash-2.svg'
 
 const ImagePicker = React.forwardRef(
    ({ onDrop, file = {}, deleteHandler, ...props }, ref) => {
       return (
          <Wrapper disabled={props.disabled} align="center" gap="16px">
-            <Flex gap="5px" wrap="wrap">
+            <Flex wrap="wrap" gap="14px" justify="center">
                {(!file && (
-                  <ProfileImage htmlFor="img">
-                     <PlusProfileImage>
-                        <BsPlusCircleFill size={30} />
-                     </PlusProfileImage>
+                  <Flex direction="column">
+                     <ProfileImage>
+                        <EmptyAvatar />
+                     </ProfileImage>
+                  </Flex>
+               )) || (
+                  <GroupImg>
+                     <Image src={file} />
+                     <DeleteBtn type="button" onClick={() => deleteHandler()}>
+                        DELETE
+                     </DeleteBtn>
+                  </GroupImg>
+               )}
+               <PlusProfileImage>
+                  <Flex htmlFor="img">
+                     <p>Добавить фото</p>
                      <input
                         onChange={onDrop}
                         id="img"
@@ -22,16 +36,13 @@ const ImagePicker = React.forwardRef(
                         type="file"
                         name="image"
                      />
-                     Upload your photo
-                  </ProfileImage>
-               )) || (
-                  <GroupImg>
-                     <Image src={file} />
-                     <DeleteBtn type="button" onClick={() => deleteHandler()}>
-                        DELETE
-                     </DeleteBtn>
-                  </GroupImg>
-               )}
+                     <DownloadIcon />
+                  </Flex>
+                  <Flex role="button" onClick={() => deleteHandler()}>
+                     <p>Удалить</p>
+                     <DeleteIcon />
+                  </Flex>
+               </PlusProfileImage>
             </Flex>
          </Wrapper>
       )
@@ -62,8 +73,8 @@ const DeleteBtn = styled.button`
    }
 `
 const GroupImg = styled.div`
-   width: 116px;
-   height: 116px;
+   width: 199px;
+   height: 199px;
    overflow: hidden;
    border-radius: 50%;
    position: relative;
@@ -83,37 +94,52 @@ const Image = styled.img`
 `
 
 const PlusProfileImage = styled.div`
-   position: absolute;
-   right: -5px;
-   bottom: 5px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 14px;
+   font-family: 'Ubuntu';
+   cursor: pointer;
+   gap: 9px;
+
+   div {
+      gap: 5px;
+   }
+   svg {
+      width: 16px;
+      height: 16px;
+   }
    @media (max-width: 425px) {
       right: -10px;
       bottom: -3px;
    }
+   input {
+      opacity: 0;
+      position: absolute;
+      width: 109px;
+   }
 `
 const ProfileImage = styled.label`
    box-sizing: border-box;
+   display: flex;
+   align-items: center;
+   justify-content: center;
    padding: 10px;
-   width: 116px;
-   height: 116px;
+   width: 199px;
+   height: 199px;
    border-radius: 100%;
-   background: rgba(103, 144, 248, 0.3);
-   border: 2px dashed #6790f8;
+   background: #e8e8e8;
    font-family: var(--base-font);
    font-size: 12px;
    text-align: center;
    letter-spacing: -0.01em;
-   color: #5932ea;
+   color: grey;
    display: flex;
    align-items: center;
    cursor: pointer;
    position: relative;
    :hover {
       opacity: 0.8;
-   }
-   input {
-      opacity: 0;
-      position: absolute;
    }
    @media (max-width: 425px) {
       width: 80px !important;

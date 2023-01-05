@@ -12,6 +12,7 @@ export const Flex = styled.div`
    margin-left: ${({ marginLeft }) => marginLeft || '0'};
    height: ${({ height }) => height || ''};
    max-width: ${({ maxWidth }) => maxWidth || ''};
+   min-width: ${({ minWidth }) => minWidth || ''};
 `
 export const Centered = styled.div`
    position: absolute;

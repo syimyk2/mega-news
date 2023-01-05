@@ -119,10 +119,10 @@ const GlobalStyle = createGlobalStyle`
         color: #FFFFFF;
         transition: 0.1s;
         :hover{
-           color:#FF4B4B;
+           color:#bd4bff;
         }
     }
     a.active{
-           color:#FF4B4B;
+           color:#4b4eff;
         }
 `

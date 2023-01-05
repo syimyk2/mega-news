@@ -5,26 +5,48 @@ import styled from 'styled-components'
 import { useMediaQuery } from 'react-responsive'
 import ImagePicker from '../UI/image-picker/Index'
 import { Flex } from '../../styles/styles-for-positions/style'
-import { Input } from '../UI/Input'
-import { InputWrapper } from '../login/SignUp'
 import { Button } from '../UI/Button'
 import { Title } from '../UI/typography/Title'
+import { ReactComponent as Edit } from '../../assets/icons/edit.svg'
+import { BASE_URL } from '../../api'
 
+const changeInputHandler = ({ target: { value, name } }, setData, data) => {
+   if (name === 'location') setData({ ...data, [name]: { id: value } })
+   else setData({ ...data, [name]: value })
+}
+const inputEnableState = {
+   name: false,
+   lastName: false,
+   nickname: false,
+}
 export const ProfileForm = ({ onGetData, profile }) => {
    const isMobile = useMediaQuery({ query: `(max-width: 450x)` })
-   const [errorPhoto, setErrorPhoto] = useState(false)
+   const [errorPhoto, setErrorPhoto] = useState(inputEnableState)
+   const [enableInput, setEnableInput] = useState(false)
    const [selectedImages, setImages] = useState({ image: null, file: null })
    const [data, setData] = useState(null)
 
    const onDrop = ({ target }) => {
       const fileData = target.files
+      const img = URL.createObjectURL(fileData[0])
+      setImages({ image: img, file: fileData[0] })
+      setErrorPhoto(false)
+   }
 
-      if (fileData[0].size / 1000 < 5000) {
-         const img = URL.createObjectURL(fileData[0])
-         setImages({ image: img, file: fileData[0] })
-         setErrorPhoto(false)
-      } else {
-         setErrorPhoto(true)
+   const enableInputToEditHandler = (key) => {
+      switch (key) {
+         case 'name':
+            setEnableInput({ ...inputEnableState, name: true })
+            break
+         case 'lastName':
+            setEnableInput({ ...inputEnableState, lastName: true })
+            break
+         case 'nickname':
+            setEnableInput({ ...inputEnableState, nickname: true })
+            break
+         default:
+            setEnableInput(inputEnableState)
+            break
       }
    }
 
@@ -35,13 +57,8 @@ export const ProfileForm = ({ onGetData, profile }) => {
 
    const deleteImageHandler = () => setImages({ image: null, file: null })
 
-   const changeInputHandler = ({ target: { value, name } }, setData, data) => {
-      if (name === 'location') setData({ ...data, [name]: { id: value } })
-      else setData({ ...data, [name]: value })
-   }
-
    useEffect(() => {
-      setImages({ image: profile?.photo?.urlPath || null })
+      setImages({ image: `${BASE_URL}${profile?.profile_image}` || null })
       setData({
          name: profile?.name,
          last_name: profile?.last_name,
@@ -59,7 +76,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
    }, [errorPhoto])
 
    return (
-      <>
+      <Flex direction="column">
          {errorPhoto && (
             <Alert severity="error">photo size must be less than 5MB</Alert>
          )}
@@ -69,7 +86,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
                onDrop={onDrop}
                file={selectedImages.image}
             />
-            <Flex direction="column" gap="20px" width="320px">
+            <Flex direction="column" gap="20px" minWidth="320px">
                <InputWrapper>
                   <label htmlFor="nickname">Фамилия</label>
                   <Input
@@ -77,7 +94,13 @@ export const ProfileForm = ({ onGetData, profile }) => {
                      width="231px"
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="last_name"
+                     autoFocus
                      required
+                     disabled={!enableInput.lastName}
+                     onBlur={() => enableInputToEditHandler('')}
+                  />
+                  <StyledEditIcon
+                     onClick={() => enableInputToEditHandler('lastName')}
                   />
                </InputWrapper>
                <InputWrapper>
@@ -88,6 +111,11 @@ export const ProfileForm = ({ onGetData, profile }) => {
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="name"
                      required
+                     disabled={!enableInput.name}
+                     onBlur={() => enableInputToEditHandler('')}
+                  />
+                  <StyledEditIcon
+                     onClick={() => enableInputToEditHandler('name')}
                   />
                </InputWrapper>
                <InputWrapper>
@@ -98,29 +126,55 @@ export const ProfileForm = ({ onGetData, profile }) => {
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="nickname"
                      required
+                     disabled={!enableInput.nickname}
+                     onBlur={() => enableInputToEditHandler('')}
+                  />
+                  <StyledEditIcon
+                     onClick={() => enableInputToEditHandler('nickname')}
                   />
                </InputWrapper>
                <ButtonWrapper>
-                  <Button>
-                     <Title size="14px">Сохранить</Title>
-                  </Button>
+                  <Button>Сохранить</Button>
                </ButtonWrapper>
             </Flex>
          </Form>
-      </>
+      </Flex>
    )
 }
+
+const StyledEditIcon = styled(Edit)`
+   cursor: pointer;
+   position: absolute;
+   top: 8px;
+   right: 10px;
+
+   :hover {
+      path {
+         stroke: #7e5bc2;
+      }
+   }
+`
+const InputWrapper = styled(Flex)`
+   justify-content: space-between;
+   align-items: center;
+   position: relative;
+`
 
 const ButtonWrapper = styled.div`
    display: flex;
    width: 100%;
    justify-content: end;
+   button {
+      font-size: 13px;
+   }
 `
 const Form = styled.form`
+   width: 100%;
    display: flex;
-   gap: 96px;
+   gap: 200px;
+   justify-content: space-between;
    align-items: center;
-   /* width: 100%; */
+
    animation: yes ease 0.4;
 
    label {
@@ -142,5 +196,37 @@ const Form = styled.form`
    @media (max-width: 720px) {
       width: 100%;
       border-radius: 10px;
+   }
+`
+const Input = styled.input`
+   width: ${({ width }) => width || '100%'};
+   padding: 7px 12px;
+   border: ${({ isValid }) =>
+      isValid ? '1px solid red' : '1px solid #7e5bc2'};
+   border-radius: 10px;
+   letter-spacing: 0.6px;
+   font-weight: bold;
+   font-size: 16px;
+   font-weight: 400;
+   outline: none;
+   transition: 0.2s;
+   background: '#ffffff';
+   ::placeholder {
+      color: #858080;
+   }
+   :active {
+      border: 1px solid #7e5bc2;
+   }
+   :focus {
+      border-color: transparent;
+      box-shadow: ${({ isValid }) =>
+         isValid ? '0 0 0 1px rgba(255, 8, 0, 0.5)' : '0 0 0 1px  #7e5bc2;'};
+   }
+   :disabled,
+   :disabled:active,
+   :disabled:hover {
+      opacity: 1;
+      background: #ffffff;
+      border: 1px solid #d9d9d9;
    }
 `

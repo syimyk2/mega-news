@@ -2,16 +2,13 @@
 /* eslint-disable import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi } from '../api/index'
-import { getDataFromSessionStorage, logOut } from '../utils/helpers/general'
+import {
+   getDataFromSessionStorage,
+   logOut,
+   saveToSessionStorage,
+} from '../utils/helpers/general'
 import { KEY_AUTH } from '../utils/constants/general'
 
-const initialState = {
-   isAuthorized: getDataFromSessionStorage(KEY_AUTH) || null,
-   token: getDataFromSessionStorage(KEY_AUTH) || null,
-   status: '',
-   isLoading: false,
-   error: null,
-}
 export const signUp = createAsyncThunk(
    'auth/signup',
    async (dataSignUp, { rejectWithValue }) => {
@@ -41,6 +38,43 @@ export const signIn = createAsyncThunk(
    }
 )
 
+export const getUserData = createAsyncThunk(
+   'auth/getUserData',
+   async (key, { rejectWithValue }) => {
+      const userData = getDataFromSessionStorage('_USER_DATA')
+      if (!userData && !key) {
+         try {
+            const result = await fetchApi({
+               method: 'GET',
+               path: 'user/',
+            })
+            saveToSessionStorage('_USER_DATA', result)
+            return result
+         } catch (error) {
+            rejectWithValue(error)
+         }
+      } else {
+         return userData
+      }
+   }
+)
+
+export const editUserData = createAsyncThunk(
+   'auth/editUserData',
+   async (newUserData, { rejectWithValue }) => {
+      try {
+         const result = await fetchApi({
+            method: 'PUT',
+            path: 'user/',
+            body: newUserData,
+         })
+         return result
+      } catch (error) {
+         rejectWithValue(error)
+      }
+   }
+)
+
 const setPending = (state) => {
    state.status = 'loading'
    state.isLoading = true
@@ -51,6 +85,16 @@ const setRejected = (state, { error }) => {
    state.error = error.message
    state.isLoading = false
 }
+
+const initialState = {
+   isAuthorized: getDataFromSessionStorage(KEY_AUTH) || null,
+   token: getDataFromSessionStorage(KEY_AUTH) || null,
+   user: getDataFromSessionStorage('_USER_DATA') || null,
+   status: '',
+   isLoading: false,
+   error: null,
+}
+
 const authSlice = createSlice({
    name: 'auth',
    initialState,
@@ -78,6 +122,15 @@ const authSlice = createSlice({
          state.error = null
          state.isLoading = false
       },
+      [getUserData.pending]: setPending,
+      [getUserData.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.user = payload
+         state.error = null
+         state.isLoading = false
+      },
+
+      [getUserData.rejected]: setRejected,
       [signUp.rejected]: setRejected,
       [signIn.rejected]: setRejected,
    },
