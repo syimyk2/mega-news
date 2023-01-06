@@ -1,0 +1,10 @@
+yesterday:
+- worked with profileInfo component 
+- added functonality to profilInfo
+- connected with server
+today: 
+- add adaptive in profile
+- add creating public modal 
+- add responsive to inputs
+problems:
+-
