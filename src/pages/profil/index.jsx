@@ -22,14 +22,14 @@ const ProfilContainer = styled(Flex)`
    background: #80808010;
 
    ${media.tablet`
-   padding: 150px 150px;
+   padding: 100px 10px;
    gap: 20px;
    h4 {
       font-size: 30px;
    }
    `}
    ${media.mobile`
-     padding: 150px 5px;
+     padding: 100px 5px;
      gap: 20px;
      h4 {
       font-size: 30px;

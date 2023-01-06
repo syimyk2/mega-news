@@ -9,7 +9,7 @@ const ImagePicker = React.forwardRef(
    ({ onDrop, file = {}, deleteHandler, ...props }, ref) => {
       return (
          <Wrapper disabled={props.disabled} align="center" gap="16px">
-            <Flex wrap="wrap" gap="14px" justify="center">
+            <Flex direction="column" gap="14px" justify="center">
                {(!file && (
                   <Flex direction="column">
                      <ProfileImage>
@@ -68,8 +68,8 @@ const DeleteBtn = styled.button`
    right: 0;
    bottom: 0;
    display: none;
-   @media (max-width: 425px) {
-      font-size: 10px;
+   @media (max-width: 450px) {
+      font-size: 12px;
    }
 `
 const GroupImg = styled.div`
@@ -82,9 +82,9 @@ const GroupImg = styled.div`
    :hover ${DeleteBtn} {
       display: block;
    }
-   @media (max-width: 425px) {
-      width: 80px;
-      height: 80px;
+   @media (max-width: 450px) {
+      width: 125px;
+      height: 125px;
    }
 `
 const Image = styled.img`
@@ -109,9 +109,10 @@ const PlusProfileImage = styled.div`
       width: 16px;
       height: 16px;
    }
-   @media (max-width: 425px) {
+   @media (max-width: 450px) {
       right: -10px;
       bottom: -3px;
+      flex-direction: column;
    }
    input {
       opacity: 0;
@@ -141,9 +142,9 @@ const ProfileImage = styled.label`
    :hover {
       opacity: 0.8;
    }
-   @media (max-width: 425px) {
-      width: 80px !important;
-      height: 80px !important;
+   @media (max-width: 450px) {
+      width: 125px !important;
+      height: 125px !important;
       font-size: 10px;
    }
 `

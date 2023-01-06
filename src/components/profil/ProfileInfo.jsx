@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { editUserData, getUserData } from '../../store/authSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
+import media from '../../utils/helpers/media'
 import { ProfileForm } from './ProfilForm'
 
 export const ProfileInfo = () => {
@@ -42,4 +43,9 @@ export const ProfileInfo = () => {
 const ProfileInfoConatainer = styled(Flex)`
    margin-bottom: 70px;
    width: 100%;
+
+   ${media.mobile`
+    margin-bottom: 40px;
+
+   `}
 `

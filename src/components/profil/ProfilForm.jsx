@@ -9,6 +9,7 @@ import { Button } from '../UI/Button'
 import { Title } from '../UI/typography/Title'
 import { ReactComponent as Edit } from '../../assets/icons/edit.svg'
 import { BASE_URL } from '../../api'
+import media from '../../utils/helpers/media'
 
 const changeInputHandler = ({ target: { value, name } }, setData, data) => {
    if (name === 'location') setData({ ...data, [name]: { id: value } })
@@ -20,7 +21,7 @@ const inputEnableState = {
    nickname: false,
 }
 export const ProfileForm = ({ onGetData, profile }) => {
-   const isMobile = useMediaQuery({ query: `(max-width: 450x)` })
+   const isMobile = useMediaQuery({ query: `(max-width: 450px)` })
    const [errorPhoto, setErrorPhoto] = useState(inputEnableState)
    const [enableInput, setEnableInput] = useState(false)
    const [selectedImages, setImages] = useState({ image: null, file: null })
@@ -76,7 +77,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
    }, [errorPhoto])
 
    return (
-      <Flex direction="column">
+      <Flex direction="column" width={isMobile && '100%'}>
          {errorPhoto && (
             <Alert severity="error">photo size must be less than 5MB</Alert>
          )}
@@ -86,12 +87,16 @@ export const ProfileForm = ({ onGetData, profile }) => {
                onDrop={onDrop}
                file={selectedImages.image}
             />
-            <Flex direction="column" gap="20px" minWidth="320px">
+            <Flex
+               direction="column"
+               gap="20px"
+               minWidth={isMobile ? '' : '320px'}
+               width={isMobile && '100%'}
+            >
                <InputWrapper>
                   <label htmlFor="nickname">Фамилия</label>
                   <Input
                      value={data?.last_name || ''}
-                     width="231px"
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="last_name"
                      autoFocus
@@ -107,7 +112,6 @@ export const ProfileForm = ({ onGetData, profile }) => {
                   <label htmlFor="nickname">Имя</label>
                   <Input
                      value={data?.name || ''}
-                     width="231px"
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="name"
                      required
@@ -122,7 +126,6 @@ export const ProfileForm = ({ onGetData, profile }) => {
                   <label htmlFor="nickname">Никнейм</label>
                   <Input
                      value={data?.nickname || ''}
-                     width="231px"
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="nickname"
                      required
@@ -153,11 +156,30 @@ const StyledEditIcon = styled(Edit)`
          stroke: #7e5bc2;
       }
    }
+   ${media.mobile`
+    top: 25px;
+    right: 10px;
+
+   `}
 `
 const InputWrapper = styled(Flex)`
    justify-content: space-between;
    align-items: center;
    position: relative;
+   input {
+      width: 231px;
+      ${media.mobile`
+     width: 100%;
+
+   `}
+   }
+
+   ${media.mobile`
+    flex-direction:  column;
+    align-items: flex-start;
+    justify-content: static;
+
+   `}
 `
 
 const ButtonWrapper = styled.div`
@@ -174,7 +196,6 @@ const Form = styled.form`
    gap: 200px;
    justify-content: space-between;
    align-items: center;
-
    animation: yes ease 0.4;
 
    label {
@@ -185,6 +206,16 @@ const Form = styled.form`
       line-height: 18px;
       color: #010101;
    }
+
+   ${media.tablet`
+     gap: 10px;
+
+   `}
+   @media (max-width: 450px) {
+      gap: 20px;
+      align-items: flex-start;
+   }
+
    @keyframes yes {
       from {
          opacity: 0;
@@ -192,10 +223,6 @@ const Form = styled.form`
       to {
          opacity: 1;
       }
-   }
-   @media (max-width: 720px) {
-      width: 100%;
-      border-radius: 10px;
    }
 `
 const Input = styled.input`
