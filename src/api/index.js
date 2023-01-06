@@ -5,7 +5,6 @@ export const BASE_URL = 'https://megalab.pythonanywhere.com'
 
 export const fetchApi = async (options) => {
    const { token } = store.getState().auth
-   console.log(token)
    try {
       let { path } = options
 

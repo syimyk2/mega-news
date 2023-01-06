@@ -28,7 +28,7 @@ export const Input = forwardRef((props, ref) => {
 
 const TextArea = styled.textarea`
    width: ${({ width }) => width || '100%'};
-   padding: 30px 12px;
+   padding: 12px 12px;
    border: 1px solid #e4dfdc;
    border-radius: 10px;
    letter-spacing: 0.6px;

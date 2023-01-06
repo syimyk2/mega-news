@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authSlice from './authSlice'
 import newsSlice from './newsSlice'
-import userProfileSlice from './userProfileSlice'
+import profileSlice from './profileSlice'
 
 const store = configureStore({
    reducer: {
       auth: authSlice.reducer,
       news: newsSlice.reducer,
-      userProfile: userProfileSlice.reducer,
+      profile: profileSlice.reducer,
    },
 })
 export default store

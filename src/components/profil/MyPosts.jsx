@@ -12,9 +12,15 @@ import media from '../../utils/helpers/media'
 import { PopUp } from '../UI/popup/PopUp'
 import Modal from '../UI/modal/Modal'
 import { AddPublicForm } from './AddPublicForm'
+import {
+   getMyPublicsRequest,
+   postMyPublicRequest,
+} from '../../store/profileSlice'
 
 export const MyPosts = () => {
-   const { newslist } = useSelector((state) => state.news)
+   const { myPublics, isLoading, status } = useSelector(
+      (state) => state.profile
+   )
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })
    const [isShowModal, setShowModal] = useState(false)
    const dispatch = useDispatch()
@@ -23,15 +29,23 @@ export const MyPosts = () => {
       setShowModal(true)
    }
 
-   //    useEffect(() => {
-   //       dispatch(getMyPublicsRequest(param))
-   //    }, [])
+   const submitMyPublicHandler = (publicData) => {
+      dispatch(postMyPublicRequest(publicData))
+      if (status === 'succes') {
+         setShowModal(false)
+      }
+   }
+
+   useEffect(() => {
+      dispatch(getMyPublicsRequest())
+   }, [])
 
    return (
       <Flex direction="column" gap="40px">
          <AddPublicForm
             isVisible={isShowModal}
             onClose={() => setShowModal(false)}
+            onGetData={submitMyPublicHandler}
          />
          <HeaderPublicWrapper>
             <Title size="45px">Мои публикации</Title>
@@ -40,9 +54,13 @@ export const MyPosts = () => {
             </StyledBtn>
          </HeaderPublicWrapper>
          <Flex direction="column">
-            {newslist.map((publicc) => (
-               <NewsCard key={publicc.id} content={publicc} isMyPublics />
-            ))}
+            {!isLoading ? (
+               myPublics?.map((publicc) => (
+                  <NewsCard key={publicc.id} content={publicc} isMyPublics />
+               ))
+            ) : (
+               <p>...Loading publics</p>
+            )}
          </Flex>
       </Flex>
    )
