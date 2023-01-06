@@ -1,7 +1,10 @@
 import { forwardRef } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 
 export const Input = forwardRef((props, ref) => {
+   const isMobile = useMediaQuery({ query: `(max-width: 450px)` })
+
    if (props.type === 'textarea') {
       return <TextArea {...props} ref={ref} type={null} />
    }
@@ -21,6 +24,7 @@ export const Input = forwardRef((props, ref) => {
          type={props.type || 'text'}
          autoComplete="off"
          ref={ref}
+         size={isMobile && 'small'}
          {...props}
       />
    )
@@ -28,13 +32,13 @@ export const Input = forwardRef((props, ref) => {
 
 const TextArea = styled.textarea`
    width: ${({ width }) => width || '100%'};
-   padding: 12px 12px;
+   padding: ${({ size }) => (size ? '10px 10px' : '12px 12px')};
    border: 1px solid #e4dfdc;
    border-radius: 10px;
    letter-spacing: 0.6px;
    font-family: 'Ubuntu';
    font-weight: bold;
-   font-size: 16px;
+   font-size: ${({ size }) => (size ? '12px' : '14px')};
    font-weight: 400;
    outline: none;
    transition: 0.2s;
@@ -57,13 +61,13 @@ const TextArea = styled.textarea`
 
 const InputStyled = styled.input`
    width: ${({ width }) => width || '100%'};
-   padding: 7px 12px;
+   padding: ${({ size }) => (size ? '5px 10px' : '7px 12px')};
    border: ${({ isValid }) =>
       isValid ? '1px solid red' : '1px solid #e4dfdc'};
    border-radius: 10px;
    letter-spacing: 0.6px;
    font-weight: bold;
-   font-size: 16px;
+   font-size: ${({ size }) => (size ? '12px' : '14px')};
    font-weight: 400;
    outline: none;
    transition: 0.2s;

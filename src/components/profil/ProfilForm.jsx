@@ -6,7 +6,6 @@ import { useMediaQuery } from 'react-responsive'
 import ImagePicker from '../UI/image-picker/Index'
 import { Flex } from '../../styles/styles-for-positions/style'
 import { Button } from '../UI/Button'
-import { Title } from '../UI/typography/Title'
 import { ReactComponent as Edit } from '../../assets/icons/edit.svg'
 import { BASE_URL } from '../../api'
 import media from '../../utils/helpers/media'
@@ -159,6 +158,7 @@ const StyledEditIcon = styled(Edit)`
    ${media.mobile`
     top: 25px;
     right: 10px;
+    width: 12px;
 
    `}
 `
@@ -255,5 +255,10 @@ const Input = styled.input`
       opacity: 1;
       background: #ffffff;
       border: 1px solid #d9d9d9;
+   }
+
+   @media (max-width: 450px) {
+      padding: 5px 10px;
+      font-size: 12px;
    }
 `
