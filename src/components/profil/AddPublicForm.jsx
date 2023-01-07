@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import { Flex } from '../../styles/styles-for-positions/style'
-import { InputsContainer, InputWrapper } from '../login/SignUp'
+import { InputsContainer } from '../login/SignUp'
 import { ReactComponent as DownloadIcon } from '../../assets/icons/download.svg'
 import { Button } from '../UI/Button'
 import { Input } from '../UI/Input'
@@ -52,23 +52,21 @@ export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
                </InputWrapper>
                <InputWrapper>
                   <label htmlFor="title">Заголовок</label>
-                  <Input
+                  <StyledInput
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="title"
-                     width="350px"
                   />
                </InputWrapper>
                <InputWrapper>
                   <label htmlFor="shortDesc">Краткое описание</label>
-                  <Input
+                  <StyledInput
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="short_desc"
-                     width="350px"
                   />
                </InputWrapper>
                <InputWrapper>
                   <label htmlFor="text">Текст новости</label>
-                  <Input
+                  <StyledInput
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="text"
                      width="350px"
@@ -79,10 +77,9 @@ export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
                </InputWrapper>
                <InputWrapper>
                   <label htmlFor="tag">Выбрать категорию</label>
-                  <Input
+                  <StyledInput
                      onChange={(e) => changeInputHandler(e, setData, data)}
                      name="tag"
-                     width="350px"
                   />
                </InputWrapper>
             </StyledInputConatainer>
@@ -121,5 +118,20 @@ const FileDownloader = styled(Flex)`
       height: 33px;
       border-radius: 5px;
       cursor: pointer;
+   }
+`
+const InputWrapper = styled(Flex)`
+   justify-content: space-between;
+   align-items: center;
+   @media (max-width: 450px) {
+      flex-direction: column;
+      align-items: flex-start;
+   }
+`
+const StyledInput = styled(Input)`
+   width: 350px;
+
+   @media (max-width: 450px) {
+      width: 100%;
    }
 `
