@@ -1,0 +1,9 @@
+yesterday:
+- added responsive to news creating modal
+- added responsive in login and sign up forms
+today: 
+- bug fix image download with server
+- bug fix cashing datas in session storage
+- refactor forms
+problems:
+-
