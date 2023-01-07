@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 import logo from '../../assets/images/mega-logo.svg'
 import { signIn } from '../../store/authSlice'
 import { KEY_AUTH } from '../../utils/constants/general'
 import { saveToSessionStorage } from '../../utils/helpers/general'
 import { Button } from '../UI/Button'
 import { Card } from '../UI/Card'
-import { Input } from '../UI/Input'
 import {
    InputWrapper,
    StyledForm,
@@ -17,6 +17,7 @@ import {
    Wrapper,
    InputsContainer,
    HelperText,
+   StyledInput,
 } from './SignUp'
 
 export const SignIn = () => {
@@ -50,13 +51,12 @@ export const SignIn = () => {
       <Card>
          <Wrapper>
             <StyledLogo src={logo} alt="logo" />
-            <StyledForm onSubmit={handleSubmit(signInHandler)}>
+            <LoginForm onSubmit={handleSubmit(signInHandler)}>
                <InputsContainer>
                   <InputWrapper>
                      <label htmlFor="nickName">Никнейм</label>
-                     <Input
+                     <StyledInput
                         name="nickName"
-                        width="231px"
                         isValid={error || errors?.nickname?.message}
                         {...register('nickname', {
                            required: 'Напишите никнейм',
@@ -65,10 +65,9 @@ export const SignIn = () => {
                   </InputWrapper>
                   <InputWrapper>
                      <label htmlFor="password">Пароль</label>
-                     <Input
+                     <StyledInput
                         name="password"
                         type="password"
-                        width="231px"
                         isValid={error || errors?.password?.message}
                         {...register('password', {
                            required: 'Напишите пароль',
@@ -76,14 +75,22 @@ export const SignIn = () => {
                      />
                   </InputWrapper>
                   <HelperText color="red">
-                     {error && 'Парлоль или никнейм неправильно!'}
+                     {error && 'Пароль или никнейм неправильно!'}
                   </HelperText>
                </InputsContainer>
                <Button type="submit" disabled={isLoading}>
                   Войти
                </Button>
-            </StyledForm>
+            </LoginForm>
          </Wrapper>
       </Card>
    )
 }
+
+const LoginForm = styled(StyledForm)`
+   @media (max-width: 450px) {
+      width: 100%;
+      margin: 24px 48px 30px 41px;
+      padding: 0px 24px;
+   }
+`

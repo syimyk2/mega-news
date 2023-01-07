@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { useMediaQuery } from 'react-responsive'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from '../../assets/images/mega-logo.svg'
@@ -14,6 +15,7 @@ import { Input } from '../UI/Input'
 
 export const SignUp = () => {
    const { error, isAuthorized, isLoading } = useSelector((state) => state.auth)
+   const isMobile = useMediaQuery({ query: `(max-width: 450px)` })
    const navigate = useNavigate()
    const dispatch = useDispatch()
 
@@ -45,9 +47,8 @@ export const SignUp = () => {
                <InputsContainer>
                   <InputWrapper>
                      <label htmlFor="last_name">Фамилия</label>
-                     <Input
+                     <StyledInput
                         name="last_name"
-                        width="231px"
                         isValid={errors?.last_name?.message}
                         {...register('last_name', {
                            required: 'Напишите фамилию',
@@ -56,18 +57,16 @@ export const SignUp = () => {
                   </InputWrapper>
                   <InputWrapper>
                      <label htmlFor="name">Имя</label>
-                     <Input
+                     <StyledInput
                         name="name"
-                        width="231px"
                         isValid={errors?.name?.message}
                         {...register('name', { required: 'Напишите имя' })}
                      />
                   </InputWrapper>
                   <InputWrapper>
                      <label htmlFor="nickname">Никнейм</label>
-                     <Input
+                     <StyledInput
                         name="nickname"
-                        width="231px"
                         isValid={errors?.nickname?.message}
                         {...register('nickname', {
                            required: 'Напишите никнейм',
@@ -77,16 +76,15 @@ export const SignUp = () => {
                   <Flex direction="column" justify="center">
                      <InputWrapper>
                         <label
-                           style={{ marginBottom: '20px' }}
+                           style={{ marginBottom: !isMobile && '20px' }}
                            htmlFor="password"
                         >
                            Пароль
                         </label>
-                        <Flex direction="column" justify="center">
-                           <Input
+                        <PasswordWrapper>
+                           <StyledInput
                               name="password"
                               type="password"
-                              width="231px"
                               isValid={errors?.password?.message}
                               {...register('password', {
                                  required: 'Некорректный пароль!',
@@ -97,16 +95,15 @@ export const SignUp = () => {
                               })}
                            />
                            <HelperText>Лимит на символы</HelperText>
-                        </Flex>
+                        </PasswordWrapper>
                      </InputWrapper>
                   </Flex>
                   <InputWrapper>
                      <label htmlFor="pass2">Подтверждение пароля</label>
-                     <Flex direction="column" justify="center">
-                        <Input
+                     <PasswordWrapper>
+                        <StyledInput
                            name="pass2"
                            type="password"
-                           width="231px"
                            isValid={errors?.password2?.message}
                            {...register('password2', {
                               required: 'Пароль не совпадает',
@@ -119,7 +116,7 @@ export const SignUp = () => {
                               {errors.password2.message}
                            </HelperText>
                         )}
-                     </Flex>
+                     </PasswordWrapper>
                   </InputWrapper>
                </InputsContainer>
                <Button type="submit" disabled={isLoading}>
@@ -138,6 +135,23 @@ export const SignUp = () => {
 export const InputWrapper = styled(Flex)`
    justify-content: space-between;
    align-items: center;
+
+   @media (max-width: 450px) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: baseline;
+      width: 100%;
+      gap: 5px;
+   }
+`
+export const StyledInput = styled(Input)`
+   width: 231px;
+
+   @media (max-width: 450px) {
+      width: 100%;
+      padding: 7px 12px;
+      font-size: 14px;
+   }
 `
 export const HelperText = styled.p`
    font-family: 'Ubuntu';
@@ -147,6 +161,14 @@ export const HelperText = styled.p`
    line-height: 20px;
    color: ${({ color }) => color || '#5a5a5a'};
 `
+const PasswordWrapper = styled(Flex)`
+   flex-direction: column;
+   justify-content: center;
+
+   @media (max-width: 450px) {
+      width: 100%;
+   }
+`
 
 export const StyledForm = styled.form`
    display: flex;
@@ -155,6 +177,11 @@ export const StyledForm = styled.form`
    align-items: center;
    width: 412px;
    margin: 31px 45px 15px 25px;
+
+   @media (max-width: 450px) {
+      width: 100%;
+      margin: 24px 24px 15px;
+   }
 `
 export const Wrapper = styled.div`
    display: flex;
@@ -174,6 +201,10 @@ export const InputsContainer = styled.div`
       font-size: 14px;
       line-height: 18px;
       color: #010101;
+   }
+   @media (max-width: 425px) {
+      margin-bottom: 32px;
+      gap: 16px;
    }
 `
 export const StyledLogo = styled.img`
