@@ -1,0 +1,10 @@
+yesterday:
+- added adaptive in profile
+- added creating public modal and connect with server
+- added responsive to inputs
+today: 
+- add responsive to news creating modal
+- bug fix image download with server
+- bug fix cashing datas in session storage
+problems:
+-
