@@ -1,28 +1,17 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { editUserData, getUserData } from '../../store/authSlice'
+import { editUserData, getUserData } from '../../store/profileSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
 import { ProfileForm } from './ProfilForm'
 
 export const ProfileInfo = () => {
    const dispatch = useDispatch()
-   const { user } = useSelector((state) => state.auth)
+   const { userData } = useSelector((state) => state.profile)
 
    const submitChangeUserData = (editedData) => {
-      console.log(editedData)
-      const formData = new FormData()
-      formData.append('profile_image', editedData.data.file)
-
-      const newUserData = {
-         profile_image: formData,
-         name: editedData.data.name,
-         last_name: editedData.data.last_name,
-         nickname: editedData.data.nickname,
-      }
-
-      dispatch(editUserData(newUserData))
+      dispatch(editUserData(editedData))
          .unwrap()
          .then(() => {
             dispatch(getUserData())
@@ -35,7 +24,7 @@ export const ProfileInfo = () => {
 
    return (
       <ProfileInfoConatainer>
-         <ProfileForm profile={user} onGetData={submitChangeUserData} />
+         <ProfileForm profile={userData} onGetData={submitChangeUserData} />
       </ProfileInfoConatainer>
    )
 }
@@ -46,6 +35,5 @@ const ProfileInfoConatainer = styled(Flex)`
 
    ${media.mobile`
     margin-bottom: 40px;
-
    `}
 `

@@ -9,11 +9,9 @@ import { Button } from '../UI/Button'
 import { ReactComponent as Edit } from '../../assets/icons/edit.svg'
 import { BASE_URL } from '../../api'
 import media from '../../utils/helpers/media'
+import { changeInputHandler } from '../../utils/helpers/general'
+import { INPUT_NAMES } from '../../utils/constants/general'
 
-const changeInputHandler = ({ target: { value, name } }, setData, data) => {
-   if (name === 'location') setData({ ...data, [name]: { id: value } })
-   else setData({ ...data, [name]: value })
-}
 const inputEnableState = {
    name: false,
    lastName: false,
@@ -25,6 +23,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
    const [enableInput, setEnableInput] = useState(false)
    const [selectedImages, setImages] = useState({ image: null, file: null })
    const [data, setData] = useState(null)
+   const { NAME, LAST_NAME, NICKNAME } = INPUT_NAMES
 
    const onDrop = ({ target }) => {
       const fileData = target.files
@@ -33,15 +32,17 @@ export const ProfileForm = ({ onGetData, profile }) => {
       setErrorPhoto(false)
    }
 
+   const deleteImageHandler = () => setImages({ image: null, file: null })
+
    const enableInputToEditHandler = (key) => {
       switch (key) {
-         case 'name':
+         case NAME:
             setEnableInput({ ...inputEnableState, name: true })
             break
-         case 'lastName':
+         case LAST_NAME:
             setEnableInput({ ...inputEnableState, lastName: true })
             break
-         case 'nickname':
+         case NICKNAME:
             setEnableInput({ ...inputEnableState, nickname: true })
             break
          default:
@@ -54,8 +55,6 @@ export const ProfileForm = ({ onGetData, profile }) => {
       e.preventDefault()
       onGetData({ data, file: selectedImages.file })
    }
-
-   const deleteImageHandler = () => setImages({ image: null, file: null })
 
    useEffect(() => {
       setImages({ image: `${BASE_URL}${profile?.profile_image}` || null })
@@ -89,7 +88,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
             <Flex
                direction="column"
                gap="20px"
-               minWidth={isMobile ? '' : '320px'}
+               minWidth={isMobile && '320px'}
                width={isMobile && '100%'}
             >
                <InputWrapper>
@@ -104,7 +103,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
                      onBlur={() => enableInputToEditHandler('')}
                   />
                   <StyledEditIcon
-                     onClick={() => enableInputToEditHandler('lastName')}
+                     onClick={() => enableInputToEditHandler(LAST_NAME)}
                   />
                </InputWrapper>
                <InputWrapper>
@@ -118,7 +117,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
                      onBlur={() => enableInputToEditHandler('')}
                   />
                   <StyledEditIcon
-                     onClick={() => enableInputToEditHandler('name')}
+                     onClick={() => enableInputToEditHandler(NAME)}
                   />
                </InputWrapper>
                <InputWrapper>
@@ -132,7 +131,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
                      onBlur={() => enableInputToEditHandler('')}
                   />
                   <StyledEditIcon
-                     onClick={() => enableInputToEditHandler('nickname')}
+                     onClick={() => enableInputToEditHandler(NICKNAME)}
                   />
                </InputWrapper>
                <ButtonWrapper>

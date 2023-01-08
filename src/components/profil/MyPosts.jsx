@@ -30,6 +30,7 @@ export const MyPosts = () => {
    }
 
    const submitMyPublicHandler = (publicData) => {
+      console.log(publicData)
       dispatch(postMyPublicRequest(publicData))
       if (status === 'succes') {
          setShowModal(false)

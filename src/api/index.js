@@ -48,3 +48,35 @@ export const fetchApi = async (options) => {
       throw new Error(e.message)
    }
 }
+
+export const fetchFile = async (options) => {
+   const { token } = store.getState().auth
+   try {
+      const requestOptions = {
+         method: options.method || 'GET',
+         headers: { Authorization: `Token ${token}` },
+      }
+
+      if (options.method !== 'GET') {
+         requestOptions.body = options.body || {}
+      }
+
+      const response = await fetch(
+         `${BASE_URL}/${options.path}`,
+         requestOptions
+      )
+      const data = await response.json()
+
+      if (!response.ok) {
+         let errorMessage = 'Something went wrong'
+         if (data && data.message) {
+            errorMessage = data.message
+         }
+         throw new Error(errorMessage)
+      }
+
+      return data
+   } catch (e) {
+      throw new Error(e.message)
+   }
+}

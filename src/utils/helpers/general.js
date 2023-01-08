@@ -30,3 +30,13 @@ export const logOut = () => {
 export const getImageUrl = (imgPath) => {
    return imgPath ? `${BASE_URL}${imgPath}` : initphoto
 }
+
+// input helpers
+export const changeInputHandler = (
+   { target: { value, name } },
+   setData,
+   data
+) => {
+   if (name === 'location') setData({ ...data, [name]: { id: value } })
+   else setData({ ...data, [name]: value })
+}

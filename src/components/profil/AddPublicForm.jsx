@@ -8,11 +8,7 @@ import { ReactComponent as DownloadIcon } from '../../assets/icons/download.svg'
 import { Button } from '../UI/Button'
 import { Input } from '../UI/Input'
 import Modal from '../UI/modal/Modal'
-
-const changeInputHandler = ({ target: { value, name } }, setData, data) => {
-   if (name === 'location') setData({ ...data, [name]: { id: value } })
-   else setData({ ...data, [name]: value })
-}
+import { changeInputHandler } from '../../utils/helpers/general'
 
 export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })

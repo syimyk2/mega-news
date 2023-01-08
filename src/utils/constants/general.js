@@ -13,3 +13,11 @@ export const FILTERING_DATA = [
 ]
 
 export const NEWS_DATA_KEY = '_NEWS_DATA'
+export const USER_DATA_KEY = '_USER_DATA'
+export const PUBLIC_DATA_KEY = '_PUBLIC_DATA_KEY'
+
+export const INPUT_NAMES = {
+   NAME: 'NAME',
+   LAST_NAME: 'LAST_NAME',
+   NICKNAME: 'NICKNAME',
+}

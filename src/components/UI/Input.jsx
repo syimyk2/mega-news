@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { forwardRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
@@ -24,7 +25,7 @@ export const Input = forwardRef((props, ref) => {
          type={props.type || 'text'}
          autoComplete="off"
          ref={ref}
-         size={isMobile && 'small'}
+         size={isMobile}
          {...props}
       />
    )

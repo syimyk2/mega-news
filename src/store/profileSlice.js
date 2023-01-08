@@ -1,22 +1,78 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchApi } from '../api'
+import { fetchApi, fetchFile } from '../api'
+import { PUBLIC_DATA_KEY, USER_DATA_KEY } from '../utils/constants/general'
 import {
    getDataFromSessionStorage,
    saveToSessionStorage,
 } from '../utils/helpers/general'
 
+// user data requests
+export const getUserData = createAsyncThunk(
+   'auth/getUserData',
+   async (key, { rejectWithValue }) => {
+      const userData = getDataFromSessionStorage(USER_DATA_KEY)
+      if (!userData && !key) {
+         try {
+            const result = await fetchApi({
+               method: 'GET',
+               path: 'user/',
+            })
+            saveToSessionStorage(USER_DATA_KEY, result)
+            return result
+         } catch (error) {
+            rejectWithValue(error)
+         }
+      } else {
+         return userData
+      }
+   }
+)
+
+export const editUserData = createAsyncThunk(
+   'auth/editUserData',
+   async (newUserData, { rejectWithValue }) => {
+      try {
+         const { name, last_name, nickname } = newUserData.data
+         const formData = new FormData()
+         formData.append(
+            'profile_image',
+            newUserData.file,
+            newUserData.file.name
+         )
+         formData.append('nickname', nickname)
+         formData.append('name', name)
+         formData.append('last_name', last_name)
+         const result = await fetchFile({
+            method: 'PUT',
+            path: 'user/',
+            body: formData,
+         })
+         return result
+      } catch (error) {
+         rejectWithValue(error)
+      }
+   }
+)
+
+// created public requests
 export const postMyPublicRequest = createAsyncThunk(
    'news/postMyPublicRequest',
    async (publicData, { rejectWithValue }) => {
+      const { title, text, short_desc, tag } = publicData.data
       try {
          const formData = new FormData()
          formData.append('image', publicData.file)
-         const result = await fetchApi({
+         formData.append('title', title)
+         formData.append('text', text)
+         formData.append('sort_desc', short_desc)
+         formData.append('tag', tag)
+         const result = await fetchFile({
             method: 'POST',
             path: `post/`,
-            body: { ...publicData.data, formData },
+            body: formData,
          })
          return result
       } catch (error) {
@@ -27,18 +83,19 @@ export const postMyPublicRequest = createAsyncThunk(
 
 export const getMyPublicsRequest = createAsyncThunk(
    'news/getMyPublicsRequest',
-   async (nickname, { rejectWithValue }) => {
-      const newsData = getDataFromSessionStorage('_MY_PUBLICS')
+   async (_, { rejectWithValue, getState }) => {
+      const { userData } = getState().profile
+      const newsData = getDataFromSessionStorage(PUBLIC_DATA_KEY)
       if (!newsData) {
          try {
             const result = await fetchApi({
                method: 'GET',
                path: `post/`,
                params: {
-                  author: 'userbek1',
+                  author: userData.nickname,
                },
             })
-            saveToSessionStorage('_MY_PUBLICS', result)
+            saveToSessionStorage(PUBLIC_DATA_KEY, result)
             return result
          } catch (error) {
             rejectWithValue(error)
@@ -79,7 +136,8 @@ const setRejected = (state, { error }) => {
 }
 
 const initialState = {
-   myPublics: getDataFromSessionStorage('_MY_PUBLICS') || [],
+   myPublics: getDataFromSessionStorage(PUBLIC_DATA_KEY) || [],
+   userData: getDataFromSessionStorage(USER_DATA_KEY) || null,
    status: '',
    isLoading: false,
    error: null,
@@ -105,6 +163,16 @@ const profileSlice = createSlice({
          state.error = null
          state.isLoading = false
       },
+
+      [getUserData.pending]: setPending,
+      [getUserData.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.userData = payload
+         state.error = null
+         state.isLoading = false
+      },
+
+      [getUserData.rejected]: setRejected,
 
       [getMyPublicsRequest.rejected]: setRejected,
       [postMyPublicRequest.rejected]: setRejected,
