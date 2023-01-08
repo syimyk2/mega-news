@@ -10,10 +10,12 @@ import { Input } from '../UI/Input'
 import Modal from '../UI/modal/Modal'
 import { changeInputHandler } from '../../utils/helpers/general'
 
+const initImageState = { image: null, file: null }
+
 export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })
    const [data, setData] = useState(null)
-   const [selectedImages, setImages] = useState({ image: null, file: null })
+   const [selectedImages, setImages] = useState(initImageState)
 
    const onDrop = ({ target }) => {
       const fileData = target.files
@@ -24,6 +26,7 @@ export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
    const submitHandler = (e) => {
       e.preventDefault()
       onGetData({ data, file: selectedImages.file })
+      setImages(initImageState)
    }
 
    return (

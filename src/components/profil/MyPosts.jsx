@@ -16,8 +16,7 @@ import {
    getMyPublicsRequest,
    postMyPublicRequest,
 } from '../../store/profileSlice'
-import { removeWithKeyFromSessionStorage } from '../../utils/helpers/general'
-import { PUBLIC_DATA_KEY } from '../../utils/constants/general'
+import Loader from '../UI/loader'
 
 export const MyPosts = () => {
    const { myPublics, isLoading, status } = useSelector(
@@ -33,9 +32,7 @@ export const MyPosts = () => {
 
    const submitMyPublicHandler = (publicData) => {
       dispatch(postMyPublicRequest(publicData))
-      if (isLoading) {
-         setShowModal(false)
-      }
+      setShowModal(false)
    }
 
    useEffect(() => {
@@ -61,7 +58,7 @@ export const MyPosts = () => {
                   <NewsCard key={publicc.id} content={publicc} isMyPublics />
                ))
             ) : (
-               <p>...Loading publics</p>
+               <Loader />
             )}
          </Flex>
       </Flex>

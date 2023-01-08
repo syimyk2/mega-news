@@ -12,7 +12,7 @@ import {
 
 // user data requests
 export const getUserData = createAsyncThunk(
-   'auth/getUserData',
+   'profile/getUserData',
    async (_, { rejectWithValue }) => {
       const userData = getDataFromSessionStorage(USER_DATA_KEY)
       if (!userData) {
@@ -33,7 +33,7 @@ export const getUserData = createAsyncThunk(
 )
 
 export const editUserData = createAsyncThunk(
-   'auth/editUserData',
+   'profile/editUserData',
    async (newUserData, { rejectWithValue, dispatch }) => {
       const { name, last_name, nickname } = newUserData.data
       const formData = new FormData()

@@ -11,20 +11,15 @@ import {
 export const getNewsList = createAsyncThunk(
    'news/getNewsList',
    async (_, { rejectWithValue }) => {
-      const newsData = getDataFromSessionStorage(NEWS_DATA_KEY)
-      if (!newsData) {
-         try {
-            const result = await fetchApi({
-               method: 'GET',
-               path: `post/`,
-            })
-            saveToSessionStorage(NEWS_DATA_KEY, result)
-            return result
-         } catch (error) {
-            rejectWithValue(error)
-         }
-      } else {
-         return newsData
+      try {
+         const result = await fetchApi({
+            method: 'GET',
+            path: `post/`,
+         })
+         saveToSessionStorage(NEWS_DATA_KEY, result)
+         return result
+      } catch (error) {
+         rejectWithValue(error)
       }
    }
 )
@@ -138,7 +133,6 @@ const newsSlice = createSlice({
          state.error = null
          state.isLoading = false
          state.newslist = payload
-         console.log('newslist', payload)
       },
       [getNewsList.rejected]: setRejected,
 
@@ -148,7 +142,6 @@ const newsSlice = createSlice({
          state.error = null
          state.isLoading = false
          state.newsDetail = payload
-         console.log('detail', payload)
       },
       [getNewsDetail.rejected]: setRejected,
 
@@ -158,7 +151,6 @@ const newsSlice = createSlice({
          state.error = null
          state.isLoading = false
          state.favoriteNews = payload
-         console.log('favNews', payload)
       },
       [getFavoriteNews.rejected]: setRejected,
    },
