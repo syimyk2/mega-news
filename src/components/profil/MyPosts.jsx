@@ -16,6 +16,8 @@ import {
    getMyPublicsRequest,
    postMyPublicRequest,
 } from '../../store/profileSlice'
+import { removeWithKeyFromSessionStorage } from '../../utils/helpers/general'
+import { PUBLIC_DATA_KEY } from '../../utils/constants/general'
 
 export const MyPosts = () => {
    const { myPublics, isLoading, status } = useSelector(
@@ -30,9 +32,8 @@ export const MyPosts = () => {
    }
 
    const submitMyPublicHandler = (publicData) => {
-      console.log(publicData)
       dispatch(postMyPublicRequest(publicData))
-      if (status === 'succes') {
+      if (isLoading) {
          setShowModal(false)
       }
    }

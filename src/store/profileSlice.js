@@ -6,15 +6,16 @@ import { fetchApi, fetchFile } from '../api'
 import { PUBLIC_DATA_KEY, USER_DATA_KEY } from '../utils/constants/general'
 import {
    getDataFromSessionStorage,
+   removeWithKeyFromSessionStorage,
    saveToSessionStorage,
 } from '../utils/helpers/general'
 
 // user data requests
 export const getUserData = createAsyncThunk(
    'auth/getUserData',
-   async (key, { rejectWithValue }) => {
+   async (_, { rejectWithValue }) => {
       const userData = getDataFromSessionStorage(USER_DATA_KEY)
-      if (!userData && !key) {
+      if (!userData) {
          try {
             const result = await fetchApi({
                method: 'GET',
@@ -33,23 +34,41 @@ export const getUserData = createAsyncThunk(
 
 export const editUserData = createAsyncThunk(
    'auth/editUserData',
-   async (newUserData, { rejectWithValue }) => {
+   async (newUserData, { rejectWithValue, dispatch }) => {
+      const { name, last_name, nickname } = newUserData.data
+      const formData = new FormData()
+      formData.append('profile_image', newUserData.file, newUserData.file.name)
+      formData.append('nickname', nickname)
+      formData.append('name', name)
+      formData.append('last_name', last_name)
+
       try {
-         const { name, last_name, nickname } = newUserData.data
-         const formData = new FormData()
-         formData.append(
-            'profile_image',
-            newUserData.file,
-            newUserData.file.name
-         )
-         formData.append('nickname', nickname)
-         formData.append('name', name)
-         formData.append('last_name', last_name)
          const result = await fetchFile({
             method: 'PUT',
             path: 'user/',
             body: formData,
          })
+         removeWithKeyFromSessionStorage(USER_DATA_KEY)
+         dispatch(getUserData())
+         return result
+      } catch (error) {
+         rejectWithValue(error)
+      }
+   }
+)
+
+export const editUserDataWithoutImage = createAsyncThunk(
+   'profile/editUserDataWithoutImage',
+   async (newUserData, { rejectWithValue, dispatch }) => {
+      try {
+         console.log('without photo', newUserData)
+         const result = await fetchApi({
+            method: 'PUT',
+            path: 'user/',
+            body: newUserData,
+         })
+         removeWithKeyFromSessionStorage(USER_DATA_KEY)
+         dispatch(getUserData())
          return result
       } catch (error) {
          rejectWithValue(error)
@@ -59,8 +78,8 @@ export const editUserData = createAsyncThunk(
 
 // created public requests
 export const postMyPublicRequest = createAsyncThunk(
-   'news/postMyPublicRequest',
-   async (publicData, { rejectWithValue }) => {
+   'profile/postMyPublicRequest',
+   async (publicData, { rejectWithValue, dispatch }) => {
       const { title, text, short_desc, tag } = publicData.data
       try {
          const formData = new FormData()
@@ -74,6 +93,7 @@ export const postMyPublicRequest = createAsyncThunk(
             path: `post/`,
             body: formData,
          })
+         dispatch(getMyPublicsRequest())
          return result
       } catch (error) {
          rejectWithValue(error)
@@ -82,26 +102,21 @@ export const postMyPublicRequest = createAsyncThunk(
 )
 
 export const getMyPublicsRequest = createAsyncThunk(
-   'news/getMyPublicsRequest',
+   'profile/getMyPublicsRequest',
    async (_, { rejectWithValue, getState }) => {
       const { userData } = getState().profile
-      const newsData = getDataFromSessionStorage(PUBLIC_DATA_KEY)
-      if (!newsData) {
-         try {
-            const result = await fetchApi({
-               method: 'GET',
-               path: `post/`,
-               params: {
-                  author: userData.nickname,
-               },
-            })
-            saveToSessionStorage(PUBLIC_DATA_KEY, result)
-            return result
-         } catch (error) {
-            rejectWithValue(error)
-         }
-      } else {
-         return newsData
+
+      try {
+         const result = await fetchApi({
+            method: 'GET',
+            path: `post/`,
+            params: {
+               author: userData.nickname,
+            },
+         })
+         return result
+      } catch (error) {
+         rejectWithValue(error)
       }
    }
 )
@@ -136,8 +151,8 @@ const setRejected = (state, { error }) => {
 }
 
 const initialState = {
-   myPublics: getDataFromSessionStorage(PUBLIC_DATA_KEY) || [],
    userData: getDataFromSessionStorage(USER_DATA_KEY) || null,
+   myPublics: [],
    status: '',
    isLoading: false,
    error: null,

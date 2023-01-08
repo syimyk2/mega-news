@@ -49,7 +49,6 @@ const ModalStyle = styled.div`
          top: 50%;
       }
    }
-   z-index: 11;
    @media (max-width: 425px) {
       width: 95%;
    }

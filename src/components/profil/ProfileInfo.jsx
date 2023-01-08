@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { editUserData, getUserData } from '../../store/profileSlice'
+import {
+   editUserData,
+   editUserDataWithoutImage,
+   getUserData,
+} from '../../store/profileSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
 import { ProfileForm } from './ProfilForm'
@@ -11,11 +15,11 @@ export const ProfileInfo = () => {
    const { userData } = useSelector((state) => state.profile)
 
    const submitChangeUserData = (editedData) => {
-      dispatch(editUserData(editedData))
-         .unwrap()
-         .then(() => {
-            dispatch(getUserData())
-         })
+      if (editedData.file) {
+         dispatch(editUserData(editedData))
+      } else {
+         dispatch(editUserDataWithoutImage(editedData.data))
+      }
    }
 
    useEffect(() => {

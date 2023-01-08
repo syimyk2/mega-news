@@ -32,7 +32,7 @@ export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
             <StyledInputConatainer>
                <InputWrapper>
                   <label htmlFor="newsBunner">Обложка новости</label>
-                  <Flex width="350px">
+                  <Flex width="350px" gap="8px" align="center">
                      <FileDownloader htmlFor="img">
                         <p>Загрузить</p>
                         <DownloadIcon />
@@ -44,6 +44,9 @@ export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
                            type="file"
                         />
                      </FileDownloader>
+                     <SelectedFileName>
+                        {selectedImages?.file?.name}
+                     </SelectedFileName>
                   </Flex>
                </InputWrapper>
                <InputWrapper>
@@ -79,7 +82,7 @@ export const AddPublicForm = ({ isVisible, onClose, onGetData }) => {
                   />
                </InputWrapper>
             </StyledInputConatainer>
-            <Button>Создать</Button>
+            <Button disabled={!selectedImages.file}>Создать</Button>
          </PublicForm>
       </Modal>
    )
@@ -130,4 +133,9 @@ const StyledInput = styled(Input)`
    @media (max-width: 450px) {
       width: 100%;
    }
+`
+const SelectedFileName = styled.span`
+   font-size: 11px;
+   font-family: 'Ubuntu';
+   color: #3304c0;
 `
