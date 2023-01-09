@@ -3,13 +3,14 @@ import { useMediaQuery } from 'react-responsive'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { addCommentRequest } from '../../store/newsSlice'
+import { addCommentRequest, getNewsDetail } from '../../store/newsSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
 import { StyledLink, StyledNewsData } from '../UI/news-card'
 import { Paragraph } from '../UI/typography/Paragraph'
 import { Title } from '../UI/typography/Title'
 import { ChildComment } from './ChildComment'
 import { CommentForm } from './CommentForm'
+import { removeWithKeyFromSessionStorage } from '../../utils/helpers/general'
 
 export const Comment = ({ comment, postId }) => {
    const dispatch = useDispatch()
@@ -19,6 +20,11 @@ export const Comment = ({ comment, postId }) => {
 
    const replayToCommentHandler = (commentData) => {
       dispatch(addCommentRequest(commentData))
+         .unwrap()
+         .then(() => {
+            removeWithKeyFromSessionStorage('_NEWS_DETAIL_KEY')
+            dispatch(getNewsDetail(postId))
+         })
    }
 
    return (

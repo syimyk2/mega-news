@@ -43,7 +43,7 @@ export const NewsDetail = () => {
    ) : (
       <NewsDetailContainer>
          <CardWrapper>
-            <ArrowIconStyled onClick={() => navigate('/')} />
+            <ArrowIconStyled onClick={() => navigate(-1)} />
             <SubDescriptionContainer>
                <Flex justify="space-between" align="center">
                   <StyledNewsData>29.11.2022</StyledNewsData>

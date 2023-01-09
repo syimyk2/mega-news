@@ -2,8 +2,9 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { addCommentRequest } from '../../store/newsSlice'
+import { addCommentRequest, getNewsDetail } from '../../store/newsSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
+import { removeWithKeyFromSessionStorage } from '../../utils/helpers/general'
 import media from '../../utils/helpers/media'
 import { Title } from '../UI/typography/Title'
 import { Comment } from './Comment'
@@ -14,6 +15,11 @@ export const Comments = ({ comments, postId }) => {
 
    const leaveCommentHandler = (commentData) => {
       dispatch(addCommentRequest(commentData))
+         .unwrap()
+         .then(() => {
+            removeWithKeyFromSessionStorage('_NEWS_DETAIL_KEY')
+            dispatch(getNewsDetail(postId))
+         })
    }
 
    return (
