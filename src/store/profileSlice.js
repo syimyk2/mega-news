@@ -121,6 +121,22 @@ export const getMyPublicsRequest = createAsyncThunk(
    }
 )
 
+export const deleteMyPublicRequest = createAsyncThunk(
+   'profile/deleteMyPublicRequest',
+   async (id, { rejectWithValue, dispatch }) => {
+      try {
+         const result = await fetchApi({
+            method: 'DELETE',
+            path: `post/${id}/`,
+         })
+         dispatch(getMyPublicsRequest())
+         return result
+      } catch (error) {
+         rejectWithValue(error)
+      }
+   }
+)
+
 // like requests
 export const setLikeNews = createAsyncThunk(
    'news/setLikeNews',
@@ -169,7 +185,6 @@ const profileSlice = createSlice({
          state.error = null
          state.isLoading = false
          state.myPublics = payload
-         console.log('myPublics', payload)
       },
 
       [postMyPublicRequest.pending]: setPending,
@@ -187,8 +202,15 @@ const profileSlice = createSlice({
          state.isLoading = false
       },
 
-      [getUserData.rejected]: setRejected,
+      [deleteMyPublicRequest.pending]: setPending,
+      [deleteMyPublicRequest.fulfilled]: (state) => {
+         state.status = 'succes'
+         state.error = null
+         state.isLoading = false
+      },
 
+      [deleteMyPublicRequest.rejected]: setRejected,
+      [getUserData.rejected]: setRejected,
       [getMyPublicsRequest.rejected]: setRejected,
       [postMyPublicRequest.rejected]: setRejected,
    },

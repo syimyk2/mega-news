@@ -13,6 +13,7 @@ import { PopUp } from '../UI/popup/PopUp'
 import Modal from '../UI/modal/Modal'
 import { AddPublicForm } from './AddPublicForm'
 import {
+   deleteMyPublicRequest,
    getMyPublicsRequest,
    postMyPublicRequest,
 } from '../../store/profileSlice'
@@ -32,6 +33,11 @@ export const MyPosts = () => {
 
    const submitMyPublicHandler = (publicData) => {
       dispatch(postMyPublicRequest(publicData))
+      setShowModal(false)
+   }
+
+   const deleteMyPublicHandler = (publicId) => {
+      dispatch(deleteMyPublicRequest(publicId))
       setShowModal(false)
    }
 
@@ -55,7 +61,12 @@ export const MyPosts = () => {
          <Flex direction="column">
             {!isLoading ? (
                myPublics?.map((publicc) => (
-                  <NewsCard key={publicc.id} content={publicc} isMyPublics />
+                  <NewsCard
+                     key={publicc.id}
+                     content={publicc}
+                     onDelete={deleteMyPublicHandler}
+                     isMyPublics
+                  />
                ))
             ) : (
                <Loader />

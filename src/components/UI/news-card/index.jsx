@@ -13,7 +13,7 @@ import { setLikeNews } from '../../../store/newsSlice'
 import { getImageUrl } from '../../../utils/helpers/general'
 import { ReactComponent as Trash } from '../../../assets/icons/trash-2.svg'
 
-export const NewsCard = ({ content, isMyPublics }) => {
+export const NewsCard = ({ content, isMyPublics, onDelete }) => {
    const {
       image,
       is_liked: isLiked,
@@ -28,10 +28,6 @@ export const NewsCard = ({ content, isMyPublics }) => {
       dispatch(setLikeNews({ post: postId }))
    }
 
-   const removePublicHandler = (publicId) => {
-      // console.log(publicId)
-   }
-
    return (
       <CardWrapper>
          <ImgContainer>
@@ -41,7 +37,7 @@ export const NewsCard = ({ content, isMyPublics }) => {
             <Flex justify="space-between" align="center">
                <StyledNewsData>29.11.2022</StyledNewsData>
                {isMyPublics ? (
-                  <StyledTrash onClick={removePublicHandler(id)} />
+                  <StyledTrash onClick={() => onDelete(id)} />
                ) : (
                   <CheckboxHeart
                      onChange={() => !isLiked && setLikeHandler(id)}
