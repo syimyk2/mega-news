@@ -20,7 +20,7 @@ export const CheckboxHeart = (props) => {
             },
             '&.Mui-checked': {
                '&, & + .MuiFormControlLabel-label': {
-                  color: '#A01313',
+                  color: '#a02222',
                },
             },
          }}

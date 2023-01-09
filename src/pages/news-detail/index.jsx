@@ -10,7 +10,7 @@ import { Paragraph } from '../../components/UI/typography/Paragraph'
 import { Title } from '../../components/UI/typography/Title'
 import { ShareLink } from '../../components/UI/news-card/ShareLink'
 import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left.svg'
-import { getNewsDetail } from '../../store/newsSlice'
+import { getNewsDetail, setLikeNews } from '../../store/newsSlice'
 import Loader from '../../components/UI/loader'
 import { Comments } from '../../components/comments'
 import {
@@ -21,9 +21,17 @@ import {
 export const NewsDetail = () => {
    const navigate = useNavigate()
    const dispatch = useDispatch()
+   const { newsId } = useParams()
    const { newsDetail, isLoading } = useSelector((state) => state.news)
 
-   const { newsId } = useParams()
+   const setLikeHandler = (postId) => {
+      dispatch(setLikeNews({ post: postId }))
+         .unwrap()
+         .then(() => {
+            removeWithKeyFromSessionStorage('_NEWS_DETAIL_KEY')
+            dispatch(getNewsDetail(postId))
+         })
+   }
 
    useEffect(() => {
       removeWithKeyFromSessionStorage('_NEWS_DETAIL_KEY')
@@ -40,8 +48,8 @@ export const NewsDetail = () => {
                <Flex justify="space-between" align="center">
                   <StyledNewsData>29.11.2022</StyledNewsData>
                   <CheckboxHeart
+                     onChange={() => setLikeHandler(newsDetail?.id)}
                      checked={newsDetail?.is_liked}
-                     id={toString(newsDetail?.id)}
                   />
                </Flex>
                <Flex direction="column" gap="24px">

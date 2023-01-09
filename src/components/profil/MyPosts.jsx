@@ -9,8 +9,6 @@ import { NewsCard } from '../UI/news-card'
 import { Title } from '../UI/typography/Title'
 import { ReactComponent as PlusIcon } from '../../assets/icons/plus.svg'
 import media from '../../utils/helpers/media'
-import { PopUp } from '../UI/popup/PopUp'
-import Modal from '../UI/modal/Modal'
 import { AddPublicForm } from './AddPublicForm'
 import {
    deleteMyPublicRequest,

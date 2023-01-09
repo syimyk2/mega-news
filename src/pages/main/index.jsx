@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { NewsList } from '../../components/news-list'
 import { Filter } from '../../components/UI/filteration'
-import { getNewsList } from '../../store/newsSlice'
+import { getNewsList, setLikeNews } from '../../store/newsSlice'
 import media from '../../utils/helpers/media'
 import { ReactComponent as FilterIcon } from '../../assets/icons/filter.svg'
 import { Flex } from '../../styles/styles-for-positions/style'
@@ -15,10 +15,17 @@ export const MainPage = () => {
 
    const showFilteringHandler = () => {}
 
+   const setLikeHandler = (postId) => {
+      dispatch(setLikeNews({ post: postId }))
+         .unwrap()
+         .then(() => {
+            dispatch(getNewsList())
+         })
+   }
+
    useEffect(() => {
       dispatch(getNewsList())
    }, [])
-
    return (
       <Container>
          <MainPages>
@@ -29,7 +36,12 @@ export const MainPage = () => {
                />
             </Flex>
             <Filter />
-            <NewsList newsList={newslist} isLoading={isLoading} error={error} />
+            <NewsList
+               newsList={newslist}
+               isLoading={isLoading}
+               error={error}
+               onLike={setLikeHandler}
+            />
          </MainPages>
       </Container>
    )

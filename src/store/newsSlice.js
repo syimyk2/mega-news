@@ -49,20 +49,15 @@ export const getNewsDetail = createAsyncThunk(
 export const getFavoriteNews = createAsyncThunk(
    'news/getFavoriteNews',
    async (_, { rejectWithValue }) => {
-      const newsData = getDataFromSessionStorage('_FAVORITE_NEWS_KEY')
-      if (!newsData) {
-         try {
-            const result = await fetchApi({
-               method: 'GET',
-               path: `like/`,
-            })
-            saveToSessionStorage('_FAVORITE_NEWS_KEY', result)
-            return result
-         } catch (error) {
-            rejectWithValue(error)
-         }
-      } else {
-         return newsData
+      try {
+         const result = await fetchApi({
+            method: 'GET',
+            path: `like/`,
+         })
+         saveToSessionStorage('_FAVORITE_NEWS_KEY', result)
+         return result
+      } catch (error) {
+         rejectWithValue(error)
       }
    }
 )

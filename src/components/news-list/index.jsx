@@ -7,13 +7,13 @@ import { Flex } from '../../styles/styles-for-positions/style'
 import Loader from '../UI/loader'
 import { NewsCard } from '../UI/news-card'
 
-export const NewsList = ({ newsList, isLoading, error }) => {
+export const NewsList = ({ newsList, isLoading, error, onLike }) => {
    return (
       <NewsListContainer>
          {!isLoading ? (
             newsList?.map((news) => (
                <div key={news.id}>
-                  <NewsCard id={news} content={news} />
+                  <NewsCard id={news} content={news} onLike={onLike} />
                   <Divider />
                </div>
             ))

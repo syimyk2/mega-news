@@ -4,13 +4,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { NewsList } from '../../components/news-list'
 import { Title } from '../../components/UI/typography/Title'
-import { getFavoriteNews } from '../../store/newsSlice'
+import { getFavoriteNews, setLikeNews } from '../../store/newsSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
+import { removeWithKeyFromSessionStorage } from '../../utils/helpers/general'
 import media from '../../utils/helpers/media'
 
 export const FavoriteNews = () => {
    const dispatch = useDispatch()
    const { favoriteNews, isLoading, error } = useSelector((state) => state.news)
+
+   const setLikeHandler = (postId) => {
+      dispatch(setLikeNews({ post: postId }))
+         .unwrap()
+         .then(() => {
+            removeWithKeyFromSessionStorage('_FAVORITE_NEWS_KEY')
+            dispatch(getFavoriteNews())
+         })
+   }
 
    useEffect(() => {
       dispatch(getFavoriteNews())
@@ -22,6 +32,7 @@ export const FavoriteNews = () => {
          <NewsList
             newsList={favoriteNews}
             isLoading={isLoading}
+            onLike={setLikeHandler}
             error={error}
          />
       </FavoriteNewsContainer>

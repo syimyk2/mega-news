@@ -1,19 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { Flex } from '../../../styles/styles-for-positions/style'
 import media from '../../../utils/helpers/media'
 import { CheckboxHeart } from '../CheckboxHeart'
 import { Paragraph } from '../typography/Paragraph'
 import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
-import { setLikeNews } from '../../../store/newsSlice'
 import { getImageUrl } from '../../../utils/helpers/general'
 import { ReactComponent as Trash } from '../../../assets/icons/trash-2.svg'
 
-export const NewsCard = ({ content, isMyPublics, onDelete }) => {
+export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
    const {
       image,
       is_liked: isLiked,
@@ -21,12 +19,6 @@ export const NewsCard = ({ content, isMyPublics, onDelete }) => {
       title,
       short_desc: shortDescription,
    } = content
-
-   const dispatch = useDispatch()
-
-   const setLikeHandler = (postId) => {
-      dispatch(setLikeNews({ post: postId }))
-   }
 
    return (
       <CardWrapper>
@@ -40,7 +32,7 @@ export const NewsCard = ({ content, isMyPublics, onDelete }) => {
                   <StyledTrash onClick={() => onDelete(id)} />
                ) : (
                   <CheckboxHeart
-                     onChange={() => !isLiked && setLikeHandler(id)}
+                     onChange={() => onLike(id)}
                      checked={isLiked}
                   />
                )}
