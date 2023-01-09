@@ -1,0 +1,10 @@
+yesterday:
+- bug fixed image download with server
+- bug fixed cashing datas in session storage
+-  did refactor forms
+today: 
+- add delete post functionality
+- search post
+- add unLike post
+problems:
+-
