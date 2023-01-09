@@ -23,7 +23,6 @@ export const Nav = ({ isSwitched }) => {
 
    const showProfilHandler = () => {
       setActions({ ...initialActions, profil: !actions.profil })
-      console.log('profil')
    }
 
    const showMenuHandler = () => {
