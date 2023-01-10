@@ -1,0 +1,10 @@
+yesterday:
+- added delete post functionality
+- fixed search post style
+- added unLike post
+- fixed comment bugs
+today: 
+- add search methdo
+- refactor newslist main page styles
+problems:
+-
