@@ -26,6 +26,7 @@ export const MainPage = () => {
    useEffect(() => {
       dispatch(getNewsList())
    }, [])
+
    return (
       <Container>
          <MainPages>

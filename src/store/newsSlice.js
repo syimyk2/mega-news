@@ -24,6 +24,25 @@ export const getNewsList = createAsyncThunk(
    }
 )
 
+export const filterNewsRequest = createAsyncThunk(
+   'news/filterNewsRequest',
+   async (filterData, { rejectWithValue }) => {
+      const { search, tag } = filterData
+
+      try {
+         const result = await fetchApi({
+            method: 'GET',
+            path: `post/`,
+            params: search && tag ? { search, tag } : { search } || { tag },
+         })
+         saveToSessionStorage(NEWS_DATA_KEY, result)
+         return result
+      } catch (error) {
+         rejectWithValue(error)
+      }
+   }
+)
+
 export const getNewsDetail = createAsyncThunk(
    'news/getNewsDetail',
    async (newsId, { rejectWithValue }) => {
@@ -148,6 +167,15 @@ const newsSlice = createSlice({
          state.favoriteNews = payload
       },
       [getFavoriteNews.rejected]: setRejected,
+
+      [filterNewsRequest.pending]: setPending,
+      [filterNewsRequest.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.error = null
+         state.isLoading = false
+         state.newslist = payload
+      },
+      [filterNewsRequest.rejected]: setRejected,
    },
 })
 

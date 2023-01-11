@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import styled, { createGlobalStyle } from 'styled-components'
 import { ReactComponent as NavBurger } from '../../assets/icons/burger-menu.svg'
 import { ReactComponent as NavProfil } from '../../assets/icons/profil.svg'
 import { ReactComponent as NavSearch } from '../../assets/icons/search.svg'
 import { LogoMega } from '../../components/UI/logo/LogoMega'
+import { filterNewsRequest } from '../../store/newsSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
+import {
+   changeInput,
+   getDataFromSessionStorage,
+   saveToSessionStorage,
+} from '../../utils/helpers/general'
 import media from '../../utils/helpers/media'
 import { HeadPopUp } from './HeadPopUp'
 import { SearchBar } from './SearchBar'
@@ -16,7 +23,11 @@ const initialActions = {
 }
 
 export const Nav = ({ isSwitched }) => {
+   const dispatch = useDispatch()
    const [actions, setActions] = useState(initialActions)
+   const [filter, setFilter] = useState(
+      getDataFromSessionStorage('filter') || {}
+   )
    const showSearchBarHandler = () => {
       setActions({ ...initialActions, search: !actions.search })
    }
@@ -31,6 +42,12 @@ export const Nav = ({ isSwitched }) => {
    const closePopUpHandler = () => {
       setActions(initialActions)
    }
+
+   useEffect(() => {
+      dispatch(filterNewsRequest(filter))
+      saveToSessionStorage('filter', filter)
+   }, [filter])
+
    return (
       <>
          <HeadPopUp actions={actions} onClose={closePopUpHandler} />
@@ -38,7 +55,11 @@ export const Nav = ({ isSwitched }) => {
          <NavStyled>
             <LogoMega color={isSwitched ? 'init' : 'light'} />
             <HeaderActions isSwitched={isSwitched}>
-               <SearchBar actions={actions} />
+               <SearchBar
+                  actions={actions}
+                  filter={filter}
+                  onChange={(e) => changeInput(e, filter, setFilter)}
+               />
                <NavSearch onClick={showSearchBarHandler} fontSize={29} />
                <NavProfil onClick={showProfilHandler} fontSize={28} />
                <NavBurger onClick={showMenuHandler} fontSize={29} />

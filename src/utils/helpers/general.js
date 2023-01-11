@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { BASE_URL } from '../../api'
 import { KEY_AUTH } from '../constants/general'
 import initphoto from '../../assets/images/photo.png'
@@ -39,4 +40,17 @@ export const changeInputHandler = (
 ) => {
    if (name === 'location') setData({ ...data, [name]: { id: value } })
    else setData({ ...data, [name]: value })
+}
+
+export const changeInput = ({ target: { value, name } }, filter, setFilter) => {
+   switch (value !== '') {
+      case true:
+         setFilter({ ...filter, [name]: value })
+         break
+      default:
+         const newFilter = { ...filter }
+         delete newFilter[name]
+         setFilter({ ...newFilter })
+         break
+   }
 }

@@ -61,7 +61,6 @@ export const editUserDataWithoutImage = createAsyncThunk(
    'profile/editUserDataWithoutImage',
    async (newUserData, { rejectWithValue, dispatch }) => {
       try {
-         console.log('without photo', newUserData)
          const result = await fetchApi({
             method: 'PUT',
             path: 'user/',

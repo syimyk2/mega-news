@@ -1,21 +1,34 @@
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import styled from 'styled-components'
 import { Input } from '../../components/UI/Input'
 
-export const SearchBar = ({ actions }) => {
+export const SearchBar = ({ actions, onChange, filter }) => {
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })
-   const onChangeSearchHandler = () => {
-      console.log('searching..,', isMobile)
-   }
+
+   const timer = useRef()
+
+   const changeHandler = useCallback(
+      (e) => {
+         if (timer.current) {
+            clearTimeout(timer.current)
+         }
+         timer.current = setTimeout(() => {
+            onChange(e)
+         }, 1000)
+      },
+      [filter]
+   )
 
    return (
       <SearchBarStyled>
          <SearchInput
-            actions={actions.search}
+            name="search"
             type="search"
-            onChange={onChangeSearchHandler}
             placeholder="Поиск мега новестей"
+            defaultValue={filter?.search || ''}
+            onChange={changeHandler}
+            actions={actions.search}
             disabled={!actions.search}
             width={isMobile ? '150px' : '260px'}
          />
