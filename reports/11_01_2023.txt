@@ -1,0 +1,7 @@
+yesterday:
+- refactor newslist main page styles
+today: 
+- add search methdo
+- refactor newslist main page styles
+problems:
+-
