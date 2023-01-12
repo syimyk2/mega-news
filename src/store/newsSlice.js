@@ -116,6 +116,28 @@ export const addCommentRequest = createAsyncThunk(
    }
 )
 
+// TAG_LIST REQUESTS
+export const getTagListRequest = createAsyncThunk(
+   'news/getTagListRequest',
+   async (_, { rejectWithValue }) => {
+      const newsData = getDataFromSessionStorage('_TAG_LIST_KEY')
+      if (!newsData) {
+         try {
+            const result = await fetchApi({
+               method: 'GET',
+               path: `tag/`,
+            })
+            saveToSessionStorage('_TAG_LIST_KEY', result)
+            return result
+         } catch (error) {
+            rejectWithValue(error)
+         }
+      } else {
+         return newsData
+      }
+   }
+)
+
 const setPending = (state) => {
    state.status = 'loading'
    state.isLoading = true
@@ -131,6 +153,7 @@ const initialState = {
    newslist: getDataFromSessionStorage(NEWS_DATA_KEY) || [],
    newsDetail: getDataFromSessionStorage('_NEWS_DETAIL_KEY') || {},
    favoriteNews: getDataFromSessionStorage('_FAVORITE_NEWS_KEY') || [],
+   tagList: getDataFromSessionStorage('_TAG_LIST_KEY') || [],
    status: '',
    isLoading: false,
    error: null,
@@ -176,6 +199,15 @@ const newsSlice = createSlice({
          state.newslist = payload
       },
       [filterNewsRequest.rejected]: setRejected,
+
+      [getTagListRequest.pending]: setPending,
+      [getTagListRequest.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.error = null
+         state.isLoading = false
+         state.tagList = payload
+      },
+      [getTagListRequest.rejected]: setRejected,
    },
 })
 

@@ -1,29 +1,37 @@
 /* eslint-disable no-alert */
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Flex } from '../../../styles/styles-for-positions/style'
-import { FILTERING_DATA } from '../../../utils/constants/general'
+// import { FILTERING_DATA } from '../../../utils/constants/general'
 import { Button } from '../Button'
 import { Checkbox } from '../Checkbox'
 import { Title } from '../typography/Title'
 
-export const Filter = () => {
-   const filterateHandler = () => {
+export const Filter = ({ tagList }) => {
+   const [data, setData] = useState(null)
+   const submitFilterHandler = () => {
       alert('filterating news mustbe here ')
    }
-
+   const changeCheckbox = ({ target: { name, checked } }) => {
+      if (checked) setData({ ...data, [name]: null })
+      else setData({ ...data, [name]: '' })
+   }
    return (
       <FilterWrapper className="filter">
          <Title width="700">Фильтрация</Title>
          <Options>
-            {FILTERING_DATA.map((filterOption) => (
-               <Flex gap="10px" align="center" key={Math.random().toString()}>
-                  <Checkbox />
-                  <label htmlFor="#">{filterOption}</label>
+            {tagList?.map((filterOption) => (
+               <Flex gap="10px" align="center" key={filterOption.id}>
+                  <Checkbox
+                     name="tag"
+                     checked={data?.tag}
+                     onChecked={() => changeCheckbox(filterOption.id)}
+                  />
+                  <label htmlFor="#">{filterOption.name}</label>
                </Flex>
             ))}
          </Options>
-         <Button onClick={filterateHandler}>Применить</Button>
+         <Button onClick={submitFilterHandler}>Применить</Button>
       </FilterWrapper>
    )
 }

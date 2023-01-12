@@ -54,3 +54,29 @@ export const changeInput = ({ target: { value, name } }, filter, setFilter) => {
          break
    }
 }
+
+// filter for checkbox //
+export const changeCheckbox = (
+   { target: { value, name, checked } },
+   filter,
+   setFilter
+) => {
+   switch (checked) {
+      case true:
+         if (filter[name]) {
+            setFilter({ ...filter, [name]: [...filter[name], value] })
+         } else {
+            setFilter({ ...filter, [name]: [value] })
+         }
+         break
+      default:
+         const newFilter = filter[name].filter((el) => el !== value)
+         setFilter({ ...filter, [name]: newFilter })
+         if (filter[name].length === 1) {
+            const newFilter = { ...filter }
+            delete newFilter[name]
+            setFilter({ ...newFilter })
+         }
+         break
+   }
+}

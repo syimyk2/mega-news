@@ -4,14 +4,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { NewsList } from '../../components/news-list'
 import { Filter } from '../../components/UI/filteration'
-import { getNewsList, setLikeNews } from '../../store/newsSlice'
+import {
+   getNewsList,
+   getTagListRequest,
+   setLikeNews,
+} from '../../store/newsSlice'
 import media from '../../utils/helpers/media'
 import { ReactComponent as FilterIcon } from '../../assets/icons/filter.svg'
 import { Flex } from '../../styles/styles-for-positions/style'
 
 export const MainPage = () => {
    const dispatch = useDispatch()
-   const { newslist, isLoading, error } = useSelector((state) => state.news)
+   const { newslist, tagList, isLoading, error } = useSelector(
+      (state) => state.news
+   )
 
    const showFilteringHandler = () => {}
 
@@ -25,6 +31,7 @@ export const MainPage = () => {
 
    useEffect(() => {
       dispatch(getNewsList())
+      dispatch(getTagListRequest())
    }, [])
 
    return (
@@ -36,7 +43,7 @@ export const MainPage = () => {
                   onClick={showFilteringHandler}
                />
             </Flex>
-            <Filter />
+            <Filter tagList={tagList} />
             <NewsList
                newsList={newslist}
                isLoading={isLoading}
