@@ -1,12 +1,11 @@
 import * as React from 'react'
 import CheckBox from '@mui/material/Checkbox'
 
-export const Checkbox = ({ checked, onChecked }) => {
+export const Checkbox = (props) => {
    return (
       <CheckBox
+         {...props}
          color="secondary"
-         checked={checked}
-         onChange={(e) => onChecked(e.target.checked)}
          sx={{
             '&:hover': {
                '&, & + .MuiFormControlLabel-label': {

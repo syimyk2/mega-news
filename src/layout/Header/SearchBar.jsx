@@ -1,10 +1,13 @@
-import React, { useCallback, useRef } from 'react'
+/* eslint-disable no-unused-vars */
+import React, { useCallback, useEffect, useRef } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { Input } from '../../components/UI/Input'
 
 export const SearchBar = ({ actions, onChange, filter }) => {
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })
+   const [params, setParams] = useSearchParams()
 
    const timer = useRef()
 
@@ -19,6 +22,14 @@ export const SearchBar = ({ actions, onChange, filter }) => {
       },
       [filter]
    )
+
+   useEffect(() => {
+      if (filter.search) {
+         setParams({ search: filter?.search })
+      } else {
+         setParams('')
+      }
+   }, [filter, setParams])
 
    return (
       <SearchBarStyled>

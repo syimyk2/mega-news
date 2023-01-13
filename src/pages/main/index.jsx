@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { NewsList } from '../../components/news-list'
 import { Filter } from '../../components/UI/filteration'
 import {
+   filterNewsRequest,
    getNewsList,
    getTagListRequest,
    setLikeNews,
@@ -28,6 +29,9 @@ export const MainPage = () => {
             dispatch(getNewsList())
          })
    }
+   const submitFilter = (filterData) => {
+      dispatch(filterNewsRequest(filterData))
+   }
 
    useEffect(() => {
       dispatch(getNewsList())
@@ -43,13 +47,17 @@ export const MainPage = () => {
                   onClick={showFilteringHandler}
                />
             </Flex>
-            <Filter tagList={tagList} />
-            <NewsList
-               newsList={newslist}
-               isLoading={isLoading}
-               error={error}
-               onLike={setLikeHandler}
-            />
+            <Filter tagList={tagList} onSubmitFilter={submitFilter} />
+            {newslist.length !== 0 ? (
+               <NewsList
+                  newsList={newslist}
+                  isLoading={isLoading}
+                  error={error}
+                  onLike={setLikeHandler}
+               />
+            ) : (
+               <p style={{ width: '100%' }}>Нет новостой по этому запросу :(</p>
+            )}
          </MainPages>
       </Container>
    )

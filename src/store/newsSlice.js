@@ -27,13 +27,26 @@ export const getNewsList = createAsyncThunk(
 export const filterNewsRequest = createAsyncThunk(
    'news/filterNewsRequest',
    async (filterData, { rejectWithValue }) => {
-      const { search, tag } = filterData
+      const { search: searchData, tagData } = filterData
+      console.log(searchData, tagData)
+      let filterParams
+
+      if (searchData && tagData) {
+         filterParams = {
+            tag: tagData,
+            search: searchData,
+         }
+      } else if (searchData) {
+         filterParams = { search: searchData }
+      } else if (tagData) {
+         filterParams = { tag: tagData }
+      }
 
       try {
          const result = await fetchApi({
             method: 'GET',
             path: `post/`,
-            params: search && tag ? { search, tag } : { search } || { tag },
+            params: filterParams,
          })
          saveToSessionStorage(NEWS_DATA_KEY, result)
          return result

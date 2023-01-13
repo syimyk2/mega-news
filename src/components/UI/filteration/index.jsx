@@ -1,33 +1,37 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-alert */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Flex } from '../../../styles/styles-for-positions/style'
-// import { FILTERING_DATA } from '../../../utils/constants/general'
+import {
+   changeCheckbox,
+   getDataFromSessionStorage,
+} from '../../../utils/helpers/general'
 import { Button } from '../Button'
 import { Checkbox } from '../Checkbox'
 import { Title } from '../typography/Title'
 
-export const Filter = ({ tagList }) => {
-   const [data, setData] = useState(null)
+export const Filter = ({ tagList, onSubmitFilter }) => {
+   const [filter, setFilter] = useState(
+      getDataFromSessionStorage('filter') || {}
+   )
+
    const submitFilterHandler = () => {
-      alert('filterating news mustbe here ')
+      const tagData = Object.keys(filter).join(',')
+      onSubmitFilter({ tagData, search: null })
    }
-   const changeCheckbox = ({ target: { name, checked } }) => {
-      if (checked) setData({ ...data, [name]: null })
-      else setData({ ...data, [name]: '' })
-   }
+
    return (
       <FilterWrapper className="filter">
          <Title width="700">Фильтрация</Title>
          <Options>
             {tagList?.map((filterOption) => (
-               <Flex gap="10px" align="center" key={filterOption.id}>
+               <Flex gap="10px" align="center" key={filterOption?.id}>
                   <Checkbox
-                     name="tag"
-                     checked={data?.tag}
-                     onChecked={() => changeCheckbox(filterOption.id)}
+                     name={filterOption?.name}
+                     onChange={(e) => changeCheckbox(e, filter, setFilter)}
                   />
-                  <label htmlFor="#">{filterOption.name}</label>
+                  <label htmlFor="#">{filterOption?.name}</label>
                </Flex>
             ))}
          </Options>
