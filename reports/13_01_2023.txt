@@ -1,0 +1,7 @@
+yesterday:
+- added filter methdod and rendered filter
+today: 
+- connect filter with server
+- refactor newslist main page styles
+problems:
+-
