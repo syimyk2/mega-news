@@ -10,8 +10,10 @@ import { Title } from '../typography/Title'
 import { ShareLink } from './ShareLink'
 import { getImageUrl } from '../../../utils/helpers/general'
 import { ReactComponent as Trash } from '../../../assets/icons/trash-2.svg'
+import { ShareLinkModal } from '../../share-link'
 
 export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
+   const [isVisible, setVisible] = useState(false)
    const {
       image,
       is_liked: isLiked,
@@ -20,8 +22,17 @@ export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
       short_desc: shortDescription,
    } = content
 
+   const shareLinkSubmit = () => {
+      // must send generated link here
+   }
+
    return (
       <CardWrapper>
+         <ShareLinkModal
+            isVisible={isVisible}
+            onClose={setVisible}
+            onGetData={shareLinkSubmit}
+         />
          <ImgContainer>
             <img src={getImageUrl(image)} alt="news_photo" />
          </ImgContainer>
@@ -44,7 +55,7 @@ export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
             <StyledLink to={`/news-detail/${id}`}>
                Читать дальше&gt;&gt;
             </StyledLink>
-            <ShareLink />
+            <ShareLink onClick={() => setVisible(true)} />
          </SubDescriptionContainer>
       </CardWrapper>
    )
