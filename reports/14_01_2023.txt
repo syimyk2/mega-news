@@ -1,0 +1,9 @@
+yesterday:
+- added filter functionality and connect with server
+- refactor checkbox, search methdods
+today: 
+- leran share short link
+- prepare modal
+- refactor all code
+problems:
+-
