@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,7 @@ import media from '../../utils/helpers/media'
 import { CheckboxHeart } from '../../components/UI/CheckboxHeart'
 import { Paragraph } from '../../components/UI/typography/Paragraph'
 import { Title } from '../../components/UI/typography/Title'
-import { ShareLink } from '../../components/UI/news-card/ShareLink'
+import { ShareLink } from '../../components/UI/news-card/share-link/ShareLink'
 import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left.svg'
 import { getNewsDetail, setLikeNews } from '../../store/newsSlice'
 import Loader from '../../components/UI/loader'
@@ -17,12 +17,14 @@ import {
    getImageUrl,
    removeWithKeyFromSessionStorage,
 } from '../../utils/helpers/general'
+import { ShareLinkModal } from '../../components/UI/news-card/share-link'
 
 export const NewsDetail = () => {
    const navigate = useNavigate()
    const dispatch = useDispatch()
    const { newsId } = useParams()
    const { newsDetail, isLoading } = useSelector((state) => state.news)
+   const [isVisible, setVisible] = useState(false)
 
    const setLikeHandler = (postId) => {
       dispatch(setLikeNews({ post: postId }))
@@ -42,6 +44,13 @@ export const NewsDetail = () => {
       <Loader />
    ) : (
       <NewsDetailContainer>
+         <ShareLinkModal
+            isVisible={isVisible}
+            onClose={() => setVisible(false)}
+            newsId={newsDetail?.id}
+            title={newsDetail?.title}
+            img={getImageUrl(newsDetail?.image)}
+         />
          <CardWrapper>
             <ArrowIconStyled onClick={() => navigate(-1)} />
             <SubDescriptionContainer>
@@ -64,7 +73,7 @@ export const NewsDetail = () => {
                      />
                   </ImgContainer>
                   <Paragraph>{newsDetail?.text}</Paragraph>
-                  <ShareLink />
+                  <ShareLink onClick={() => setVisible(true)} />
                </Flex>
             </SubDescriptionContainer>
             <Comments comments={newsDetail?.comment} postId={newsDetail?.id} />

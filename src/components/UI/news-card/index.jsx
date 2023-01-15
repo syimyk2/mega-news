@@ -7,10 +7,10 @@ import media from '../../../utils/helpers/media'
 import { CheckboxHeart } from '../CheckboxHeart'
 import { Paragraph } from '../typography/Paragraph'
 import { Title } from '../typography/Title'
-import { ShareLink } from './ShareLink'
+import { ShareLink } from './share-link/ShareLink'
 import { getImageUrl } from '../../../utils/helpers/general'
 import { ReactComponent as Trash } from '../../../assets/icons/trash-2.svg'
-import { ShareLinkModal } from '../../share-link'
+import { ShareLinkModal } from './share-link'
 
 export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
    const [isVisible, setVisible] = useState(false)
@@ -25,13 +25,19 @@ export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
    const shareLinkSubmit = () => {
       // must send generated link here
    }
+   const closeShareModal = () => {
+      setVisible(false)
+   }
 
    return (
       <CardWrapper>
          <ShareLinkModal
             isVisible={isVisible}
-            onClose={setVisible}
+            onClose={closeShareModal}
             onGetData={shareLinkSubmit}
+            newsId={id}
+            title={title}
+            img={getImageUrl(image)}
          />
          <ImgContainer>
             <img src={getImageUrl(image)} alt="news_photo" />
