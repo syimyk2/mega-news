@@ -1,0 +1,9 @@
+yesterday:
+- added share link functionality
+- added for news detail 
+today: 
+- fix profile adaptive
+- fix news detail icons
+- refactor all repeating features
+problems:
+-
