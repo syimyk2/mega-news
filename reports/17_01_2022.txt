@@ -1,0 +1,8 @@
+yesterday:
+- problems with  project run
+today: 
+- fix profile adaptive
+- fix news detail icons
+- refactor all repeating features
+problems:
+- problems with  project run
