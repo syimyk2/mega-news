@@ -18,13 +18,21 @@ import {
    removeWithKeyFromSessionStorage,
 } from '../../utils/helpers/general'
 import { ShareLinkModal } from '../../components/UI/news-card/share-link'
+import { StyledTrash } from '../../components/UI/news-card'
+import { deleteMyPublicRequest } from '../../store/profileSlice'
 
 export const NewsDetail = () => {
    const navigate = useNavigate()
    const dispatch = useDispatch()
    const { newsId } = useParams()
    const { newsDetail, isLoading } = useSelector((state) => state.news)
+   const { userData } = useSelector((state) => state.profile)
+
    const [isVisible, setVisible] = useState(false)
+
+   const checkIsMyPublic = (author) => {
+      return author === userData.nickname
+   }
 
    const setLikeHandler = (postId) => {
       dispatch(setLikeNews({ post: postId }))
@@ -32,6 +40,14 @@ export const NewsDetail = () => {
          .then(() => {
             removeWithKeyFromSessionStorage('_NEWS_DETAIL_KEY')
             dispatch(getNewsDetail(postId))
+         })
+   }
+
+   const deletePublicHandler = (publicId) => {
+      dispatch(deleteMyPublicRequest(publicId))
+         .unwrap()
+         .then(() => {
+            navigate(-1)
          })
    }
 
@@ -73,7 +89,14 @@ export const NewsDetail = () => {
                      />
                   </ImgContainer>
                   <Paragraph>{newsDetail?.text}</Paragraph>
-                  <ShareLink onClick={() => setVisible(true)} />
+                  <Flex justify="space-between">
+                     <ShareLink onClick={() => setVisible(true)} />
+                     {checkIsMyPublic(newsDetail?.author) && (
+                        <StyledTrash
+                           onClick={() => deletePublicHandler(newsDetail?.id)}
+                        />
+                     )}
+                  </Flex>
                </Flex>
             </SubDescriptionContainer>
             <Comments comments={newsDetail?.comment} postId={newsDetail?.id} />
@@ -104,7 +127,7 @@ const NewsDetailContainer = styled.div`
    ${media.tablet`
    text-align:center;
    flex-direction: column;
-   padding: 210px 0px 30px;
+   padding: 210px 10px 30px;
    `}
 
    ${media.mobile`

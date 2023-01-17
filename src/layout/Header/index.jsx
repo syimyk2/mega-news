@@ -44,8 +44,9 @@ const HeaderStyled = styled.header`
    position: fixed;
    z-index: 12;
    ${media.tablet`
-   padding: 30px 150px;
+   padding: 30px 10px;
    `}
+
    ${media.mobile`
      padding: 18px 20px 17px;
      background-image: url(${({ isSwitched }) => !isSwitched && bannerMobile});

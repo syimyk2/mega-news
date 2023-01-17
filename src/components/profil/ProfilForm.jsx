@@ -85,12 +85,7 @@ export const ProfileForm = ({ onGetData, profile }) => {
                onDrop={onDrop}
                file={selectedImages.image}
             />
-            <Flex
-               direction="column"
-               gap="20px"
-               minWidth={isMobile && '320px'}
-               width={isMobile && '100%'}
-            >
+            <ProfileInfoContainer>
                <InputWrapper>
                   <label htmlFor="nickname">Фамилия</label>
                   <Input
@@ -137,12 +132,22 @@ export const ProfileForm = ({ onGetData, profile }) => {
                <ButtonWrapper>
                   <Button>Сохранить</Button>
                </ButtonWrapper>
-            </Flex>
+            </ProfileInfoContainer>
          </Form>
       </Flex>
    )
 }
-
+const ProfileInfoContainer = styled(Flex)`
+   flex-direction: column;
+   gap: 20px;
+   width: 450px;
+   @media (max-width: 450px) {
+      width: 100%;
+   }
+   @media (max-width: 750px) {
+      width: 300px;
+   }
+`
 const StyledEditIcon = styled(Edit)`
    cursor: pointer;
    position: absolute;

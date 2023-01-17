@@ -28,6 +28,7 @@ export const Nav = ({ isSwitched }) => {
    const [filter, setFilter] = useState(
       getDataFromSessionStorage('filter') || {}
    )
+
    const showSearchBarHandler = () => {
       setActions({ ...initialActions, search: !actions.search })
    }
@@ -96,39 +97,6 @@ const HeaderActions = styled(Flex)`
        }
 `}
 `
-// const List = styled.ul`
-//    list-style: none;
-//    display: flex;
-//    gap: 40px;
-//    ${media.tablet`
-//       flex-direction:column;
-//       align-items:center;
-//       margin:100px 0 300px 0;
-// `}
-// `
-// const Li = styled.li`
-//    ${media.tablet`
-//    a{
-//       color:#000000;
-//    }
-
-// `}
-// `
-// const NabBar = styled.div`
-//    border: none;
-//    background: none;
-//    cursor: pointer;
-//    display: none;
-//    ${media.tablet`
-//       display:block;
-//    `}
-// `
-// const Logout = styled(Title)`
-//    cursor: pointer;
-//    :hover {
-//       color: #ff4b4b;
-//    }
-// `
 const GlobalStyle = createGlobalStyle`
     a{
         text-decoration: none;

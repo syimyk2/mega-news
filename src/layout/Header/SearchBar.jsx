@@ -4,6 +4,7 @@ import { useMediaQuery } from 'react-responsive'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { Input } from '../../components/UI/Input'
+import media from '../../utils/helpers/media'
 
 export const SearchBar = ({ actions, onChange, filter }) => {
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })
@@ -36,12 +37,12 @@ export const SearchBar = ({ actions, onChange, filter }) => {
          <SearchInput
             name="search"
             type="search"
-            placeholder="Поиск мега новестей"
+            placeholder="Поиск мега новостей..."
             defaultValue={filter?.search || ''}
             onChange={changeHandler}
             actions={actions.search}
             disabled={!actions.search}
-            width={isMobile ? '150px' : '260px'}
+            width={isMobile ? '120px' : '260px'}
          />
       </SearchBarStyled>
    )
@@ -56,6 +57,19 @@ const SearchInput = styled(Input)`
    background: ${({ actions }) => (actions ? '#fffffff' : 'transparent')};
    border-radius: 8px;
    transition: all 0.1s ease;
+   width: 260px;
+
+   ${media.tablet`
+   width: 150px;
+
+   `}
+
+   ${media.mobile`
+   width: 100px;
+    padding: 2px 5px;
+    height: 25px;
+    font-size: 11px
+   `}
 
    :hover {
    }

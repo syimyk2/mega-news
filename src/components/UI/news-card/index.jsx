@@ -67,7 +67,7 @@ export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
    )
 }
 
-const StyledTrash = styled(Trash)`
+export const StyledTrash = styled(Trash)`
    cursor: pointer;
    width: 25px;
    height: 25px;
@@ -84,7 +84,6 @@ const CardWrapper = styled(Flex)`
 `
 const ImgContainer = styled.div`
    display: flex;
-   align-items: center;
    img {
       width: 255px;
       height: 211px;
