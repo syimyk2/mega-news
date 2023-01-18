@@ -1,0 +1,9 @@
+yesterday:
+- fixed main page adaptive
+- header input adaptive
+- news detail icon fixed added delete button
+today: 
+- refactor main page 
+- refactor all repeating features
+problems:
+- 
