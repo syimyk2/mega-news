@@ -31,7 +31,7 @@ export const NewsDetail = () => {
    const [isVisible, setVisible] = useState(false)
 
    const checkIsMyPublic = (author) => {
-      return author === userData.nickname
+      return author === userData?.nickname
    }
 
    const setLikeHandler = (postId) => {
@@ -156,14 +156,11 @@ const CardWrapper = styled(Flex)`
   `}
 `
 const ImgContainer = styled.div`
-   /* display: flex;
-   align-items: center; */
    img {
       width: 845px;
       height: 555px;
       max-inline-size: 100%;
       block-size: auto;
-      aspect-ratio: 2/1;
       object-fit: cover;
       object-position: top center;
    }

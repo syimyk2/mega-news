@@ -104,13 +104,12 @@ export const getMyPublicsRequest = createAsyncThunk(
    'profile/getMyPublicsRequest',
    async (_, { rejectWithValue, getState }) => {
       const { userData } = getState().profile
-
       try {
          const result = await fetchApi({
             method: 'GET',
             path: `post/`,
             params: {
-               author: userData.nickname,
+               author: userData?.nickname,
             },
          })
          return result

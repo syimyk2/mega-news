@@ -13,6 +13,7 @@ import { AddPublicForm } from './AddPublicForm'
 import {
    deleteMyPublicRequest,
    getMyPublicsRequest,
+   getUserData,
    postMyPublicRequest,
 } from '../../store/profileSlice'
 import Loader from '../UI/loader'
@@ -41,7 +42,10 @@ export const MyPosts = () => {
 
    useEffect(() => {
       dispatch(getMyPublicsRequest())
+      dispatch(getUserData())
    }, [])
+
+   console.log(myPublics)
 
    return (
       <Flex direction="column" gap="40px">
@@ -57,17 +61,17 @@ export const MyPosts = () => {
             </StyledBtn>
          </HeaderPublicWrapper>
          <Flex direction="column">
-            {!isLoading ? (
+            {isLoading ? (
+               <Loader />
+            ) : (
                myPublics?.map((publicc) => (
                   <NewsCard
-                     key={publicc.id}
                      content={publicc}
+                     key={publicc.id}
                      onDelete={deleteMyPublicHandler}
                      isMyPublics
                   />
                ))
-            ) : (
-               <Loader />
             )}
          </Flex>
       </Flex>

@@ -48,6 +48,7 @@ export const MainPage = () => {
                />
             </Flex>
             <Filter tagList={tagList} onSubmitFilter={submitFilter} />
+
             {newslist.length !== 0 ? (
                <NewsList
                   newsList={newslist}
@@ -56,7 +57,7 @@ export const MainPage = () => {
                   onLike={setLikeHandler}
                />
             ) : (
-               <p style={{ width: '100%' }}>Нет новостой по этому запросу :(</p>
+               <p style={{ width: '100%' }}>Нет новостей :(</p>
             )}
          </MainPages>
       </Container>

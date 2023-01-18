@@ -45,6 +45,8 @@ const FilterWrapper = styled(Flex)`
    padding: 20px 27px 27px;
    width: fit-content;
    gap: 8px;
+   position: sticky;
+   top: 210px;
 
    background: #ffffff;
    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
