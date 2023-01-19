@@ -1,0 +1,10 @@
+yesterday:
+- fixed main page adaptive
+- news detail render fixed 
+- refactor
+today: 
+- refactor main page 
+- refactor all repeating features
+- learn deploy
+problems:
+- 
