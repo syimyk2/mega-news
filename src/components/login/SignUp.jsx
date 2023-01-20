@@ -12,6 +12,7 @@ import { REGEXP_PASSWORD } from '../../utils/constants/general'
 import { Button } from '../UI/Button'
 import { Card } from '../UI/Card'
 import { Input } from '../UI/Input'
+import { LoginLoader } from './style'
 
 export const SignUp = () => {
    const { error, isAuthorized, isLoading } = useSelector((state) => state.auth)
@@ -29,15 +30,15 @@ export const SignUp = () => {
       mode: 'onChange',
    })
 
-   const password = watch('password')
-   const submitUserHandler = (userData) => {
-      dispatch(signUp({ userData }))
+   const callAfterRequest = () => {
       reset()
+      navigate('/sign-in')
    }
 
-   useEffect(() => {
-      if (isAuthorized) navigate('/sign-in')
-   }, [isAuthorized, navigate])
+   const password = watch('password')
+   const submitUserHandler = (userData) => {
+      dispatch(signUp({ userData, reset: callAfterRequest }))
+   }
 
    return (
       <Card>
@@ -87,14 +88,20 @@ export const SignUp = () => {
                               type="password"
                               isValid={errors?.password?.message}
                               {...register('password', {
-                                 required: 'Некорректный пароль!',
+                                 required: 'Придумайте пароль!',
                                  pattern: {
                                     value: REGEXP_PASSWORD,
-                                    message: 'Некорректный пароль!',
+                                    message:
+                                       'This password is too short. It must contain at least 8 characters and at least one uppercase letter, one lowercase letter, and one number',
                                  },
                               })}
                            />
                            <HelperText>Лимит на символы</HelperText>
+                           {errors?.password?.message && (
+                              <HelperText color="red">
+                                 {errors?.password?.message}
+                              </HelperText>
+                           )}
                         </PasswordWrapper>
                      </InputWrapper>
                   </Flex>
@@ -106,21 +113,21 @@ export const SignUp = () => {
                            type="password"
                            isValid={errors?.password2?.message}
                            {...register('password2', {
-                              required: 'Пароль не совпадает',
+                              required: 'Подвердите ваш пароль',
                               validate: (value) =>
                                  value === password || 'Пароль не совпадает',
                            })}
                         />
                         {errors?.password2?.message && (
                            <HelperText color="red">
-                              {errors.password2.message}
+                              {errors?.password2?.message}
                            </HelperText>
                         )}
                      </PasswordWrapper>
                   </InputWrapper>
                </InputsContainer>
                <Button type="submit" disabled={isLoading}>
-                  Регистрация
+                  {isLoading ? <LoginLoader /> : 'Регистрация'}
                </Button>
             </StyledForm>
             <NavigateBlock>
@@ -160,6 +167,7 @@ export const HelperText = styled.p`
    font-size: 12px;
    line-height: 20px;
    color: ${({ color }) => color || '#5a5a5a'};
+   width: 210px;
 `
 const PasswordWrapper = styled(Flex)`
    flex-direction: column;
@@ -211,7 +219,7 @@ export const StyledLogo = styled.img`
    width: 129px;
    height: 29px;
 `
-const NavigateBlock = styled.div`
+export const NavigateBlock = styled.div`
    display: flex;
    gap: 3px;
    margin: 0 23px 0 0;

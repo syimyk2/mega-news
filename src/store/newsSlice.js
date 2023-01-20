@@ -2,6 +2,7 @@
 /* eslint-disable consistent-return */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi } from '../api'
+import { showErrorMessage } from '../components/UI/notification/Notification'
 import { NEWS_DATA_KEY } from '../utils/constants/general'
 import {
    getDataFromSessionStorage,
@@ -19,6 +20,10 @@ export const getNewsList = createAsyncThunk(
          saveToSessionStorage(NEWS_DATA_KEY, result)
          return result
       } catch (error) {
+         showErrorMessage({
+            message:
+               JSON.parse(error?.request?.response)?.message || error.message,
+         })
          rejectWithValue(error)
       }
    }
@@ -28,7 +33,6 @@ export const filterNewsRequest = createAsyncThunk(
    'news/filterNewsRequest',
    async (filterData, { rejectWithValue }) => {
       const { search: searchData, tagData } = filterData
-      console.log(searchData, tagData)
       let filterParams
 
       if (searchData && tagData) {
@@ -51,6 +55,10 @@ export const filterNewsRequest = createAsyncThunk(
          saveToSessionStorage(NEWS_DATA_KEY, result)
          return result
       } catch (error) {
+         showErrorMessage({
+            message:
+               JSON.parse(error?.request?.response)?.message || error.message,
+         })
          rejectWithValue(error)
       }
    }
@@ -69,6 +77,11 @@ export const getNewsDetail = createAsyncThunk(
             saveToSessionStorage('_NEWS_DETAIL_KEY', result)
             return result
          } catch (error) {
+            showErrorMessage({
+               message:
+                  JSON.parse(error?.request?.response)?.message ||
+                  error.message,
+            })
             rejectWithValue(error)
          }
       } else {
@@ -89,6 +102,9 @@ export const getFavoriteNews = createAsyncThunk(
          saveToSessionStorage('_FAVORITE_NEWS_KEY', result)
          return result
       } catch (error) {
+         showErrorMessage({
+            message: error?.message,
+         })
          rejectWithValue(error)
       }
    }
@@ -143,6 +159,11 @@ export const getTagListRequest = createAsyncThunk(
             saveToSessionStorage('_TAG_LIST_KEY', result)
             return result
          } catch (error) {
+            showErrorMessage({
+               message:
+                  JSON.parse(error?.request?.response)?.message ||
+                  error.message,
+            })
             rejectWithValue(error)
          }
       } else {
@@ -169,6 +190,7 @@ const initialState = {
    tagList: getDataFromSessionStorage('_TAG_LIST_KEY') || [],
    status: '',
    isLoading: false,
+   commentLoading: false,
    error: null,
 }
 
@@ -221,6 +243,18 @@ const newsSlice = createSlice({
          state.tagList = payload
       },
       [getTagListRequest.rejected]: setRejected,
+
+      [addCommentRequest.pending]: (state) => {
+         state.commentLoading = true
+         state.error = null
+      },
+      [addCommentRequest.fulfilled]: (state, { payload }) => {
+         state.status = 'succes'
+         state.error = null
+         state.commentLoading = false
+         state.tagList = payload
+      },
+      [addCommentRequest.rejected]: setRejected,
    },
 })
 

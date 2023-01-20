@@ -1,3 +1,5 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-restricted-syntax */
 // eslint-disable-next-line import/no-cycle
 import store from '../store'
 
@@ -38,11 +40,13 @@ export const fetchApi = async (options) => {
       if (!response.ok) {
          let errorMessage = 'Something went wrong'
          if (data && data.message) {
-            errorMessage = data.message
+            errorMessage = data
+         } else {
+            const message = Object.keys(data)
+            errorMessage = data[message][0]
          }
          throw new Error(errorMessage)
       }
-
       return data
    } catch (e) {
       throw new Error(e.message)

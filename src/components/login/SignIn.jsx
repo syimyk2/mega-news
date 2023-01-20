@@ -10,6 +10,7 @@ import { KEY_AUTH } from '../../utils/constants/general'
 import { saveToSessionStorage } from '../../utils/helpers/general'
 import { Button } from '../UI/Button'
 import { Card } from '../UI/Card'
+import { showSuccessMessage } from '../UI/notification/Notification'
 import {
    InputWrapper,
    StyledForm,
@@ -18,7 +19,9 @@ import {
    InputsContainer,
    HelperText,
    StyledInput,
+   NavigateBlock,
 } from './SignUp'
+import { LoginLoader } from './style'
 
 export const SignIn = () => {
    const { error, isAuthorized, isLoading } = useSelector((state) => state.auth)
@@ -35,12 +38,7 @@ export const SignIn = () => {
    })
 
    const signInHandler = (submittedData) => {
-      dispatch(signIn(submittedData))
-         .unwrap()
-         .then((data) => {
-            reset()
-            saveToSessionStorage(KEY_AUTH, data.token)
-         })
+      dispatch(signIn({ submittedData, reset }))
    }
 
    useEffect(() => {
@@ -75,13 +73,16 @@ export const SignIn = () => {
                      />
                   </InputWrapper>
                   <HelperText color="red">
-                     {error && 'Пароль или никнейм неправильно!'}
+                     {/* {error && 'Пароль или никнейм неправильно!'} */}
                   </HelperText>
                </InputsContainer>
                <Button type="submit" disabled={isLoading}>
-                  Войти
+                  {isLoading ? <LoginLoader /> : 'Войти'}
                </Button>
             </LoginForm>
+            <NavigateBlock>
+               <a href="/sign-up">Зарегистрироваться</a>
+            </NavigateBlock>
          </Wrapper>
       </Card>
    )

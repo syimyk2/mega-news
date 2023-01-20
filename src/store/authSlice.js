@@ -1,36 +1,61 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-cycle */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi } from '../api/index'
-import { getDataFromSessionStorage, logOut } from '../utils/helpers/general'
+import {
+   getDataFromSessionStorage,
+   logOut,
+   saveToSessionStorage,
+} from '../utils/helpers/general'
 import { KEY_AUTH } from '../utils/constants/general'
+import {
+   showErrorMessage,
+   showSuccessMessage,
+} from '../components/UI/notification/Notification'
 
 export const signUp = createAsyncThunk(
    'auth/signup',
-   async (dataSignUp, { rejectWithValue }) => {
+   async ({ userData, reset }, { rejectWithValue }) => {
       try {
-         return fetchApi({
+         const result = await fetchApi({
             method: 'POST',
             path: 'registration/',
-            body: dataSignUp.userData,
+            body: userData,
          })
+         showSuccessMessage({
+            message:
+               'Successfully created account, conguratulations! Login with new account',
+         })
+         reset()
+         return result
       } catch (error) {
-         rejectWithValue(error)
+         showErrorMessage({
+            message: error.message,
+         })
+         return rejectWithValue(error)
       }
    }
 )
 export const signIn = createAsyncThunk(
    'auth/signin',
-   async (dataSignUp, { rejectWithValue }) => {
+   async ({ submittedData, reset }, { rejectWithValue }) => {
       try {
-         return fetchApi({
+         const result = await fetchApi({
             method: 'POST',
             path: 'login/',
-            body: dataSignUp,
+            body: submittedData,
          })
+         saveToSessionStorage(KEY_AUTH, result.token)
+         showSuccessMessage({ message: 'Successfully logined' })
+         reset()
+         return result
       } catch (error) {
-         rejectWithValue(error)
+         showErrorMessage({
+            message: error.message,
+         })
+         return rejectWithValue(error)
       }
    }
 )
@@ -69,7 +94,6 @@ const authSlice = createSlice({
       [signUp.pending]: setPending,
       [signUp.fulfilled]: (state) => {
          state.status = 'succes'
-         state.isAuthorized = true
          state.error = null
          state.isLoading = false
       },

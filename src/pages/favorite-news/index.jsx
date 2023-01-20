@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { NewsList } from '../../components/news-list'
+import LoaderCard from '../../components/UI/loader/LoaderCard'
 import { Title } from '../../components/UI/typography/Title'
 import { getFavoriteNews, setLikeNews } from '../../store/newsSlice'
 import { Flex } from '../../styles/styles-for-positions/style'
@@ -29,12 +30,16 @@ export const FavoriteNews = () => {
    return (
       <FavoriteNewsContainer>
          <Title size="48px">Избранные новости</Title>
-         <NewsList
-            newsList={favoriteNews}
-            isLoading={isLoading}
-            onLike={setLikeHandler}
-            error={error}
-         />
+         {!isLoading ? (
+            <NewsList
+               newsList={favoriteNews}
+               isLoading={isLoading}
+               onLike={setLikeHandler}
+               error={error}
+            />
+         ) : (
+            <LoaderCard />
+         )}
       </FavoriteNewsContainer>
    )
 }

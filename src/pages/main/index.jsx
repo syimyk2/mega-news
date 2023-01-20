@@ -13,6 +13,7 @@ import {
 import media from '../../utils/helpers/media'
 import { ReactComponent as FilterIcon } from '../../assets/icons/filter.svg'
 import { Flex } from '../../styles/styles-for-positions/style'
+import LoaderCard from '../../components/UI/loader/LoaderCard'
 
 export const MainPage = () => {
    const dispatch = useDispatch()
@@ -49,7 +50,7 @@ export const MainPage = () => {
             </Flex>
             <Filter tagList={tagList} onSubmitFilter={submitFilter} />
 
-            {newslist.length !== 0 ? (
+            {!isLoading ? (
                <NewsList
                   newsList={newslist}
                   isLoading={isLoading}
@@ -57,7 +58,7 @@ export const MainPage = () => {
                   onLike={setLikeHandler}
                />
             ) : (
-               <p style={{ width: '100%' }}>Нет новостей :(</p>
+               <LoaderCard />
             )}
          </MainPages>
       </Container>

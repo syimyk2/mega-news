@@ -3,6 +3,7 @@
 /* eslint-disable consistent-return */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchApi, fetchFile } from '../api'
+import { showErrorMessage } from '../components/UI/notification/Notification'
 import { PUBLIC_DATA_KEY, USER_DATA_KEY } from '../utils/constants/general'
 import {
    getDataFromSessionStorage,
@@ -24,6 +25,11 @@ export const getUserData = createAsyncThunk(
             saveToSessionStorage(USER_DATA_KEY, result)
             return result
          } catch (error) {
+            showErrorMessage({
+               message:
+                  JSON.parse(error?.request?.response)?.message ||
+                  error.message,
+            })
             rejectWithValue(error)
          }
       } else {
@@ -52,6 +58,10 @@ export const editUserData = createAsyncThunk(
          dispatch(getUserData())
          return result
       } catch (error) {
+         showErrorMessage({
+            message:
+               JSON.parse(error?.request?.response)?.message || error.message,
+         })
          rejectWithValue(error)
       }
    }
@@ -70,6 +80,10 @@ export const editUserDataWithoutImage = createAsyncThunk(
          dispatch(getUserData())
          return result
       } catch (error) {
+         showErrorMessage({
+            message:
+               JSON.parse(error?.request?.response)?.message || error.message,
+         })
          rejectWithValue(error)
       }
    }
@@ -95,6 +109,10 @@ export const postMyPublicRequest = createAsyncThunk(
          dispatch(getMyPublicsRequest())
          return result
       } catch (error) {
+         showErrorMessage({
+            message:
+               JSON.parse(error?.request?.response)?.message || error.message,
+         })
          rejectWithValue(error)
       }
    }
@@ -114,6 +132,10 @@ export const getMyPublicsRequest = createAsyncThunk(
          })
          return result
       } catch (error) {
+         showErrorMessage({
+            message:
+               JSON.parse(error?.request?.response)?.message || error.message,
+         })
          rejectWithValue(error)
       }
    }

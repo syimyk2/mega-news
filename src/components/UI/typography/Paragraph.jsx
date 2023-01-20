@@ -10,5 +10,5 @@ const ParagraphStyled = styled.p`
    font-size: ${({ size }) => size || '16px'};
    text-align: ${({ align }) => align || 'start'};
    line-height: 150%;
-   color: #858080;
+   color: ${({ color }) => color || '#858080'};
 `

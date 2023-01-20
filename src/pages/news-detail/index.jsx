@@ -20,12 +20,15 @@ import {
 import { ShareLinkModal } from '../../components/UI/news-card/share-link'
 import { StyledTrash } from '../../components/UI/news-card'
 import { deleteMyPublicRequest } from '../../store/profileSlice'
+import Spinner from '../../components/UI/loader/Spinner'
 
 export const NewsDetail = () => {
    const navigate = useNavigate()
    const dispatch = useDispatch()
    const { newsId } = useParams()
-   const { newsDetail, isLoading } = useSelector((state) => state.news)
+   const { newsDetail, isLoading, commentLoading } = useSelector(
+      (state) => state.news
+   )
    const { userData } = useSelector((state) => state.profile)
 
    const [isVisible, setVisible] = useState(false)
@@ -56,9 +59,7 @@ export const NewsDetail = () => {
       dispatch(getNewsDetail(newsId))
    }, [newsId, useParams])
 
-   return isLoading ? (
-      <Loader />
-   ) : (
+   return (
       <NewsDetailContainer>
          <ShareLinkModal
             isVisible={isVisible}
@@ -99,7 +100,14 @@ export const NewsDetail = () => {
                   </Flex>
                </Flex>
             </SubDescriptionContainer>
-            <Comments comments={newsDetail?.comment} postId={newsDetail?.id} />
+            {!commentLoading ? (
+               <Comments
+                  comments={newsDetail?.comment}
+                  postId={newsDetail?.id}
+               />
+            ) : (
+               <Spinner size="24px" />
+            )}
          </CardWrapper>
       </NewsDetailContainer>
    )

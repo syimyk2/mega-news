@@ -27,7 +27,7 @@ const StyledButton = styled.button`
       background: #8f74c3;
    }
    :disabled {
-      cursor: not-allowed;
+      /* cursor: not-allowed; */
       background: #c0abeacf;
       box-shadow: none;
       border-color: #c4c4c4;
