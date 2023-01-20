@@ -75,15 +75,20 @@ export const StyledTrash = styled(Trash)`
 const CardWrapper = styled(Flex)`
    gap: 40px;
    padding: 16px 0 16px;
+   width: 100%;
+   min-width: 750px;
+   max-width: 800px;
+   margin: 0;
+
    ${media.mobile`
       flex-direction: column;
-      gap: 0;
       padding: 21px 0 21px;
       align-items: center;
+      gap: 0;
   `}
 `
 const ImgContainer = styled.div`
-   display: flex;
+   /* display: flex; */
    img {
       width: 255px;
       height: 211px;

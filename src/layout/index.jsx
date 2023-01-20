@@ -20,4 +20,5 @@ export default Layout
 
 const Main = styled.main`
    min-height: 80vh;
+   width: 100%;
 `

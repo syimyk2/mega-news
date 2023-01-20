@@ -128,14 +128,14 @@ const ArrowIconStyled = styled(ArrowLeftIcon)`
 const NewsDetailContainer = styled.div`
    display: flex;
    align-items: flex-start;
-   padding: 210px 150px 30px;
+   padding: 40px 100px 30px;
    gap: 100px;
    background: #8080802e;
 
    ${media.tablet`
    text-align:center;
    flex-direction: column;
-   padding: 210px 10px 30px;
+   padding: 40px 10px 30px;
    `}
 
    ${media.mobile`

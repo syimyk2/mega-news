@@ -47,17 +47,17 @@ export const FavoriteNews = () => {
 const FavoriteNewsContainer = styled(Flex)`
    flex-direction: column;
    margin: 0 auto;
-   padding: 150px 150px;
+   padding: 50px 150px;
    gap: 40px;
    ${media.tablet`
-   padding: 150px 150px;
+   padding: 100px 150px;
    gap: 20px;
    h4 {
       font-size: 30px;
    }
    `}
    ${media.mobile`
-     padding: 150px 5px;
+     padding: 90px 5px;
      gap: 20px;
      h4 {
       font-size: 30px;

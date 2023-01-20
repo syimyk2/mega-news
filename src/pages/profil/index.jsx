@@ -17,9 +17,8 @@ export const Profile = () => {
 const ProfilContainer = styled(Flex)`
    flex-direction: column;
    margin: 0 auto;
-   padding: 150px 150px;
+   padding: 40px 100px;
    gap: 40px;
-   background: #80808010;
 
    ${media.tablet`
    padding: 100px 10px;

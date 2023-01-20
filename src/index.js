@@ -7,11 +7,12 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import store from './store'
 import App from './App'
+import Spinner from './components/UI/loader/Spinner'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
    <Provider store={store}>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Spinner />}>
          <BrowserRouter>
             <App />
          </BrowserRouter>

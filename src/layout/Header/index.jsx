@@ -37,11 +37,12 @@ export const Header = () => {
 }
 const HeaderStyled = styled.header`
    width: 100%;
-   padding: 30px 150px;
+   padding: 30px 100px;
    background-image: url(${({ isSwitched }) => !isSwitched && banner});
    background-size: cover;
    background-repeat: no-repeat;
-   position: fixed;
+   position: sticky;
+   top: 0;
    z-index: 12;
    ${media.tablet`
    padding: 30px 10px;
