@@ -82,13 +82,14 @@ const CardWrapper = styled(Flex)`
 
    ${media.mobile`
       flex-direction: column;
+      width: 100%;
+      min-width: 300px;
       padding: 21px 0 21px;
       align-items: center;
       gap: 0;
   `}
 `
 const ImgContainer = styled.div`
-   /* display: flex; */
    img {
       width: 255px;
       height: 211px;

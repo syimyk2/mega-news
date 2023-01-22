@@ -81,9 +81,9 @@ const Container = styled.div`
 `
 const MainPages = styled.div`
    width: 100%;
+   gap: 100px;
    display: flex;
    justify-content: space-between;
-   gap: 100px;
    align-items: flex-start;
    margin: 0 auto;
    padding: 40px 100px;
@@ -123,7 +123,12 @@ const MainPages = styled.div`
       display: block;
       }
       .filter_box{
-         position: static;
+         width: 100%;
+         position: relative;
+         margin-bottom: 20px;
+         svg {
+            position: fixed;
+         }
       }
    `}
 

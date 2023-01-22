@@ -10,10 +10,10 @@ export const NewsList = ({ newsList, isLoading, error, onLike }) => {
    return (
       <NewsListContainer>
          {newsList?.map((news) => (
-            <div key={news.id}>
+            <OuterCardWrapper key={news.id}>
                <NewsCard id={news} content={news} onLike={onLike} />
                <Divider />
-            </div>
+            </OuterCardWrapper>
          ))}
       </NewsListContainer>
    )
@@ -22,4 +22,7 @@ export const NewsList = ({ newsList, isLoading, error, onLike }) => {
 const NewsListContainer = styled(Flex)`
    width: 100%;
    flex-direction: column;
+`
+const OuterCardWrapper = styled(Flex)`
+   width: 100%;
 `
