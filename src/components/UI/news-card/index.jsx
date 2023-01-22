@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Flex } from '../../../styles/styles-for-positions/style'
@@ -14,6 +14,7 @@ import { ShareLinkModal } from './share-link'
 
 export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
    const [isVisible, setVisible] = useState(false)
+   const [localLiked, setLiked] = useState(false)
    const {
       image,
       is_liked: isLiked,
@@ -25,9 +26,18 @@ export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
    const shareLinkSubmit = () => {
       // must send generated link here
    }
+
+   const setLikeHandler = (id) => {
+      setLiked((prev) => !prev)
+      onLike(id)
+   }
    const closeShareModal = () => {
       setVisible(false)
    }
+
+   useEffect(() => {
+      setLiked(isLiked)
+   }, [isLiked])
 
    return (
       <CardWrapper>
@@ -49,8 +59,8 @@ export const NewsCard = ({ content, isMyPublics, onDelete, onLike }) => {
                   <StyledTrash onClick={() => onDelete(id)} />
                ) : (
                   <CheckboxHeart
-                     onChange={() => onLike(id)}
-                     checked={isLiked}
+                     onChange={() => setLikeHandler(id)}
+                     checked={localLiked}
                   />
                )}
             </Flex>
