@@ -17,19 +17,23 @@ export const Profile = () => {
 const ProfilContainer = styled(Flex)`
    flex-direction: column;
    margin: 0 auto;
-   padding: 40px 100px;
+   padding: 210px 100px;
    gap: 40px;
 
    ${media.tablet`
    padding: 100px 10px;
    gap: 20px;
+
    h4 {
       font-size: 30px;
    }
+
    `}
+
    ${media.mobile`
      padding: 100px 5px;
      gap: 20px;
+
      h4 {
       font-size: 30px;
      }

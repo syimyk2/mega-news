@@ -43,14 +43,7 @@ const TextArea = styled.textarea`
    font-weight: 400;
    outline: none;
    transition: 0.2s;
-   /* background-color: #c8ced5; */
    resize: none;
-   /* ::placeholder {
-      color: #d0d2d3;
-   }
-   :active {
-      border: 1px solid #7e5bc2;
-   } */
    :focus {
    }
    :disabled,

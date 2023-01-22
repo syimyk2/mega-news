@@ -41,9 +41,10 @@ const HeaderStyled = styled.header`
    background-image: url(${({ isSwitched }) => !isSwitched && banner});
    background-size: cover;
    background-repeat: no-repeat;
-   position: sticky;
+   position: fixed;
    top: 0;
    z-index: 12;
+
    ${media.tablet`
    padding: 30px 10px;
    `}

@@ -27,7 +27,8 @@ export const ShareLinkModal = ({
    newsId,
    img,
 }) => {
-   const shareUrl = `http://localhost:3000/news-detail/${newsId}`
+   const host = window.location.origin
+   const shareUrl = `${host}/news-detail/${newsId}`
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })
    const [data, setData] = useState(null)
 
@@ -80,9 +81,4 @@ const PublicForm = styled.form`
    flex-direction: column;
    gap: 30px;
    padding: 20px 10px 20px;
-`
-const SelectedFileName = styled.span`
-   font-size: 11px;
-   font-family: 'Ubuntu';
-   color: #3304c0;
 `

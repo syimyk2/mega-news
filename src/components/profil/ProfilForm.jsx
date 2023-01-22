@@ -76,9 +76,6 @@ export const ProfileForm = ({ onGetData, profile }) => {
 
    return (
       <Flex direction="column" width={isMobile && '100%'}>
-         {/* {errorPhoto && (
-            <Alert severity="error">photo size must be less than 5MB</Alert>
-         )} */}
          <Form onSubmit={submitHandler}>
             <ImagePicker
                deleteHandler={deleteImageHandler}

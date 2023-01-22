@@ -49,7 +49,7 @@ const ModalStyle = styled.div`
          top: 50%;
       }
    }
-   @media (max-width: 425px) {
+   @media (max-width: 450px) {
       width: 95%;
    }
 `

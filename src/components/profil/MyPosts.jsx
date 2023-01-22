@@ -19,9 +19,7 @@ import {
 import Loader from '../UI/loader'
 
 export const MyPosts = () => {
-   const { myPublics, isLoading, status } = useSelector(
-      (state) => state.profile
-   )
+   const { myPublics, isLoading } = useSelector((state) => state.profile)
    const isMobile = useMediaQuery({ query: '(max-width: 450px)' })
    const [isShowModal, setShowModal] = useState(false)
    const dispatch = useDispatch()
@@ -44,8 +42,6 @@ export const MyPosts = () => {
       dispatch(getMyPublicsRequest())
       dispatch(getUserData())
    }, [])
-
-   console.log(myPublics)
 
    return (
       <Flex direction="column" gap="40px">

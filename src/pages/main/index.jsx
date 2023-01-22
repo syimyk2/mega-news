@@ -86,7 +86,7 @@ const MainPages = styled.div`
    justify-content: space-between;
    align-items: flex-start;
    margin: 0 auto;
-   padding: 40px 100px;
+   padding: 210px 100px;
    min-height: ${`${window.innerHeight}px`};
    text-align: center;
    .filter_icon {
@@ -100,7 +100,7 @@ const MainPages = styled.div`
    text-align:center;
    flex-direction: column;
    gap: 0;
-   padding: 40px 0 0;
+   padding: 210px 0 0;
    .filter{
          display: none
       }
@@ -115,7 +115,7 @@ const MainPages = styled.div`
    ${media.mobile`
    gap: 0;
    flex-direction: column;
-   padding: 40px 0 0;
+   padding: 210px 0 0;
       .filter{
          display: none
       }
