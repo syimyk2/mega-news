@@ -17,11 +17,10 @@ import {
    StyledLogo,
    Wrapper,
    InputsContainer,
-   HelperText,
    StyledInput,
    NavigateBlock,
-} from './SignUp'
-import { LoginLoader } from './style'
+   LoginLoader,
+} from './style'
 
 export const SignIn = () => {
    const { error, isAuthorized, isLoading } = useSelector((state) => state.auth)
@@ -72,9 +71,6 @@ export const SignIn = () => {
                         })}
                      />
                   </InputWrapper>
-                  <HelperText color="red">
-                     {/* {error && 'Пароль или никнейм неправильно!'} */}
-                  </HelperText>
                </InputsContainer>
                <Button type="submit" disabled={isLoading}>
                   {isLoading ? <LoginLoader /> : 'Войти'}
