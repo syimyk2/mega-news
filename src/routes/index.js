@@ -1,13 +1,13 @@
-import React from 'react'
+import {lazy} from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import Layout from '../layout'
-import { FavoriteNews } from '../pages/favorite-news'
-import { SignInPage } from '../pages/login/SignInPage'
-import { SignUpPage } from '../pages/login/SignUpPage'
-import { MainPage } from '../pages/main'
-import { NewsDetail } from '../pages/news-detail'
-import { Profile } from '../pages/profil'
+const FavoriteNews   = lazy(()=> import('../pages/favorite-news'))
+const SignInPage   = lazy(()=> import('../pages/login/SignInPage'))
+const SignUpPage   = lazy(()=> import('../pages/login/SignUpPage'))
+const MainPage   = lazy(()=> import('../pages/main'))
+const NewsDetail   = lazy(()=> import('../pages/news-detail'))
+const Profile   = lazy(()=> import('../pages/profil'))
 import { ROUTES } from '../utils/constants/routes-data'
 import { ProtectedRoute } from './ProtectedRoute'
 

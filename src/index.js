@@ -8,11 +8,13 @@ import { BrowserRouter } from 'react-router-dom'
 import store from './store'
 import App from './App'
 import Spinner from './components/UI/loader/Spinner'
+import { Centered } from './styles/styles-for-positions/style'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
    <Provider store={store}>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Centered> <Spinner dark size={50} />
+         </Centered>}>
          <BrowserRouter>
             <App />
          </BrowserRouter>

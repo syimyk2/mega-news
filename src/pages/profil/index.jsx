@@ -5,7 +5,7 @@ import { ProfileInfo } from '../../components/profil/ProfileInfo'
 import { Flex } from '../../styles/styles-for-positions/style'
 import media from '../../utils/helpers/media'
 
-export const Profile = () => {
+ const Profile = () => {
    return (
       <ProfilContainer>
          <ProfileInfo />
@@ -13,6 +13,8 @@ export const Profile = () => {
       </ProfilContainer>
    )
 }
+
+export default Profile
 
 const ProfilContainer = styled(Flex)`
    flex-direction: column;

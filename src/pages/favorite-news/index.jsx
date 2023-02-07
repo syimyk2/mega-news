@@ -10,7 +10,7 @@ import { Flex } from '../../styles/styles-for-positions/style'
 import { removeWithKeyFromSessionStorage } from '../../utils/helpers/general'
 import media from '../../utils/helpers/media'
 
-export const FavoriteNews = () => {
+ const FavoriteNews = () => {
    const dispatch = useDispatch()
    const { favoriteNews, isLoading, error } = useSelector((state) => state.news)
 
@@ -43,6 +43,8 @@ export const FavoriteNews = () => {
       </FavoriteNewsContainer>
    )
 }
+
+export default FavoriteNews
 
 const FavoriteNewsContainer = styled(Flex)`
    flex-direction: column;

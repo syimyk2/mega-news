@@ -15,7 +15,7 @@ import { ReactComponent as FilterIcon } from '../../assets/icons/filter.svg'
 import { Flex } from '../../styles/styles-for-positions/style'
 import LoaderCard from '../../components/UI/loader/LoaderCard'
 
-export const MainPage = () => {
+const MainPage = () => {
    const dispatch = useDispatch()
    const { newslist, tagList, isLoading, error } = useSelector(
       (state) => state.news
@@ -64,6 +64,8 @@ export const MainPage = () => {
       </Container>
    )
 }
+
+export default MainPage
 
 const FilterIconStyled = styled(FilterIcon)`
    cursor: pointer;

@@ -22,7 +22,7 @@ import { StyledTrash } from '../../components/UI/news-card'
 import { deleteMyPublicRequest } from '../../store/profileSlice'
 import Spinner from '../../components/UI/loader/Spinner'
 
-export const NewsDetail = () => {
+ const NewsDetail = () => {
    const navigate = useNavigate()
    const dispatch = useDispatch()
    const { newsId } = useParams()
@@ -112,6 +112,8 @@ export const NewsDetail = () => {
       </NewsDetailContainer>
    )
 }
+
+export default NewsDetail
 
 const ArrowIconStyled = styled(ArrowLeftIcon)`
    cursor: pointer;
